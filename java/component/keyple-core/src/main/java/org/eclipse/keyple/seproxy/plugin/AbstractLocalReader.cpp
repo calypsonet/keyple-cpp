@@ -117,7 +117,7 @@ namespace org {
                         }
                     }
 
-                    void AbstractLocalReader::cardRemoved()
+                    void AbstractLocalReader::cardRemoved() 
                     {
                         if (presenceNotified) {
                             ObservableReader::notifyObservers(std::make_shared<ReaderEvent>(this->pluginName, this->name, ReaderEvent::EventType::SE_REMOVAL, nullptr));
@@ -135,6 +135,7 @@ namespace org {
 
                     std::shared_ptr<SelectionStatus> AbstractLocalReader::openLogicalChannelAndSelect(std::shared_ptr<SeSelector> seSelector)
                     {
+
                         std::shared_ptr<SelectionStatus> selectionStatus;
 
                         if (seSelector == nullptr) {
@@ -279,7 +280,7 @@ namespace org {
                         return seResponse;
                     }
 
-                    std::shared_ptr<SeResponse> AbstractLocalReader::processSeRequestLogical(std::shared_ptr<SeRequest> seRequest)
+                    std::shared_ptr<SeResponse> AbstractLocalReader::processSeRequestLogical(std::shared_ptr<SeRequest> seRequest) 
                     {
                         bool previouslyOpen = true;
                         std::shared_ptr<SelectionStatus> selectionStatus = nullptr;

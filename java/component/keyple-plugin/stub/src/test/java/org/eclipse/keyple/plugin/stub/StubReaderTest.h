@@ -2,24 +2,34 @@
 
 #include "../../../../../../../../../../keyple-core/src/main/java/org/eclipse/keyple/seproxy/event/ObservablePlugin.h"
 #include "../../../../../../../../../../keyple-core/src/main/java/org/eclipse/keyple/seproxy/event/ObservableReader.h"
+#include "../../../../../../../../../../keyple-core/src/main/java/org/eclipse/keyple/util/CountDownLatch.h"
 #include "../../../../../../../main/java/org/eclipse/keyple/plugin/stub/StubSecureElement.h"
 #include <string>
 #include <unordered_map>
 #include <vector>
 #include <stdexcept>
 #include <memory>
+#include <typeinfo>
+
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
+
+/* Common */
+#include "Logger.h"
+#include "LoggerFactory.h"
 
 //JAVA TO C++ CONVERTER NOTE: Forward class declarations:
 namespace org { namespace eclipse { namespace keyple { namespace plugin { namespace stub { class StubReader; } } } } }
 namespace org { namespace eclipse { namespace keyple { namespace seproxy { namespace exception { class KeypleReaderException; } } } } }
-namespace org { namespace eclipse { namespace keyple { namespace seproxy { namespace @event { class PluginEvent; } } } } }
+namespace org { namespace eclipse { namespace keyple { namespace seproxy { namespace event { class PluginEvent; } } } } }
 namespace org { namespace eclipse { namespace keyple { namespace seproxy { class SeReader; } } } }
-namespace org { namespace eclipse { namespace keyple { namespace seproxy { namespace @event { class ReaderEvent; } } } } }
-namespace org { namespace eclipse { namespace keyple { namespace seproxy { namespace @event { class ObservableReader; } } } } }
-namespace org { namespace eclipse { namespace keyple { namespace seproxy { namespace @event { class ReaderObserver; } } } } }
+namespace org { namespace eclipse { namespace keyple { namespace seproxy { namespace event { class ReaderEvent; } } } } }
+namespace org { namespace eclipse { namespace keyple { namespace seproxy { namespace event { class ObservableReader; } } } } }
+namespace org { namespace eclipse { namespace keyple { namespace seproxy { namespace event { class ReaderObserver; } } } } }
 namespace org { namespace eclipse { namespace keyple { namespace seproxy { namespace exception { class KeypleIOReaderException; } } } } }
 namespace org { namespace eclipse { namespace keyple { namespace plugin { namespace stub { class StubSecureElement; } } } } }
 namespace org { namespace eclipse { namespace keyple { namespace seproxy { namespace exception { class KeypleChannelStateException; } } } } }
+namespace org { namespace eclipse { namespace keyple { namespace util { class CountDownLatch; } } } }
 
 /********************************************************************************
  * Copyright (c) 2018 Calypso Networks Association https://www.calypsonet-asso.org/
@@ -40,12 +50,12 @@ namespace org {
 
 
 
-                    using SeReader = org::eclipse::keyple::seproxy::SeReader;
+                    using SeReader              = org::eclipse::keyple::seproxy::SeReader;
                     using KeypleReaderException = org::eclipse::keyple::seproxy::exception::KeypleReaderException;
+                    using Logger                = org::eclipse::keyple::common::Logger;
+                    using LoggerFactory         = org::eclipse::keyple::common::LoggerFactory;
                     using namespace org::eclipse::keyple::seproxy::message;
-                    using namespace org::junit;
-                    using org::slf4j::Logger;
-                    using org::slf4j::LoggerFactory;
+                    //using namespace org::junit;
 
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
@@ -57,12 +67,12 @@ namespace org {
 
                         std::shared_ptr<StubReader> spyReader;
 
-                        std::shared_ptr<Logger> logger = LoggerFactory::getLogger(StubReaderTest::typeid);
+                        std::shared_ptr<Logger> logger = LoggerFactory::getLogger(typeid(StubReaderTest));
 
                         // init before each test
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Before public void SetUp() throws InterruptedException, org.eclipse.keyple.seproxy.exception.KeypleReaderException
-                        virtual void SetUp() throw(InterruptedException, KeypleReaderException);
+                        virtual void SetUp();
 
                     private:
                         class PluginObserverAnonymousInnerClass : public std::enable_shared_from_this<PluginObserverAnonymousInnerClass>, public ObservablePlugin::PluginObserver {
@@ -78,10 +88,10 @@ namespace org {
                     public:
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @After public void tearDown() throws InterruptedException, org.eclipse.keyple.seproxy.exception.KeypleReaderException
-                        virtual void tearDown() throw(InterruptedException, KeypleReaderException);
+                        virtual void tearDown();
 
 
-                        static void selectSe(std::shared_ptr<SeReader> reader) throw(KeypleReaderException);
+                        static void selectSe(std::shared_ptr<SeReader> reader);
 
                         /*
                          * TRANSMIT
@@ -90,7 +100,7 @@ namespace org {
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void testInsert() throws InterruptedException
-                        virtual void testInsert() throw(InterruptedException);
+                        virtual void testInsert();
 
                     private:
                         class ReaderObserverAnonymousInnerClass : public std::enable_shared_from_this<ReaderObserverAnonymousInnerClass>, public ObservableReader::ReaderObserver {
@@ -108,7 +118,7 @@ namespace org {
                     public:
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void testInsertMatchingSe() throws InterruptedException
-                        virtual void testInsertMatchingSe() throw(InterruptedException);
+                        virtual void testInsertMatchingSe();
 
                     private:
                         class ReaderObserverAnonymousInnerClass2 : public std::enable_shared_from_this<ReaderObserverAnonymousInnerClass2>, public ObservableReader::ReaderObserver {
@@ -128,10 +138,11 @@ namespace org {
                     public:
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void testInsertNotMatching_MatchedOnly() throws InterruptedException
-                        virtual void testInsertNotMatching_MatchedOnly() throw(InterruptedException);
+                        virtual void testInsertNotMatching_MatchedOnly();
 
                     private:
-                        class ReaderObserverAnonymousInnerClass3 : public std::enable_shared_from_this<ReaderObserverAnonymousInnerClass3>, public ObservableReader::ReaderObserver {
+                        class ReaderObserverAnonymousInnerClass3 : public std::enable_shared_from_this<ReaderObserverAnonymousInnerClass3>, public ObservableReader::ReaderObserver 
+                        {
                         private:
                             std::shared_ptr<StubReaderTest> outerInstance;
 
@@ -146,7 +157,7 @@ namespace org {
                     public:
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void testInsertNotMatching_Always() throws InterruptedException
-                        virtual void testInsertNotMatching_Always() throw(InterruptedException);
+                        virtual void testInsertNotMatching_Always();
 
                     private:
                         class ReaderObserverAnonymousInnerClass4 : public std::enable_shared_from_this<ReaderObserverAnonymousInnerClass4>, public ObservableReader::ReaderObserver {
@@ -164,7 +175,7 @@ namespace org {
                     public:
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void testATR() throws InterruptedException
-                        virtual void testATR() throw(InterruptedException);
+                        virtual void testATR();
 
                     private:
                         class ReaderObserverAnonymousInnerClass5 : public std::enable_shared_from_this<ReaderObserverAnonymousInnerClass5>, public ObservableReader::ReaderObserver {
@@ -183,11 +194,11 @@ namespace org {
                     public:
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test(expected = IllegalArgumentException.class) public void transmit_Hoplink_null() throws Exception
-                        virtual void transmit_Hoplink_null() throw(std::runtime_error);
+                        virtual void transmit_Hoplink_null();
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void transmit_Hoplink_Successful() throws org.eclipse.keyple.seproxy.exception.KeypleReaderException, InterruptedException
-                        virtual void transmit_Hoplink_Successful() throw(KeypleReaderException, InterruptedException);
+                        virtual void transmit_Hoplink_Successful();
 
 
                         // @Test
@@ -211,41 +222,41 @@ namespace org {
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test(expected = org.eclipse.keyple.seproxy.exception.KeypleReaderException.class) public void transmit_no_response() throws org.eclipse.keyple.seproxy.exception.KeypleReaderException, InterruptedException
-                        virtual void transmit_no_response() throw(KeypleReaderException, InterruptedException);
+                        virtual void transmit_no_response();
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void transmit_partial_response_set_0() throws org.eclipse.keyple.seproxy.exception.KeypleReaderException, InterruptedException
-                        virtual void transmit_partial_response_set_0() throw(KeypleReaderException, InterruptedException);
+                        virtual void transmit_partial_response_set_0();
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void transmit_partial_response_set_1() throws org.eclipse.keyple.seproxy.exception.KeypleReaderException, InterruptedException
-                        virtual void transmit_partial_response_set_1() throw(KeypleReaderException, InterruptedException);
+                        virtual void transmit_partial_response_set_1();
 
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void transmit_partial_response_set_2() throws org.eclipse.keyple.seproxy.exception.KeypleReaderException, InterruptedException
-                        virtual void transmit_partial_response_set_2() throw(KeypleReaderException, InterruptedException);
+                        virtual void transmit_partial_response_set_2();
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void transmit_partial_response_set_3() throws org.eclipse.keyple.seproxy.exception.KeypleReaderException, InterruptedException
-                        virtual void transmit_partial_response_set_3() throw(KeypleReaderException, InterruptedException);
+                        virtual void transmit_partial_response_set_3();
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void transmit_partial_response_0() throws org.eclipse.keyple.seproxy.exception.KeypleReaderException, InterruptedException
-                        virtual void transmit_partial_response_0() throw(KeypleReaderException, InterruptedException);
+                        virtual void transmit_partial_response_0();
 
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void transmit_partial_response_1() throws org.eclipse.keyple.seproxy.exception.KeypleReaderException, InterruptedException
-                        virtual void transmit_partial_response_1() throw(KeypleReaderException, InterruptedException);
+                        virtual void transmit_partial_response_1();
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void transmit_partial_response_2() throws org.eclipse.keyple.seproxy.exception.KeypleReaderException, InterruptedException
-                        virtual void transmit_partial_response_2() throw(KeypleReaderException, InterruptedException);
+                        virtual void transmit_partial_response_2();
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void transmit_partial_response_3() throws org.eclipse.keyple.seproxy.exception.KeypleReaderException, InterruptedException
-                        virtual void transmit_partial_response_3() throw(KeypleReaderException, InterruptedException);
+                        virtual void transmit_partial_response_3();
 
 
                         /*
@@ -259,17 +270,17 @@ namespace org {
                         // Set wrong parameter
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test(expected = org.eclipse.keyple.seproxy.exception.KeypleReaderException.class) public void testSetWrongParameter() throws Exception
-                        virtual void testSetWrongParameter() throw(std::runtime_error);
+                        virtual void testSetWrongParameter();
 
                         // Set wrong parameters
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test(expected = org.eclipse.keyple.seproxy.exception.KeypleReaderException.class) public void testSetWrongParameters() throws Exception
-                        virtual void testSetWrongParameters() throw(std::runtime_error);
+                        virtual void testSetWrongParameters();
 
                         // Set correct parameters
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void testSetParameters() throws Exception
-                        virtual void testSetParameters() throw(std::runtime_error);
+                        virtual void testSetParameters();
 
 
                         /**
@@ -333,7 +344,7 @@ namespace org {
                         class StubSecureElementAnonymousInnerClass : public StubSecureElement {
 
                         public:
-                            std::vector<char> processApdu(std::vector<char> &apduIn) throw(KeypleIOReaderException) override;
+                            std::vector<char> processApdu(std::vector<char> &apduIn) override;
 
                             std::vector<char> getATR() override;
 
@@ -352,7 +363,7 @@ protected:
                         class StubSecureElementAnonymousInnerClass2 : public StubSecureElement {
 
                         public:
-                            std::vector<char> processApdu(std::vector<char> &apduIn) throw(KeypleIOReaderException) override;
+                            std::vector<char> processApdu(std::vector<char> &apduIn) override;
 
                             std::vector<char> getATR() override;
 
@@ -371,7 +382,7 @@ protected:
                         class StubSecureElementAnonymousInnerClass3 : public StubSecureElement {
 
                         public:
-                            std::vector<char> processApdu(std::vector<char> &apduIn) throw(KeypleIOReaderException) override;
+                            std::vector<char> processApdu(std::vector<char> &apduIn) override;
 
                             std::vector<char> getATR() override;
 
@@ -394,11 +405,11 @@ protected:
                             bool isPhysicalChannelOpen() override;
 
                             // override methods to fail open connection
-                            void openPhysicalChannel() throw(KeypleChannelStateException) override;
+                            void openPhysicalChannel() override;
 
-                            void closePhysicalChannel() throw(KeypleChannelStateException) override;
+                            void closePhysicalChannel() override;
 
-                            std::vector<char> processApdu(std::vector<char> &apduIn) throw(KeypleIOReaderException) override;
+                            std::vector<char> processApdu(std::vector<char> &apduIn) override;
 
                             std::string getSeProcotol() override;
 

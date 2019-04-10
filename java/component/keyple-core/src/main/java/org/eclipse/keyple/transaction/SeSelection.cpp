@@ -130,7 +130,7 @@ namespace org {
                     return processSelection(selectionResponse);
                 }
 
-                bool SeSelection::processExplicitSelection()
+                bool SeSelection::processExplicitSelection() 
                 {
                     if (logger->isTraceEnabled()) {
                         logger->trace("Transmit SELECTIONREQUEST ({} request(s))", selectionRequestSet->getRequests()->size());

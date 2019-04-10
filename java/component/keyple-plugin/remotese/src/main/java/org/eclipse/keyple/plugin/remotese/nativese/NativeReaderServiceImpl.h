@@ -14,7 +14,7 @@ namespace org { namespace eclipse { namespace keyple { namespace plugin { namesp
 namespace org { namespace eclipse { namespace keyple { namespace seproxy { namespace exception { class KeypleReaderException; } } } } }
 namespace org { namespace eclipse { namespace keyple { namespace seproxy { namespace message { class ProxyReader; } } } } }
 namespace org { namespace eclipse { namespace keyple { namespace seproxy { namespace exception { class KeypleReaderNotFoundException; } } } } }
-namespace org { namespace eclipse { namespace keyple { namespace seproxy { namespace @event { class ReaderEvent; } } } } }
+namespace org { namespace eclipse { namespace keyple { namespace seproxy { namespace event { class ReaderEvent; } } } } }
 
 /********************************************************************************
  * Copyright (c) 2018 Calypso Networks Association https://www.calypsonet-asso.org/

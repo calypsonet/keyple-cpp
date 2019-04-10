@@ -106,7 +106,8 @@ namespace org {
                         return responseSet;
                     }
 
-                    std::shared_ptr<SeResponse> AbstractObservableReader::transmit(std::shared_ptr<SeRequest> seRequest) {
+                    std::shared_ptr<SeResponse> AbstractObservableReader::transmit(std::shared_ptr<SeRequest> seRequest) 
+                    {
                         if (seRequest == nullptr) {
                             throw std::invalid_argument("seRequest must not be null\n");
                         }

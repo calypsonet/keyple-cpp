@@ -25,7 +25,8 @@ namespace org {
                     AbstractSelectionLocalReader::AbstractSelectionLocalReader(const std::string &pluginName, const std::string &readerName) : AbstractLocalReader(pluginName, readerName) {
                     }
 
-                    std::shared_ptr<SelectionStatus> AbstractSelectionLocalReader::openLogicalChannel(std::shared_ptr<SeSelector> seSelector) {
+                    std::shared_ptr<SelectionStatus> AbstractSelectionLocalReader::openLogicalChannel(std::shared_ptr<SeSelector> seSelector) 
+                    {
                         std::shared_ptr<ApduResponse> fciResponse;
                         std::vector<char> atr = getATR();
                         bool selectionHasMatched = true;

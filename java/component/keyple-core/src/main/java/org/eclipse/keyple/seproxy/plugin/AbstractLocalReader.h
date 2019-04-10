@@ -251,20 +251,20 @@ using LoggerFactory = org::eclipse::keyple::common::LoggerFactory;
                          * The String associated with a particular protocol can be anything that is relevant to be
                          * interpreted by reader plugins implementing protocolFlagMatches (e.g. ATR regex for Pcsc
                          * plugins, technology name for Nfc plugins, etc).
-                         */
+     */
                     protected:
                         std::unordered_map<std::shared_ptr<SeProtocol>, std::string> protocolsMap = std::unordered_map<std::shared_ptr<SeProtocol>, std::string>();
 
-                        /**
+    /**
                          * Defines the protocol setting Map to allow SE to be differentiated according to their
                          * communication protocol.
-                         *
+     *
                          * @param seProtocolSetting the protocol setting to be added to the plugin internal list
-                         */
+     */
                     public:
                         void addSeProtocolSetting(std::shared_ptr<SeProtocolSetting> seProtocolSetting) override;
 
-                        /**
+    /**
                          * Test if the current protocol matches the provided protocol flag.
                          * <p>
                          * The method must be implemented by the ProxyReader plugin.
@@ -277,40 +277,40 @@ using LoggerFactory = org::eclipse::keyple::common::LoggerFactory;
                          * @param protocolFlag the protocol flag
                          * @return true if the current protocol matches the provided protocol flag
                          * @throws KeypleReaderException in case of a reader exception
-                         */
+     */
                     protected:
                         virtual bool protocolFlagMatches(std::shared_ptr<SeProtocol> protocolFlag) = 0;
 
                         /** ==== SeRequestSe and SeRequest transmission management ============= */
 
-                        /**
+    /**
                          * Do the transmission of all needed requestSet requests contained in the provided requestSet
                          * according to the protocol flag selection logic. The responseSet responses are returned in the
                          * responseSet object. The requestSet requests are ordered at application level and the
                          * responses match this order. When a requestSet is not matching the current PO, the responseSet
                          * responses pushed in the responseSet object is set to null.
-                         *
+     *
                          * @param requestSet the request set
                          * @return SeResponseSet the response set
                          * @throws KeypleIOReaderException if a reader error occurs
-                         */
+     */
                         std::shared_ptr<SeResponseSet> processSeRequestSet(std::shared_ptr<SeRequestSet> requestSet) final override;
 
-                        /**
+    /**
                          * Executes a request made of one or more Apdus and receives their answers. The selection of the
                          * application is handled.
                          * <p>
                          * The physical channel is closed if requested.
-                         *
+     *
                          * @param seRequest the SeRequest
                          * @return the SeResponse to the SeRequest
                          * @throws KeypleReaderException if a transmission fails
-                         */
+     */
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @SuppressWarnings({"PMD.ModifiedCyclomaticComplexity", "PMD.CyclomaticComplexity", "PMD.StdCyclomaticComplexity", "PMD.NPathComplexity", "PMD.ExcessiveMethodLength"}) protected final SeResponse processSeRequest(SeRequest seRequest) throws IllegalStateException, KeypleReaderException
                         std::shared_ptr<SeResponse> processSeRequest(std::shared_ptr<SeRequest> seRequest) final override;
 
-                        /**
+    /**
                          * Implements the logical processSeRequest.
                          * <p>
                          * This method is called by processSeRequestSet and processSeRequest.
@@ -318,18 +318,18 @@ using LoggerFactory = org::eclipse::keyple::common::LoggerFactory;
                          * It opens both physical and logical channels if needed.
                          * <p>
                          * The logical channel is closed when CLOSE_AFTER is requested.
-                         *
+     *
                          * @param seRequest
                          * @return seResponse
                          * @throws IllegalStateException
                          * @throws KeypleReaderException
-                         */
+     */
                     private:
                         std::shared_ptr<SeResponse> processSeRequestLogical(std::shared_ptr<SeRequest> seRequest);
 
                         /** ==== APDU transmission management ================================== */
 
-                        /**
+    /**
                          * Transmits an ApduRequest and receives the ApduResponse
                          * <p>
                          * The time measurement is carried out and logged with the detailed information of the exchanges

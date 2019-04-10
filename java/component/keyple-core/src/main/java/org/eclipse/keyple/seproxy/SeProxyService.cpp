@@ -13,6 +13,10 @@ namespace org {
                 {
                 }
 
+                //SeProxyService::~SeProxyService()
+                //{
+                //}
+
                 void SeProxyService::setPlugins(std::set<std::shared_ptr<ReaderPlugin>> &plugins)
                 {
                     this->plugins = plugins;
@@ -28,7 +32,8 @@ namespace org {
                     return plugins;
                 }
 
-                std::shared_ptr<ReaderPlugin> SeProxyService::getPlugin(const std::string &name)
+                std::shared_ptr<ReaderPlugin>
+                SeProxyService::getPlugin(const std::string &name)
                 {
                     for (auto plugin : plugins)
                     {

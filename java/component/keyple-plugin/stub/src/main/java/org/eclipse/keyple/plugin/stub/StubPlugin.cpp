@@ -31,6 +31,11 @@ namespace org {
                         threadWaitTimeout = 50;
                     }
 
+                    //StubPlugin::~StubPlugin()
+                    //{
+                    //    logger->debug("destructor\n");
+                    //}
+
                     StubPlugin& StubPlugin::getInstance()
                     {
                         static StubPlugin uniqueInstance;

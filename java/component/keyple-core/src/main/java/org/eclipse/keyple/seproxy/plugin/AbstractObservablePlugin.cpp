@@ -29,6 +29,11 @@ namespace org {
                         logger->debug("constructor (name: %s)\n", name);
                     }
 
+                    //AbstractObservablePlugin::~AbstractObservablePlugin()
+                    //{
+                    //    logger->debug("destructor (name: %s)\n", name);
+                    //}
+
                     void AbstractObservablePlugin::initReaders()
                     {
                         logger->debug("readers: %p\n", readers);
@@ -47,7 +52,7 @@ namespace org {
                         }
                     }
 
-                    std::shared_ptr<std::set<std::shared_ptr<SeReader>>> AbstractObservablePlugin::getReaders()
+                    std::shared_ptr<std::set<std::shared_ptr<SeReader>>> AbstractObservablePlugin::getReaders() 
                     {
                         if (readers == nullptr) {
                             throw std::make_shared<KeypleReaderException>("List of readers has not been initialized");

@@ -58,7 +58,7 @@ namespace org {
                                  * @throws java.lang.IllegalArgumentException - if the command is inconsistent
                                  */
                             public:
-                                IncreaseCmdBuild(PoClass poClass, char sfi, char counterNumber, int incValue, const std::string &extraInfo) throw(std::invalid_argument);
+                                IncreaseCmdBuild(PoClass poClass, char sfi, char counterNumber, int incValue, const std::string &extraInfo);
 
 protected:
                                 std::shared_ptr<IncreaseCmdBuild> shared_from_this() {
