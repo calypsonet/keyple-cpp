@@ -76,7 +76,8 @@ namespace org {
                             void processUnexpectedSeRemoval() override;
 
 protected:
-                            std::shared_ptr<SeProtocolDetectionEngine> shared_from_this() {
+                            std::shared_ptr<SeProtocolDetectionEngine> shared_from_this() 
+                            {
                                 return std::static_pointer_cast<SeProtocolDetectionEngine>(AbstractReaderObserverEngine::shared_from_this());
                             }
                         };

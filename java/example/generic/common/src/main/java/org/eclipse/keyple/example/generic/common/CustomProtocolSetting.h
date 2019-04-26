@@ -30,7 +30,8 @@ namespace org {
                         /**
                          * Custom protocol setting definitions to illustrate the extension of the Keyple SDK definitions
                          */
-                        class CustomProtocolSetting final : public SeProtocolSettingList {
+                        class CustomProtocolSetting final : public SeProtocolSettingList 
+                        {
                           public:
                             static CustomProtocolSetting CUSTOM_SETTING_PROTOCOL_B_PRIME;
 
@@ -39,7 +40,8 @@ namespace org {
                           private:
                             static std::vector<std::shared_ptr<SeProtocolSettingList>> valueList;
 
-                            class StaticConstructor {
+                            class StaticConstructor 
+                            {
                               public:
                                 StaticConstructor();
                             };
@@ -53,11 +55,11 @@ namespace org {
                                 CUSTOM_SETTING_PROTOCOL_ISO14443_4
                             };
 
-                            const InnerEnum innerEnumValue;
+                            InnerEnum innerEnumValue;// const
 
                           private:
-                            const std::string nameValue;
-                            const int ordinalValue;
+                            std::string nameValue;// const
+                            int ordinalValue;// const
                             static int nextOrdinal;
 
                             
@@ -75,13 +77,12 @@ namespace org {
                             /**
                              * Constructor
                              */
-                            CustomProtocolSetting(
-                                const std::string &name, InnerEnum innerEnum,
-                                std::shared_ptr<org::eclipse::keyple::seproxy::protocol::SeProtocol> flag,
-                                const std::string &value);
+                            CustomProtocolSetting( const std::string &name, 
+                                                  InnerEnum innerEnum,
+                                                  std::shared_ptr<org::eclipse::keyple::seproxy::protocol::SeProtocol> flag,
+                                                  const std::string &value);
 
-                            std::shared_ptr<org::eclipse::keyple::seproxy::protocol::SeProtocol>
-                            getFlag() override;
+                            std::shared_ptr<org::eclipse::keyple::seproxy::protocol::SeProtocol> getFlag() override;
 
                             std::string getValue() override;
 

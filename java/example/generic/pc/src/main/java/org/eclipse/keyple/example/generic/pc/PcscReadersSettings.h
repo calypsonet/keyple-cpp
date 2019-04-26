@@ -19,14 +19,13 @@ namespace org {
         namespace keyple {
             namespace example {
                 namespace generic {
-                    namespace pc {
-
+                    namespace pc 
+                    {
                         class PcscReadersSettings {
                             // This is where you should add patterns of readers you want to use for tests
                         public:
                             static const std::string PO_READER_NAME_REGEX;
                         };
-
                     }
                 }
             }

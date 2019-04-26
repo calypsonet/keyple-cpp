@@ -27,6 +27,7 @@ namespace org {
                 namespace transaction {
 
                     using SeSelector = org::eclipse::keyple::seproxy::SeSelector;
+//                    using PoAidSelector = org::eclipse::keyple::calypso::transaction::PoAidSelector;
 
                     /**
                      * The {@link PoSelector} class extends {@link SeSelector} to handle specific PO features such as

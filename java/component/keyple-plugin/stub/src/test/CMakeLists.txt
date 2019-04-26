@@ -14,37 +14,37 @@ IF(WIN32)
 	ADD_COMPILE_OPTIONS(/wd4275 /wd4251 /wd4290)
 ENDIF(WIN32)
 
-CONFIGURE_FILE(CMakeLists.txt.in googletest-download/CMakeLists.txt)
-EXECUTE_PROCESS(
-    COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
-    RESULT_VARIABLE result
-    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/googletest-download
-)
+#CONFIGURE_FILE(CMakeLists.txt.in googletest-download/CMakeLists.txt)
+#EXECUTE_PROCESS(
+#    COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
+#    RESULT_VARIABLE result
+#    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/googletest-download
+#)
 
-IF(result)
-    MESSAGE(FATAL_ERROR "CMake step for googletest failed: ${result}")
-ENDIF()
+#IF(result)
+#    MESSAGE(FATAL_ERROR "CMake step for googletest failed: ${result}")
+#ENDIF()
 
-EXECUTE_PROCESS(
-    COMMAND ${CMAKE_COMMAND} --build .
-    RESULT_VARIABLE result
-    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/googletest-download
-)
+#EXECUTE_PROCESS(
+#    COMMAND ${CMAKE_COMMAND} --build .
+#    RESULT_VARIABLE result
+#    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/googletest-download
+#)
 
-IF(result)
-    MESSAGE(FATAL_ERROR "Build step for googletest failed: ${result}")
-ENDIF()
+#IF(result)
+#    MESSAGE(FATAL_ERROR "Build step for googletest failed: ${result}")
+#ENDIF()
 
 # Prevent overriding the parent project's compiler/linker
 # settings on Windows
-SET(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+#SET(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 
 # Add googletest directly to our build. This defines
 # the gtest and gtest_main targets.
-ADD_SUBDIRECTORY(${CMAKE_CURRENT_BINARY_DIR}/googletest-src
-                 ${CMAKE_CURRENT_BINARY_DIR}/googletest-build
-                 EXCLUDE_FROM_ALL
-)
+#ADD_SUBDIRECTORY(${CMAKE_CURRENT_BINARY_DIR}/googletest-src
+#                 ${CMAKE_CURRENT_BINARY_DIR}/googletest-build
+#                 EXCLUDE_FROM_ALL
+#)
 
 
 INCLUDE_DIRECTORIES(

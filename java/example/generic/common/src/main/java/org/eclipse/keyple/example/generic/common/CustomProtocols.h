@@ -39,7 +39,8 @@ public:
 private:
                             static std::vector<CustomProtocols> valueList;
 
-                            class StaticConstructor {
+                            class StaticConstructor 
+                            {
                             public:
                                 StaticConstructor();
                             };
@@ -47,15 +48,16 @@ private:
                             static StaticConstructor staticConstructor;
 
 public:
-                            enum class InnerEnum {
+                            enum class InnerEnum 
+                            {
                                 CUSTOM_PROTOCOL_B_PRIME,
                                 CUSTOM_PROTOCOL_MIFARE_DESFIRE
                             };
 
-                            const InnerEnum innerEnumValue;
+                            InnerEnum innerEnumValue;// const
 private:
-                            const std::string nameValue;
-                            const int ordinalValue;
+                            std::string nameValue;// const
+                            int ordinalValue;// const
                             static int nextOrdinal;
 
                             /** The protocol name. */

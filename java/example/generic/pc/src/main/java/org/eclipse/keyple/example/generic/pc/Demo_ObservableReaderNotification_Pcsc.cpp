@@ -38,13 +38,13 @@ int main(int argc, char **argv)
     pcscplugin.initReaders();
 
     /* Instantiate SeProxyService and add PC/SC plugin */
-                            SeProxyService& seProxyService = SeProxyService::getInstance();
-                            seProxyService.addPlugin(std::make_shared<PcscPlugin>(PcscPlugin::getInstance()));
+    SeProxyService& seProxyService = SeProxyService::getInstance();
+    seProxyService.addPlugin(std::make_shared<PcscPlugin>(PcscPlugin::getInstance()));
 
     /* Set observers */
     demoEngine->setPluginObserver();
 
-                            std::cout << "Wait for reader or SE insertion/removal" << std::endl;
+    std::cout << "Wait for reader or SE insertion/removal" << std::endl;
 
     /* Wait indefinitely. CTRL-C to exit. */
 //JAVA TO C++ CONVERTER TODO TASK: Multithread locking is not converted to native C++ unless you choose one of the options on the 'Modern C++ Options' dialog:

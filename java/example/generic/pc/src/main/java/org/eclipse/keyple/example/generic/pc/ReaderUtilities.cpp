@@ -39,7 +39,7 @@ namespace org {
                             throw std::make_shared<KeypleReaderNotFoundException>("Reader name pattern: " + pattern);
                         }
 
-                        std::shared_ptr<SeReader> ReaderUtilities::getDefaultContactLessSeReader(std::shared_ptr<SeProxyService> seProxyService)
+                        std::shared_ptr<SeReader> ReaderUtilities::getDefaultContactLessSeReader(std::shared_ptr<SeProxyService> seProxyService) 
                         {
                             std::shared_ptr<SeReader> seReader = ReaderUtilities::getReaderByName(seProxyService, PcscReadersSettings::PO_READER_NAME_REGEX);
 
@@ -48,7 +48,7 @@ namespace org {
                             return seReader;
                         }
 
-                        void ReaderUtilities::setContactlessSettings(std::shared_ptr<SeReader> reader)
+                        void ReaderUtilities::setContactlessSettings(std::shared_ptr<SeReader> reader) 
                         {
                             /* Enable logging */
                             reader->setParameter(PcscReader::SETTING_KEY_LOGGING, "true");
@@ -74,7 +74,7 @@ namespace org {
 
                         }
 
-                        void ReaderUtilities::setContactsSettings(std::shared_ptr<SeReader> reader)
+                        void ReaderUtilities::setContactsSettings(std::shared_ptr<SeReader> reader) 
                         {
                             /* Enable logging */
                             reader->setParameter(PcscReader::SETTING_KEY_LOGGING, "true");

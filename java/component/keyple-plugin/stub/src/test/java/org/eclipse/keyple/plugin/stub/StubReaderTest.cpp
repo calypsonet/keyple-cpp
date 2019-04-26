@@ -31,10 +31,10 @@ namespace org {
                     using ChannelState = org::eclipse::keyple::seproxy::ChannelState;
                     using SeReader = org::eclipse::keyple::seproxy::SeReader;
                     using SeSelector = org::eclipse::keyple::seproxy::SeSelector;
-                    using ObservablePlugin = org::eclipse::keyple::seproxy::event_Renamed::ObservablePlugin;
-                    using ObservableReader = org::eclipse::keyple::seproxy::event_Renamed::ObservableReader;
-                    using PluginEvent = org::eclipse::keyple::seproxy::event_Renamed::PluginEvent;
-                    using ReaderEvent = org::eclipse::keyple::seproxy::event_Renamed::ReaderEvent;
+                    using ObservablePlugin = org::eclipse::keyple::seproxy::event::ObservablePlugin;
+                    using ObservableReader = org::eclipse::keyple::seproxy::event::ObservableReader;
+                    using PluginEvent = org::eclipse::keyple::seproxy::event::PluginEvent;
+                    using ReaderEvent = org::eclipse::keyple::seproxy::event::ReaderEvent;
                     using KeypleChannelStateException = org::eclipse::keyple::seproxy::exception::KeypleChannelStateException;
                     using KeypleIOReaderException = org::eclipse::keyple::seproxy::exception::KeypleIOReaderException;
                     using KeypleReaderException = org::eclipse::keyple::seproxy::exception::KeypleReaderException;

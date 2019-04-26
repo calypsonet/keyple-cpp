@@ -32,7 +32,8 @@ namespace org {
                         using KeypleBaseException = org::eclipse::keyple::seproxy::exception::KeypleBaseException;
                         using KeypleReaderException = org::eclipse::keyple::seproxy::exception::KeypleReaderException;
 
-                        class ReaderUtilities : public std::enable_shared_from_this<ReaderUtilities> {
+                        class ReaderUtilities : public std::enable_shared_from_this<ReaderUtilities> 
+                        {
                             /**
                              * Get the terminal which names match the expected pattern
                              *
@@ -70,7 +71,6 @@ namespace org {
                              */
                             static void setContactsSettings(std::shared_ptr<SeReader> reader);
                         };
-
                     }
                 }
             }

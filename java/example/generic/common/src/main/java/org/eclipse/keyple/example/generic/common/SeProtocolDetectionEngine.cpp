@@ -11,7 +11,6 @@
 /* Calypso */
 #include "PoSelector.h"
 #include "ReadDataStructure.h"
-#include "PoSelectionRequest.h"
 
 namespace org {
     namespace eclipse {
@@ -29,21 +28,26 @@ namespace org {
                         using namespace org::eclipse::keyple::transaction;
                         using ByteArrayUtils = org::eclipse::keyple::util::ByteArrayUtils;
 
-                        SeProtocolDetectionEngine::SeProtocolDetectionEngine() : AbstractReaderObserverEngine() {
+                        SeProtocolDetectionEngine::SeProtocolDetectionEngine() : AbstractReaderObserverEngine() 
+                        {
                         }
 
-                        void SeProtocolDetectionEngine::setReader(std::shared_ptr<SeReader> poReader) {
+                        void SeProtocolDetectionEngine::setReader(std::shared_ptr<SeReader> poReader) 
+                        {
                             this->poReader = poReader;
                         }
 
-                        std::shared_ptr<DefaultSelectionRequest> SeProtocolDetectionEngine::prepareSeSelection() {
-
+                        std::shared_ptr<DefaultSelectionRequest> SeProtocolDetectionEngine::prepareSeSelection() 
+                        {
                             seSelection = std::make_shared<SeSelection>(poReader);
 
                             // process SDK defined protocols
-                            for (ContactlessProtocols protocol : ContactlessProtocols::values()) {
-                                switch (protocol.innerEnumValue) {
-                                    case ContactlessProtocols::InnerEnum::PROTOCOL_ISO14443_4: {
+                            for (ContactlessProtocols protocol : ContactlessProtocols::values()) 
+                            {
+                                switch (protocol.innerEnumValue) 
+                                {
+                                    case ContactlessProtocols::InnerEnum::PROTOCOL_ISO14443_4: 
+                                    {
                                         /* Add a Hoplink selector */
                                         std::string HoplinkAID = "A000000291A000000191";
                                         //char SFI_T2Usage = static_cast<char>(0x1A);
@@ -82,21 +86,26 @@ namespace org {
                             return seSelection->getSelectionOperation();
                         }
 
-                        void SeProtocolDetectionEngine::processSeMatch(std::shared_ptr<SelectionResponse> selectionResponse) {
-                            if (seSelection->processDefaultSelection(selectionResponse)) {
+                        void SeProtocolDetectionEngine::processSeMatch(std::shared_ptr<SelectionResponse> selectionResponse) 
+                        {
+                            if (seSelection->processDefaultSelection(selectionResponse)) 
+                            {
                                 std::shared_ptr<MatchingSe> selectedSe = seSelection->getSelectedSe();
                                 std::cout << "Selector: " << selectedSe->getExtraInfo() << ", selection status = " << selectedSe->isSelected() << std::endl;
                             }
-                            else {
+                            else 
+                            {
                                 std::cout << "No selection matched!" << std::endl;
                             }
                         }
 
-                        void SeProtocolDetectionEngine::processSeInsertion() {
+                        void SeProtocolDetectionEngine::processSeInsertion() 
+                        {
                             std::cout << "Unexpected SE insertion event" << std::endl;
                         }
 
-                        void SeProtocolDetectionEngine::processSeRemoval() {
+                        void SeProtocolDetectionEngine::processSeRemoval() 
+                        {
                             std::cout << "SE removal event" << std::endl;
                         }
 

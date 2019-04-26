@@ -75,7 +75,8 @@ namespace org {
                         virtual void SetUp();
 
                     private:
-                        class PluginObserverAnonymousInnerClass : public std::enable_shared_from_this<PluginObserverAnonymousInnerClass>, public ObservablePlugin::PluginObserver {
+                        class PluginObserverAnonymousInnerClass : public std::enable_shared_from_this<PluginObserverAnonymousInnerClass>, public ObservablePlugin::PluginObserver 
+                        {
                         private:
                             std::shared_ptr<StubReaderTest> outerInstance;
 
