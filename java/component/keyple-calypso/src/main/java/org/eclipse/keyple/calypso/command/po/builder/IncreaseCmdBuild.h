@@ -60,7 +60,7 @@ namespace org {
                             public:
                                 IncreaseCmdBuild(PoClass poClass, char sfi, char counterNumber, int incValue, const std::string &extraInfo);
 
-protected:
+                            protected:
                                 std::shared_ptr<IncreaseCmdBuild> shared_from_this() {
                                     return std::static_pointer_cast<IncreaseCmdBuild>(PoCommandBuilder::shared_from_this());
                                 }

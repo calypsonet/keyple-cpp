@@ -1,13 +1,3 @@
-#pragma once
-
-#include <string>
-#include <typeinfo>
-#include <memory>
-
-//JAVA TO C++ CONVERTER NOTE: Forward class declarations:
-namespace org { namespace eclipse { namespace keyple { namespace seproxy { namespace message { class ApduRequest; } } } } }
-namespace org { namespace eclipse { namespace keyple { namespace command { class CommandsTable; } } } }
-
 /********************************************************************************
  * Copyright (c) 2018 Calypso Networks Association https://www.calypsonet-asso.org/
  *
@@ -19,6 +9,21 @@ namespace org { namespace eclipse { namespace keyple { namespace command { class
  *
  * SPDX-License-Identifier: EPL-2.0
  ********************************************************************************/
+
+#pragma once
+
+#include <string>
+#include <typeinfo>
+#include <memory>
+
+/* Common */
+#include "Export.h"
+
+//JAVA TO C++ CONVERTER NOTE: Forward class declarations:
+namespace org { namespace eclipse { namespace keyple { namespace seproxy { namespace message { class ApduRequest; } } } } }
+namespace org { namespace eclipse { namespace keyple { namespace command { class CommandsTable; } } } }
+
+
 namespace org {
     namespace eclipse {
         namespace keyple {
@@ -37,7 +42,7 @@ namespace org {
                  * </ul>
                  */
 
-                class AbstractApduCommandBuilder : public std::enable_shared_from_this<AbstractApduCommandBuilder> {
+                class EXPORT AbstractApduCommandBuilder : public std::enable_shared_from_this<AbstractApduCommandBuilder> {
 
                     /**
                      * The command name (will appear in logs)
@@ -47,7 +52,7 @@ namespace org {
                     /**
                      * The command parser class
                      */
-                    std::type_info commandParserClass;
+                    const std::type_info& commandParserClass;
 
                     /** the byte array APDU request. */
                 protected:
@@ -86,7 +91,7 @@ namespace org {
                      * @return the corresponding AbstractApduResponseParser class of the APDU command from the
                      *         CommandsTable information
                      */
-                    std::type_info getApduResponseParserClass();
+                    const std::type_info& getApduResponseParserClass();
 
                     /**
                      * Gets the request.

@@ -1,25 +1,3 @@
-#pragma once
-
-#include "../command/sam/SamRevision.h"
-#include "../../../../../../../../../keyple-core/src/main/java/org/eclipse/keyple/seproxy/ChannelState.h"
-#include "../../../../../../../../../keyple-core/src/main/java/org/eclipse/keyple/seproxy/protocol/TransmissionMode.h"
-#include <string>
-#include <unordered_map>
-#include <vector>
-#include <algorithm>
-#include <stdexcept>
-#include "exceptionhelper.h"
-#include <memory>
-
-//JAVA TO C++ CONVERTER NOTE: Forward class declarations:
-namespace org { namespace eclipse { namespace keyple { namespace seproxy { namespace message { class ProxyReader; } } } } }
-namespace org { namespace eclipse { namespace keyple { namespace calypso { namespace transaction { class CalypsoPo; } } } } }
-namespace org { namespace eclipse { namespace keyple { namespace command { class AbstractApduResponseParser; } } } }
-namespace org { namespace eclipse { namespace keyple { namespace seproxy { class SeReader; } } } }
-namespace org { namespace eclipse { namespace keyple { namespace seproxy { namespace exception { class KeypleReaderException; } } } } }
-namespace org { namespace eclipse { namespace keyple { namespace calypso { namespace command { template<typename T>class SendableInSession; } } } } }
-namespace org { namespace eclipse { namespace keyple { namespace calypso { namespace command { namespace sam { class SamSendableInSession; } } } } } }
-
 /********************************************************************************
  * Copyright (c) 2018 Calypso Networks Association https://www.calypsonet-asso.org/
  *
@@ -31,30 +9,72 @@ namespace org { namespace eclipse { namespace keyple { namespace calypso { names
  *
  * SPDX-License-Identifier: EPL-2.0
  ********************************************************************************/
+
+#pragma once
+
+#include <map>
+#include <string>
+#include <unordered_map>
+#include <vector>
+#include <algorithm>
+#include <stdexcept>
+#include <memory>
+
+/* Calypso */
+#include "AppendRecordRespPars.h"
+#include "DecreaseRespPars.h"
+#include "IncreaseRespPars.h"
+#include "PoModificationCommand.h"
+#include "PoSendableInSession.h"
+#include "ReadDataStructure.h"
+#include "ReadRecordsRespPars.h"
+#include "SeRequest.h"
+#include "SamRevision.h"
+#include "TransmissionMode.h"
+#include "UpdateRecordRespPars.h"
+#include "SamSendableInSession.h"
+
+/* Core */
+#include "AbstractApduResponseParser_Import.h"
+#include "ApduRequest.h"
+#include "ApduResponse.h"
+#include "ByteArrayUtils.h"
+#include "ChannelState.h"
+#include "ProxyReader.h"
+#include "SeReader.h"
+
+/* Common */
+#include "exceptionhelper.h"
+#include "Export.h"
+
 namespace org {
     namespace eclipse {
         namespace keyple {
             namespace calypso {
                 namespace transaction {
 
-                    using SendableInSession = org::eclipse::keyple::calypso::command::SendableInSession;
-                    using namespace org::eclipse::keyple::calypso::command::po;
-                    using namespace org::eclipse::keyple::calypso::command::po::builder;
-                    using namespace org::eclipse::keyple::calypso::command::po::parser;
-                    using SamRevision = org::eclipse::keyple::calypso::command::sam::SamRevision;
-                    using SamSendableInSession = org::eclipse::keyple::calypso::command::sam::SamSendableInSession;
-                    using namespace org::eclipse::keyple::calypso::transaction::exception;
                     using AbstractApduResponseParser = org::eclipse::keyple::command::AbstractApduResponseParser;
-                    using ChannelState = org::eclipse::keyple::seproxy::ChannelState;
-                    using SeReader = org::eclipse::keyple::seproxy::SeReader;
-                    using KeypleReaderException = org::eclipse::keyple::seproxy::exception::KeypleReaderException;
-                    using namespace org::eclipse::keyple::seproxy::message;
-                    using ProxyReader = org::eclipse::keyple::seproxy::message::ProxyReader;
-                    using TransmissionMode = org::eclipse::keyple::seproxy::protocol::TransmissionMode;
-                    using ByteArrayUtils = org::eclipse::keyple::util::ByteArrayUtils;
-                    using org::slf4j::Logger;
-                    using org::slf4j::LoggerFactory;
-
+                    using ApduRequest                = org::eclipse::keyple::seproxy::message::ApduRequest;
+                    using ApduResponse               = org::eclipse::keyple::seproxy::message::ApduResponse;
+                    using AppendRecordRespPars       = org::eclipse::keyple::calypso::command::po::parser::AppendRecordRespPars;
+                    using ByteArrayUtils             = org::eclipse::keyple::util::ByteArrayUtils;
+                    using ChannelState               = org::eclipse::keyple::seproxy::ChannelState;
+                    using DecreaseRespPars           = org::eclipse::keyple::calypso::command::po::parser::DecreaseRespPars;
+                    using IncreaseRespPars           = org::eclipse::keyple::calypso::command::po::parser::IncreaseRespPars;
+                    using KeypleReaderException      = org::eclipse::keyple::seproxy::exception::KeypleReaderException;
+                    using Logger                     = org::eclipse::keyple::common::Logger;
+                    using LoggerFactory              = org::eclipse::keyple::common::LoggerFactory;
+                    using PoSendableInSession        = org::eclipse::keyple::calypso::command::po::PoSendableInSession;
+                    using PoModificationCommand      = org::eclipse::keyple::calypso::command::po::PoModificationCommand;
+                    using ProxyReader                = org::eclipse::keyple::seproxy::message::ProxyReader;
+                    using ReadRecordsRespPars        = org::eclipse::keyple::calypso::command::po::parser::ReadRecordsRespPars;
+                    using ReadDataStructure          = org::eclipse::keyple::calypso::command::po::parser::ReadDataStructure;
+                    using SamRevision                = org::eclipse::keyple::calypso::command::sam::SamRevision;
+                    using SamSendableInSession       = org::eclipse::keyple::calypso::command::sam::SamSendableInSession;
+                    using SeReader                   = org::eclipse::keyple::seproxy::SeReader;
+                    using SeRequest                  = org::eclipse::keyple::seproxy::message::SeRequest;
+                    using TransmissionMode           = org::eclipse::keyple::seproxy::protocol::TransmissionMode;
+                    using UpdateRecordRespPars       = org::eclipse::keyple::calypso::command::po::parser::UpdateRecordRespPars;
 
                     /**
                      * Portable Object Secure Session.
@@ -64,48 +84,236 @@ namespace org {
                      *
                      * @author Calypso Networks Association
                      */
-                    class PoTransaction final : public std::enable_shared_from_this<PoTransaction> {
+                    class EXPORT PoTransaction final : public std::enable_shared_from_this<PoTransaction> {
+
+                        /**
+                         * List of SAM settings keys that can be provided when the secure session is created.
+                         */
+                      public:
+                        enum class SamSettings
+                        {
+                            /** KIF for personalization used when not provided by the PO */
+                            SAM_DEFAULT_KIF_PERSO,
+                            /** KIF for load used when not provided by the PO */
+                            SAM_DEFAULT_KIF_LOAD,
+                            /** KIF for debit used when not provided by the PO */
+                            SAM_DEFAULT_KIF_DEBIT,
+                            /** Key record number to use when KIF/KVC is unavailable */
+                            SAM_DEFAULT_KEY_RECORD_NUMBER
+                        };
+
+                        /**
+                         * The PO Transaction Access Level: personalization, loading or debiting.
+                         */
+                      public:
+                        enum class SessionAccessLevel
+                        {
+                            /** Session Access Level used for personalization purposes. */
+                            SESSION_LVL_PERSO,
+                            /** Session Access Level used for reloading purposes. */
+                            SESSION_LVL_LOAD,
+                            /** Session Access Level used for validating and debiting purposes. */
+                            SESSION_LVL_DEBIT
+                        };
+
+                        /**
+                         * The modification mode indicates whether the secure session can be closed and reopened to
+                         * manage the limitation of the PO buffer memory.
+                         */
+                      public:
+                        enum class ModificationMode
+                        {
+                            /**
+                             * The secure session is atomic. The consistency of the content of the resulting PO memory
+                             * is guaranteed.
+                             */
+                            ATOMIC,
+                            /**
+                             * Several secure sessions can be chained (to manage the writing of large amounts of data).
+                             * The resulting content of the PO's memory can be inconsistent if the PO is removed during
+                             * the process.
+                             */
+                            MULTIPLE
+                        };
+
+                        /**
+                         * The PO Transaction State defined with the elements: ‘IOError’, ‘SEInserted’ and ‘SERemoval’.
+                         */
+                      public:
+                        enum class SessionState
+                        {
+                            /** Initial state of a PO transaction. The PO must have been previously selected. */
+                            SESSION_CLOSED,
+                            /** The secure session is active. */
+                            SESSION_OPEN
+                        };
+
+                        /**
+                         * This class embeds all the resources to manage the secure session digest computation.
+                         *
+                         * - initialize: Digest Init command
+                         *
+                         * - pushPoExchangeData and appendResponse: check consistency and all needed Digest Update
+                         * commands
+                         *
+                         * - getTerminalSignature: Digest Close, returns the terminal part of the signature
+                         *
+                         * - checkPoSignature: Digest Authenticate, verify the PO part of the signature
+                         */
+                      private:
+                        class DigestProcessor : public std::enable_shared_from_this<DigestProcessor> {
+                            /*
+                             * The digest data cache stores all PO data to be send to SAM during a Secure Session. The
+                             * 1st buffer is the data buffer to be provided with Digest Init. The following buffers are
+                             * PO command/response pairs
+                             */
+                          private:
+                            static std::vector<std::vector<char>> poDigestDataCache;
+                            static SamRevision samRevision;
+                            static PoRevision poRevision;
+                            static bool encryption;
+                            static bool verification;
+                            static bool revMode;
+                            static char keyRecordNumber;
+                            static char keyKIF;
+                            static char keyKVC;
+
+                            /**
+                             * Initializes the digest computation process
+                             *
+                             * @param poRev the PO revision
+                             * @param samRev the SAM revision
+                             * @param sessionEncryption true if the session is encrypted
+                             * @param verificationMode true if the verification mode is active
+                             * @param rev3_2Mode true if the REV3.2 mode is active
+                             * @param workKeyRecordNumber the key record number
+                             * @param workKeyKif the PO KIF
+                             * @param workKeyKVC the PO KVC
+                             * @param digestData a first bunch of data to digest.
+                             */
+                          public:
+                            static void initialize(PoRevision poRev, SamRevision samRev, bool sessionEncryption, bool verificationMode, bool rev3_2Mode, char workKeyRecordNumber, char workKeyKif, char workKeyKVC, std::vector<char> &digestData);
+
+                            /**
+                             * Appends a full PO exchange (request and response) to the digest data cache.
+                             *
+                             * @param request PO request
+                             * @param response PO response
+                             */
+                            static void pushPoExchangeData(std::shared_ptr<ApduRequest> request, std::shared_ptr<ApduResponse> response);
+
+                            /**
+                             * Get a unique SAM request for the whole digest computation process.
+                             * 
+                             * @return SeRequest all the ApduRequest to send to the SAM in order to get the terminal
+                             *         signature
+                             */
+                            // TODO optimization with the use of Digest Update Multiple whenever possible.
+                            static std::shared_ptr<SeRequest> getSamDigestRequest();
+                        };
+
+                        /**
+                         * The class handles the anticipated response computation.
+                         */
+                      private:
+                        class AnticipatedResponseBuilder : public std::enable_shared_from_this<AnticipatedResponseBuilder> {
+                            /**
+                             * A nested class to associate a request with a response
+                             */
+                          private:
+                            class CommandResponse : public std::enable_shared_from_this<CommandResponse> {
+                              private:
+                                const std::shared_ptr<ApduRequest> apduRequest;
+                                const std::shared_ptr<ApduResponse> apduResponse;
+
+                              public:
+                                CommandResponse(std::shared_ptr<ApduRequest> apduRequest, std::shared_ptr<ApduResponse> apduResponse);
+
+                                virtual std::shared_ptr<ApduRequest> getApduRequest();
+
+                                virtual std::shared_ptr<ApduResponse> getApduResponse();
+                            };
+
+                            /**
+                             * A Map of SFI and Commands/Responses
+                             */
+                          private:
+                            static std::unordered_map<char, std::shared_ptr<CommandResponse>> sfiCommandResponseHashMap;
+
+                            /**
+                             * Store all Read Record exchanges in a Map whose key is the SFI.
+                             * 
+                             * @param poSendableInSessions the list of commands sent to the PO
+                             * @param apduRequests the sent apduRequests
+                             * @param apduResponses the received apduResponses
+                             * @param skipFirstItem a flag to indicate if the first apduRequest/apduResponse pair has to
+                             *        be ignored or not.
+                             */
+                          public:
+                            static void storeCommandResponse(std::vector<std::shared_ptr<PoSendableInSession>> &poSendableInSessions, std::vector<std::shared_ptr<ApduRequest>> &apduRequests, std::vector<std::shared_ptr<ApduResponse>> &apduResponses, bool skipFirstItem);
+
+                            /**
+                             * Establish the anticipated responses to commands provided in poModificationCommands.
+                             * <p>
+                             * Append Record and Update Record commands return 9000
+                             * <p>
+                             * Increase and Decrease return NNNNNN9000 where NNNNNNN is the new counter value.
+                             * <p>
+                             * NNNNNN is determine with the current value of the counter (extracted from the Read Record
+                             * responses previously collected) and the value to add or subtract provided in the command.
+                             * <p>
+                             * The SFI field is used to determine which data should be used to extract the needed
+                             * information.
+                             *
+                             * @param poModificationCommands the modification command list
+                             * @return the anticipated responses.
+                             * @throws KeypleCalypsoSecureSessionException if an response can't be determined.
+                             */
+                            static std::vector<std::shared_ptr<ApduResponse>> getResponses(std::vector<std::shared_ptr<PoModificationCommand>> &poModificationCommands);
+                        };
 
                         /* public constants */
                         /** The key index for personalization operations (issuer key needed) */
-                    public:
+                      public:
                         static const char KEY_INDEX_PERSONALIZATION = static_cast<char>(0x01);
                         /** The key index for reloading operations (loading key needed) */
                         static const char KEY_INDEX_LOAD = static_cast<char>(0x02);
                         /** The key index for debit and validation operations (validation key needed) */
                         static const char KEY_INDEX_VALIDATION_DEBIT = static_cast<char>(0x03);
                         /** The default KIF value for personalization */
-                        static const char DEFAULT_KIF_PERSO = static_cast<char>(0x21);
+                        const char DEFAULT_KIF_PERSO = static_cast<char>(0x21);
                         /** The default KIF value for loading */
-                        static const char DEFAULT_KIF_LOAD = static_cast<char>(0x27);
+                        const char DEFAULT_KIF_LOAD = static_cast<char>(0x27);
                         /** The default KIF value for debiting */
-                        static const char DEFAULT_KIF_DEBIT = static_cast<char>(0x30);
+                        const char DEFAULT_KIF_DEBIT = static_cast<char>(0x30);
                         /** The default key record number */
-                        static const char DEFAULT_KEY_RECORD_NUMER = static_cast<char>(0x00);
+                        const char DEFAULT_KEY_RECORD_NUMER = static_cast<char>(0x00);
 
                         /* private constants */
-                    private:
+                      private:
                         static const char KIF_UNDEFINED = static_cast<char>(0xFF);
 
                         static const char CHALLENGE_LENGTH_REV_INF_32 = static_cast<char>(0x04);
-                        static const char CHALLENGE_LENGTH_REV32 = static_cast<char>(0x08);
-                        static const char SIGNATURE_LENGTH_REV_INF_32 = static_cast<char>(0x04);
-                        static const char SIGNATURE_LENGTH_REV32 = static_cast<char>(0x08);
+                        static const char CHALLENGE_LENGTH_REV32      = static_cast<char>(0x08);
+                        static const char SIGNATURE_LENGTH_REV_INF_32;
+                        static const char SIGNATURE_LENGTH_REV32;
 
-                        static constexpr int OFFSET_CLA = 0;
-                        static constexpr int OFFSET_INS = 1;
-                        static constexpr int OFFSET_P1 = 2;
-                        static constexpr int OFFSET_P2 = 3;
-                        static constexpr int OFFSET_Lc = 4;
+                        static constexpr int OFFSET_CLA  = 0;
+                        static constexpr int OFFSET_INS  = 1;
+                        static constexpr int OFFSET_P1   = 2;
+                        static constexpr int OFFSET_P2   = 3;
+                        static constexpr int OFFSET_Lc   = 4;
                         static constexpr int OFFSET_DATA = 5;
 
                         /** Ratification command APDU for rev <= 2.4 */
-                        static std::vector<char> const ratificationCmdApduLegacy;
+                        static std::vector<char> ratificationCmdApduLegacy;
                         /** Ratification command APDU for rev > 2.4 */
-                        static std::vector<char> const ratificationCmdApdu;
+                        static std::vector<char> ratificationCmdApdu;
 
-                        static const std::shared_ptr<Logger> logger;
+                      protected:
+                        const std::shared_ptr<Logger> logger = LoggerFactory::getLogger(typeid(PoTransaction));
 
+                      private:
                         /** The reader for PO. */
                         const std::shared_ptr<ProxyReader> poReader;
                         /** The reader for session SAM. */
@@ -113,14 +321,14 @@ namespace org {
                         /** The SAM default revision. */
                         const SamRevision samRevision = SamRevision::C1;
                         /** The SAM settings map. */
-                        const std::shared_ptr<EnumMap<SamSettings, Byte>> samSetting = std::make_shared<EnumMap<SamSettings, Byte>>(SamSettings::typeid);
+                        const std::shared_ptr<std::map<PoTransaction::SamSettings, char>> samSetting = std::make_shared<std::map<PoTransaction::SamSettings, char>>();
                         /** The PO serial number extracted from FCI */
-                        std::vector<char> const poCalypsoInstanceSerial;
+                        std::vector<char> poCalypsoInstanceSerial;
                         /** The current CalypsoPo */
-                    protected:
+                      protected:
                         const std::shared_ptr<CalypsoPo> calypsoPo;
                         /** the type of the notified event. */
-                    private:
+                      private:
                         SessionState currentState = static_cast<SessionState>(0);
                         /** Selected AID of the Calypso PO. */
                         std::vector<char> poCalypsoInstanceAid;
@@ -133,7 +341,7 @@ namespace org {
                         /** The PO KIF */
                         char poKif = 0;
                         /** The previous PO Secure Session ratification status */
-//JAVA TO C++ CONVERTER NOTE: Fields cannot have the same name as methods:
+                        //JAVA TO C++ CONVERTER NOTE: Fields cannot have the same name as methods:
                         bool wasRatified_Renamed = false;
                         /** The data read at opening */
                         std::vector<char> openRecordDataRead;
@@ -144,15 +352,15 @@ namespace org {
                         /** The SAM settings status */
                         bool samSettingsDefined = false;
                         /** List of authorized KVCs */
-                        std::vector<Byte> authorizedKvcList;
+                        std::vector<char> authorizedKvcList;
                         /** The current secure session modification mode: ATOMIC or MULTIPLE */
                         ModificationMode currentModificationMode = static_cast<ModificationMode>(0);
                         /** The current secure session access level: PERSO, RELOAD, DEBIT */
                         SessionAccessLevel currentAccessLevel = static_cast<SessionAccessLevel>(0);
                         /* modifications counter management */
                         bool modificationsCounterIsInBytes = false;
-                        int modificationsCounterMax = 0;
-                        int modificationsCounter = 0;
+                        int modificationsCounterMax        = 0;
+                        int modificationsCounter           = 0;
 
                         /**
                          * PoTransaction with PO and SAM readers.
@@ -168,8 +376,8 @@ namespace org {
                          *        default parameters are applied. The available setting keys are defined in
                          *        {@link SamSettings}
                          */
-                    public:
-                        PoTransaction(std::shared_ptr<SeReader> poReader, std::shared_ptr<CalypsoPo> calypsoPO, std::shared_ptr<SeReader> samReader, std::shared_ptr<EnumMap<SamSettings, Byte>> samSetting);
+                      public:
+                        PoTransaction(std::shared_ptr<SeReader> poReader, std::shared_ptr<CalypsoPo> calypsoPO, std::shared_ptr<SeReader> samReader, std::shared_ptr<std::map<SamSettings, char>> samSetting);
 
                         /**
                          * PoTransaction with PO reader and without SAM reader.
@@ -188,7 +396,7 @@ namespace org {
                          * @param samReader
                          * @param samSetting
                          */
-                        void setSamSettings(std::shared_ptr<SeReader> samReader, std::shared_ptr<EnumMap<SamSettings, Byte>> samSetting);
+                        void setSamSettings(std::shared_ptr<SeReader> samReader, std::shared_ptr<std::map<SamSettings, char>> samSetting);
 
                         /**
                          * Provides a list of authorized KVC
@@ -200,7 +408,7 @@ namespace org {
                          * 
                          * @param authorizedKvcList the list of authorized KVCs
                          */
-                        void setAuthorizedKvcList(std::vector<Byte> &authorizedKvcList);
+                        void setAuthorizedKvcList(std::vector<char> &authorizedKvcList);
 
                         /**
                          * Indicates whether or not the SAM settings have been defined
@@ -247,8 +455,8 @@ namespace org {
                          *         Secure Session" command
                          * @throws KeypleReaderException the IO reader exception
                          */
-                    private:
-                        std::shared_ptr<SeResponse> processAtomicOpening(SessionAccessLevel accessLevel, char openingSfiToSelect, char openingRecordNumberToRead, std::vector<std::shared_ptr<PoSendableInSession>> &poCommandsInsideSession) throw(KeypleReaderException);
+                      private:
+                        std::shared_ptr<SeResponse> processAtomicOpening(SessionAccessLevel accessLevel, char openingSfiToSelect, char openingRecordNumberToRead, std::vector<std::shared_ptr<PoSendableInSession>> &poCommandsInsideSession);
 
                         /**
                          * Change SendableInSession List to ApduRequest List .
@@ -256,7 +464,7 @@ namespace org {
                          * @param poOrSamCommandsInsideSession a po or sam commands list to be sent in session
                          * @return the ApduRequest list
                          */
-                        std::vector<std::shared_ptr<ApduRequest>> getApduRequestsToSendInSession(std::vector<std::shared_ptr<SendableInSession>> &poOrSamCommandsInsideSession);
+                        template <class T> std::vector<std::shared_ptr<ApduRequest>> getApduRequestsToSendInSession(std::vector<std::shared_ptr<org::eclipse::keyple::calypso::command::SendableInSession<T>>> &poOrSamCommandsInsideSession);
 
                         /**
                          * Process PO commands in a Secure Session.
@@ -277,7 +485,7 @@ namespace org {
                          *
                          * @throws KeypleReaderException IO Reader exception
                          */
-                        std::shared_ptr<SeResponse> processAtomicPoCommands(std::vector<std::shared_ptr<PoSendableInSession>> &poCommands, ChannelState channelState) throw(KeypleReaderException);
+                        std::shared_ptr<SeResponse> processAtomicPoCommands(std::vector<std::shared_ptr<PoSendableInSession>> &poCommands, ChannelState channelState);
 
                         /**
                          * Process SAM commands.
@@ -290,8 +498,8 @@ namespace org {
                          * @return SeResponse all sam responses
                          * @throws KeypleReaderException if a reader error occurs
                          */
-                    public:
-                        std::shared_ptr<SeResponse> processSamCommands(std::vector<std::shared_ptr<SamSendableInSession>> &samCommands) throw(KeypleReaderException);
+                      public:
+                        std::shared_ptr<SeResponse> processSamCommands(std::vector<std::shared_ptr<SamSendableInSession>> &samCommands);
 
                         /**
                          * Close the Secure Session.
@@ -348,8 +556,8 @@ namespace org {
                          *         communication mode.</li>
                          *         </ul>
                          */
-                    private:
-                        std::shared_ptr<SeResponse> processAtomicClosing(std::vector<std::shared_ptr<PoModificationCommand>> &poModificationCommands, std::vector<std::shared_ptr<ApduResponse>> &poAnticipatedResponses, TransmissionMode transmissionMode, ChannelState channelState) throw(KeypleReaderException);
+                      private:
+                        std::shared_ptr<SeResponse> processAtomicClosing(std::vector<std::shared_ptr<PoModificationCommand>> &poModificationCommands, std::vector<std::shared_ptr<ApduResponse>> &poAnticipatedResponses, TransmissionMode transmissionMode, ChannelState channelState);
 
                         /**
                          * Advanced variant of processAtomicClosing in which the list of expected responses is
@@ -370,14 +578,14 @@ namespace org {
                          *         communication mode.</li>
                          *         </ul>
                          */
-                        std::shared_ptr<SeResponse> processAtomicClosing(std::vector<std::shared_ptr<PoModificationCommand>> &poModificationCommands, TransmissionMode transmissionMode, ChannelState channelState) throw(KeypleReaderException);
+                        std::shared_ptr<SeResponse> processAtomicClosing(std::vector<std::shared_ptr<PoModificationCommand>> &poModificationCommands, TransmissionMode transmissionMode, ChannelState channelState);
 
                         /**
                          * Gets the PO Revision.
                          *
                          * @return the PoPlainSecureSession_OLD.poRevision
                          */
-                    public:
+                      public:
                         PoRevision getRevision();
 
                         /**
@@ -411,188 +619,6 @@ namespace org {
                          * @return a byte array containing the data
                          */
                         std::vector<char> getOpenRecordDataRead();
-
-                        /**
-                         * List of SAM settings keys that can be provided when the secure session is created.
-                         */
-                    public:
-                        enum class SamSettings {
-                            /** KIF for personalization used when not provided by the PO */
-                            SAM_DEFAULT_KIF_PERSO,
-                            /** KIF for load used when not provided by the PO */
-                            SAM_DEFAULT_KIF_LOAD,
-                            /** KIF for debit used when not provided by the PO */
-                            SAM_DEFAULT_KIF_DEBIT,
-                            /** Key record number to use when KIF/KVC is unavailable */
-                            SAM_DEFAULT_KEY_RECORD_NUMBER
-                        };
-
-                        /**
-                         * The PO Transaction Access Level: personalization, loading or debiting.
-                         */
-                    public:
-                        enum class SessionAccessLevel {
-                            /** Session Access Level used for personalization purposes. */
-                            SESSION_LVL_PERSO,
-                            /** Session Access Level used for reloading purposes. */
-                            SESSION_LVL_LOAD,
-                            /** Session Access Level used for validating and debiting purposes. */
-                            SESSION_LVL_DEBIT
-                        };
-
-                        /**
-                         * The modification mode indicates whether the secure session can be closed and reopened to
-                         * manage the limitation of the PO buffer memory.
-                         */
-                    public:
-                        enum class ModificationMode {
-                            /**
-                             * The secure session is atomic. The consistency of the content of the resulting PO memory
-                             * is guaranteed.
-                             */
-                            ATOMIC,
-                            /**
-                             * Several secure sessions can be chained (to manage the writing of large amounts of data).
-                             * The resulting content of the PO's memory can be inconsistent if the PO is removed during
-                             * the process.
-                             */
-                            MULTIPLE
-                        };
-
-                        /**
-                         * The PO Transaction State defined with the elements: ‘IOError’, ‘SEInserted’ and ‘SERemoval’.
-                         */
-                    public:
-                        enum class SessionState {
-                            /** Initial state of a PO transaction. The PO must have been previously selected. */
-                            SESSION_CLOSED,
-                            /** The secure session is active. */
-                            SESSION_OPEN
-                        };
-
-                        /**
-                         * This class embeds all the resources to manage the secure session digest computation.
-                         *
-                         * - initialize: Digest Init command
-                         *
-                         * - pushPoExchangeData and appendResponse: check consistency and all needed Digest Update
-                         * commands
-                         *
-                         * - getTerminalSignature: Digest Close, returns the terminal part of the signature
-                         *
-                         * - checkPoSignature: Digest Authenticate, verify the PO part of the signature
-                         */
-                    private:
-                        class DigestProcessor : public std::enable_shared_from_this<DigestProcessor> {
-                            /*
-                             * The digest data cache stores all PO data to be send to SAM during a Secure Session. The
-                             * 1st buffer is the data buffer to be provided with Digest Init. The following buffers are
-                             * PO command/response pairs
-                             */
-                        private:
-                            static const std::vector<std::vector<char>> poDigestDataCache;
-                            static SamRevision samRevision;
-                            static PoRevision poRevision;
-                            static bool encryption;
-                            static bool verification;
-                            static bool revMode;
-                            static char keyRecordNumber;
-                            static char keyKIF;
-                            static char keyKVC;
-
-                            /**
-                             * Initializes the digest computation process
-                             *
-                             * @param poRev the PO revision
-                             * @param samRev the SAM revision
-                             * @param sessionEncryption true if the session is encrypted
-                             * @param verificationMode true if the verification mode is active
-                             * @param rev3_2Mode true if the REV3.2 mode is active
-                             * @param workKeyRecordNumber the key record number
-                             * @param workKeyKif the PO KIF
-                             * @param workKeyKVC the PO KVC
-                             * @param digestData a first bunch of data to digest.
-                             */
-                        public:
-                            static void initialize(PoRevision poRev, SamRevision samRev, bool sessionEncryption, bool verificationMode, bool rev3_2Mode, char workKeyRecordNumber, char workKeyKif, char workKeyKVC, std::vector<char> &digestData);
-
-                            /**
-                             * Appends a full PO exchange (request and response) to the digest data cache.
-                             *
-                             * @param request PO request
-                             * @param response PO response
-                             */
-                            static void pushPoExchangeData(std::shared_ptr<ApduRequest> request, std::shared_ptr<ApduResponse> response);
-
-                            /**
-                             * Get a unique SAM request for the whole digest computation process.
-                             * 
-                             * @return SeRequest all the ApduRequest to send to the SAM in order to get the terminal
-                             *         signature
-                             */
-                            // TODO optimization with the use of Digest Update Multiple whenever possible.
-                            static std::shared_ptr<SeRequest> getSamDigestRequest();
-                        };
-
-                        /**
-                         * The class handles the anticipated response computation.
-                         */
-                    private:
-                        class AnticipatedResponseBuilder : public std::enable_shared_from_this<AnticipatedResponseBuilder> {
-                            /**
-                             * A nested class to associate a request with a response
-                             */
-                        private:
-                            class CommandResponse : public std::enable_shared_from_this<CommandResponse> {
-                            private:
-                                const std::shared_ptr<ApduRequest> apduRequest;
-                                const std::shared_ptr<ApduResponse> apduResponse;
-
-                            public:
-                                CommandResponse(std::shared_ptr<ApduRequest> apduRequest, std::shared_ptr<ApduResponse> apduResponse);
-
-                                virtual std::shared_ptr<ApduRequest> getApduRequest();
-
-                                virtual std::shared_ptr<ApduResponse> getApduResponse();
-                            };
-
-                            /**
-                             * A Map of SFI and Commands/Responses
-                             */
-                        private:
-                            static std::unordered_map<Byte, std::shared_ptr<CommandResponse>> sfiCommandResponseHashMap;
-
-                            /**
-                             * Store all Read Record exchanges in a Map whose key is the SFI.
-                             * 
-                             * @param poSendableInSessions the list of commands sent to the PO
-                             * @param apduRequests the sent apduRequests
-                             * @param apduResponses the received apduResponses
-                             * @param skipFirstItem a flag to indicate if the first apduRequest/apduResponse pair has to
-                             *        be ignored or not.
-                             */
-                        public:
-                            static void storeCommandResponse(std::vector<std::shared_ptr<PoSendableInSession>> &poSendableInSessions, std::vector<std::shared_ptr<ApduRequest>> &apduRequests, std::vector<std::shared_ptr<ApduResponse>> &apduResponses, Boolean skipFirstItem);
-
-                            /**
-                             * Establish the anticipated responses to commands provided in poModificationCommands.
-                             * <p>
-                             * Append Record and Update Record commands return 9000
-                             * <p>
-                             * Increase and Decrease return NNNNNN9000 where NNNNNNN is the new counter value.
-                             * <p>
-                             * NNNNNN is determine with the current value of the counter (extracted from the Read Record
-                             * responses previously collected) and the value to add or subtract provided in the command.
-                             * <p>
-                             * The SFI field is used to determine which data should be used to extract the needed
-                             * information.
-                             *
-                             * @param poModificationCommands the modification command list
-                             * @return the anticipated responses.
-                             * @throws KeypleCalypsoSecureSessionException if an response can't be determined.
-                             */
-                            static std::vector<std::shared_ptr<ApduResponse>> getResponses(std::vector<std::shared_ptr<PoModificationCommand>> &poModificationCommands) throw(KeypleCalypsoSecureSessionException);
-                        };
 
                         /**
                          * Open a Secure Session.
@@ -633,8 +659,8 @@ namespace org {
                          * @return true if all commands are successful
                          * @throws KeypleReaderException the IO reader exception
                          */
-                    public:
-                        bool processOpening(ModificationMode modificationMode, SessionAccessLevel accessLevel, char openingSfiToSelect, char openingRecordNumberToRead) throw(KeypleReaderException);
+                      public:
+                        bool processOpening(ModificationMode modificationMode, SessionAccessLevel accessLevel, char openingSfiToSelect, char openingRecordNumberToRead);
 
                         /**
                          * Process all prepared PO commands (outside a Secure Session).
@@ -651,7 +677,7 @@ namespace org {
                          *
                          * @throws KeypleReaderException IO Reader exception
                          */
-                        bool processPoCommands(ChannelState channelState) throw(KeypleReaderException);
+                        bool processPoCommands(ChannelState channelState);
 
                         /**
                          * Process all prepared PO commands in a Secure Session.
@@ -668,7 +694,7 @@ namespace org {
                          *
                          * @throws KeypleReaderException IO Reader exception
                          */
-                        bool processPoCommandsInSession() throw(KeypleReaderException);
+                        bool processPoCommandsInSession();
 
                         /**
                          * Sends the currently prepared commands list (may be empty) and closes the Secure Session.
@@ -693,7 +719,7 @@ namespace org {
                          *         communication mode.</li>
                          *         </ul>
                          */
-                        bool processClosing(TransmissionMode transmissionMode, ChannelState channelState) throw(KeypleReaderException);
+                        bool processClosing(TransmissionMode transmissionMode, ChannelState channelState);
 
                         /**
                          * Abort a Secure Session.
@@ -715,8 +741,8 @@ namespace org {
                          * @param parserIterator the parser list iterator
                          * @return false if one or more of the commands do not succeed
                          */
-                    private:
-                        bool updateParsersWithResponses(std::shared_ptr<SeResponse> seResponse, std::shared_ptr<Iterator<std::shared_ptr<AbstractApduResponseParser>>> parserIterator);
+                      private:
+                        bool updateParsersWithResponses(std::shared_ptr<SeResponse> seResponse, std::shared_ptr<std::vector<std::shared_ptr<AbstractApduResponseParser>>::const_iterator> parserIterator, std::vector<std::shared_ptr<AbstractApduResponseParser>> responseList);
 
                         /**
                          * Checks whether the requirement for the modifications buffer of the command provided in
@@ -768,7 +794,7 @@ namespace org {
                          * @throws java.lang.IllegalArgumentException - if record number &lt; 1
                          * @throws java.lang.IllegalArgumentException - if the request is inconsistent
                          */
-                    public:
+                      public:
                         std::shared_ptr<ReadRecordsRespPars> prepareReadRecordsCmd(char sfi, ReadDataStructure readDataStructureEnum, char firstRecordNumber, int expectedLength, const std::string &extraInfo);
 
                         /**
@@ -856,8 +882,8 @@ namespace org {
                         std::shared_ptr<DecreaseRespPars> prepareDecreaseCmd(char sfi, char counterNumber, int decValue, const std::string &extraInfo);
                     };
 
-                }
-            }
-        }
-    }
-}
+                } // namespace transaction
+            }     // namespace calypso
+        }         // namespace keyple
+    }             // namespace eclipse
+} // namespace org

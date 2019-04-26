@@ -17,6 +17,7 @@
 #include <memory>
 
 /* Common */
+#include "Export.h"
 #include "exceptionhelper.h"
 
 /* Core */
@@ -32,13 +33,13 @@ namespace org {
                 /**
                  * Base class for parsing APDU
                  */
-                class AbstractApduResponseParser : public std::enable_shared_from_this<AbstractApduResponseParser> {
+                class EXPORT AbstractApduResponseParser : public std::enable_shared_from_this<AbstractApduResponseParser> {
 
                     /**
                      * Status code properties
                      */
-                protected:
-                    class StatusProperties : public std::enable_shared_from_this<StatusProperties> {
+                public:
+                    class EXPORT StatusProperties : public std::enable_shared_from_this<StatusProperties> {
 
                         /** The successful. */
                     private:
@@ -76,7 +77,7 @@ namespace org {
                 protected:
                     std::shared_ptr<ApduResponse> response;
 
-                    static const std::unordered_map<int, std::shared_ptr<StatusProperties>> STATUS_TABLE;
+                    static std::unordered_map<int, std::shared_ptr<StatusProperties>> STATUS_TABLE;
                                 private:
                                     class StaticConstructor : public std::enable_shared_from_this<StaticConstructor> {
                                     public:

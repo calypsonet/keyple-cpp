@@ -12,16 +12,16 @@
 
 #pragma once
 
-#include "AbstractApduResponseParser.h"
 #include <string>
 #include <unordered_map>
 #include <vector>
-#include "exceptionhelper.h"
 #include <memory>
 
-//JAVA TO C++ CONVERTER NOTE: Forward class declarations:
-namespace org { namespace eclipse { namespace keyple { namespace command { class AbstractApduResponseParser; } } } }
-namespace org { namespace eclipse { namespace keyple { namespace command { class StatusProperties; } } } }
+/* Common */
+#include "exceptionhelper.h"
+
+/* Core */
+#include "AbstractApduResponseParser_Import.h"
 
 namespace org {
     namespace eclipse {
@@ -67,11 +67,11 @@ namespace org {
                                  * @throws java.lang.IllegalStateException - if the counter value is not available from the
                                  *         command response.
                                  */
-                                int getNewValue() throw(IllegalStateException);
+                                int getNewValue();
 
                                 std::string toString();
 
-protected:
+                            protected:
                                 std::shared_ptr<DecreaseRespPars> shared_from_this() {
                                     return std::static_pointer_cast<DecreaseRespPars>(AbstractApduResponseParser::shared_from_this());
                                 }

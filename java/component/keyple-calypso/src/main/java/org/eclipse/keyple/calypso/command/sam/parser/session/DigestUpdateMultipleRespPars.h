@@ -1,11 +1,3 @@
-#pragma once
-
-#include "../../../../../../../../../../../../keyple-core/src/main/java/org/eclipse/keyple/command/AbstractApduResponseParser.h"
-#include <memory>
-
-//JAVA TO C++ CONVERTER NOTE: Forward class declarations:
-namespace org { namespace eclipse { namespace keyple { namespace seproxy { namespace message { class ApduResponse; } } } } }
-
 /********************************************************************************
  * Copyright (c) 2018 Calypso Networks Association https://www.calypsonet-asso.org/
  *
@@ -17,6 +9,14 @@ namespace org { namespace eclipse { namespace keyple { namespace seproxy { names
  *
  * SPDX-License-Identifier: EPL-2.0
  ********************************************************************************/
+
+#pragma once
+
+#include <memory>
+
+/* Core */
+#include "AbstractApduResponseParser_Import.h"
+
 namespace org {
     namespace eclipse {
         namespace keyple {
@@ -45,7 +45,7 @@ namespace org {
 
 protected:
                                     std::shared_ptr<DigestUpdateMultipleRespPars> shared_from_this() {
-                                        return std::static_pointer_cast<DigestUpdateMultipleRespPars>(org.eclipse.keyple.command.AbstractApduResponseParser::shared_from_this());
+                                        return std::static_pointer_cast<DigestUpdateMultipleRespPars>(AbstractApduResponseParser::shared_from_this());
                                     }
                                 };
 

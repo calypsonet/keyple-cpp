@@ -21,6 +21,7 @@
 #include <typeindex>
 
 /* Common */
+#include "Export.h"
 #include "Logger.h"
 #include "LoggerFactory.h"
 
@@ -49,7 +50,7 @@ namespace org {
                  * <p>
                  * This class may also be extended to add particular features specific to a SE family.
                  */
-                class SeSelectionRequest : public std::enable_shared_from_this<SeSelectionRequest> {
+                class EXPORT SeSelectionRequest : public std::enable_shared_from_this<SeSelectionRequest> {
                 private:
                     const std::shared_ptr<Logger> logger = LoggerFactory::getLogger(typeid(SeSelectionRequest));
 
@@ -92,7 +93,7 @@ namespace org {
                      * @param matchingClass the expected class for this SeSelector
                      */
                 protected:
-                    void setMatchingClass(std::type_info matchingClass);
+                    void setMatchingClass(const std::type_info& matchingClass);
 
                     /**
                      * The selectionClass is the SeSelector class or one of its extensions
@@ -105,7 +106,7 @@ namespace org {
                      *
                      * @param selectionClass the argument for the constructor of the matchingClass
                      */
-                    void setSelectionClass(std::type_info selectionClass);
+                    void setSelectionClass(const std::type_info& selectionClass);
 
                     /**
                      * The default value for the selectionClass (unless setSelectionClass is used) is

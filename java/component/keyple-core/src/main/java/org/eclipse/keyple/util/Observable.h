@@ -19,7 +19,7 @@
 #include <unordered_set>
 
 /* Core */
-#include "ReaderEvent.h"
+#include "ReaderEvent_Import.h"
 
 namespace org {
 namespace eclipse {
@@ -29,7 +29,10 @@ namespace util {
 template<typename T>
 class Observer {
 public:
-    virtual void update(T event) = 0;
+    virtual void update(T event)
+    {
+        (void)event;
+    }
 };
 
 /**

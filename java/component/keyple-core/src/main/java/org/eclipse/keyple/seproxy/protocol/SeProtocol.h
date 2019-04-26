@@ -15,15 +15,21 @@
 #include <string>
 #include <iostream>
 
+/* Common */
+#include "Export.h"
+
 namespace org {
     namespace eclipse {
         namespace keyple {
             namespace seproxy {
                 namespace protocol {
 
-                    class SeProtocol {
+                    class EXPORT SeProtocol {
                     public:
-                        virtual std::string getName() = 0;
+                        virtual std::string getName()
+                        {
+                            return "";
+                        }
 
                         /**
                          *
