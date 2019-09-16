@@ -13,15 +13,11 @@
 #include "StubSe2.h"
 
 
-using ObservableReaderNotificationEngine = org::eclipse::keyple::example::generic::common::ObservableReaderNotificationEngine;
-using StubSe1           = org::eclipse::keyple::example::generic::pc::stub::se::StubSe1;
-using StubSe2           = org::eclipse::keyple::example::generic::pc::stub::se::StubSe2;
-using StubPlugin        = org::eclipse::keyple::plugin::stub::StubPlugin;
-using StubReader        = org::eclipse::keyple::plugin::stub::StubReader;
-using StubSecureElement = org::eclipse::keyple::plugin::stub::StubSecureElement;
-using ReaderPlugin      = org::eclipse::keyple::seproxy::ReaderPlugin;
-using SeProxyService    = org::eclipse::keyple::seproxy::SeProxyService;
-using ObservablePlugin  = org::eclipse::keyple::seproxy::event::ObservablePlugin;
+using namespace org::eclipse::keyple::example::generic::common;
+using namespace org::eclipse::keyple::example::generic::pc::stub::se;
+using namespace org::eclipse::keyple::plugin::stub;
+using namespace org::eclipse::keyple::core::seproxy;
+using namespace org::eclipse::keyple::core::seproxy::event;
 
 static const std::shared_ptr<void> waitBeforeEnd = nullptr;
 
@@ -30,24 +26,25 @@ int main(int argc, char **argv)
     (void)argc;
     (void)argv;
 
-    std::shared_ptr<ObservableReaderNotificationEngine> demoEngine = std::make_shared<ObservableReaderNotificationEngine>();
+    std::shared_ptr<ObservableReaderNotificationEngine> demoEngine =
+	std::make_shared<ObservableReaderNotificationEngine>();
 
     /*
-        * Alex: diamond issue, casting PcscPlugin into ReaderPlugin can take two
-        * routes:
-        * - PcscPlugin -> AbstractThreadedObservablePlugin ->
-        *   AbstractObservablePlugin -> ReaderPlugin
-        * or
-        * - PcscPlugin -> AbstractThreadedObservablePlugin -> ObservablePlugin ->
-        *   ReaderPlugin
-        *
-        * Forcing conversion to ObservablePlugin for now but should be fixed or at
-        * least validated.
-        */
+     * Alex: diamond issue, casting PcscPlugin into ReaderPlugin can take two
+     * routes:
+     * - PcscPlugin -> AbstractThreadedObservablePlugin ->
+     *   AbstractObservablePlugin -> ReaderPlugin
+     * or
+     * - PcscPlugin -> AbstractThreadedObservablePlugin -> ObservablePlugin ->
+     *   ReaderPlugin
+     *
+     * Forcing conversion to ObservablePlugin for now but should be fixed or at
+     * least validated.
+     */
     SeProxyService seProxyService = SeProxyService::getInstance();
     std::set<std::shared_ptr<ReaderPlugin>> pluginsSet = std::set<std::shared_ptr<ReaderPlugin>>();
-    
-    StubPlugin stubPlugin = StubPlugin::getInstance();
+
+    StubPlugin& stubPlugin = StubPlugin::getInstance();
     stubPlugin.initReaders();
     pluginsSet.insert(std::dynamic_pointer_cast<ReaderPlugin>(std::dynamic_pointer_cast<ObservablePlugin>(std::make_shared<StubPlugin>(stubPlugin))));
     seProxyService.setPlugins(pluginsSet);
@@ -56,8 +53,8 @@ int main(int argc, char **argv)
     std::cout << "Set plugin observer." << std::endl;
     demoEngine->setPluginObserver();
 
-    std::cout << "Wait a little to see the \"no reader available message\"." << std::endl;
-
+    std::cout << "Wait a little to see the \"no reader available message\"."
+	      << std::endl;
     Thread::sleep(200);
 
     std::cout << "Plug reader 1." << std::endl;
@@ -70,9 +67,11 @@ int main(int argc, char **argv)
 
     Thread::sleep(1000);
 
-    std::shared_ptr<StubReader> reader1 = std::dynamic_pointer_cast<StubReader>(stubPlugin.getReader("Reader1"));
+    std::shared_ptr<StubReader> reader1 =
+	std::dynamic_pointer_cast<StubReader>(stubPlugin.getReader("Reader1"));
 
-    std::shared_ptr<StubReader> reader2 = std::dynamic_pointer_cast<StubReader>(stubPlugin.getReader("Reader2"));
+    std::shared_ptr<StubReader> reader2 =
+	std::dynamic_pointer_cast<StubReader>(stubPlugin.getReader("Reader2"));
 
     /* Create 'virtual' Hoplink and SAM SE */
     std::shared_ptr<StubSecureElement> se1 = std::make_shared<StubSe1>();

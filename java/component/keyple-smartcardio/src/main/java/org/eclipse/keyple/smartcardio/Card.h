@@ -1,150 +1,220 @@
 /*
- * Copyright (c) 2018 Calypso Networks Association https://www.calypsonet-asso.org/
- *
- * All rights reserved. This program and the accompanying materials are made available under the
- * terms of the Eclipse Public License version 2.0 which accompanies this distribution, and is
- * available at https://www.eclipse.org/org/documents/epl-2.0/EPL-2.0.html
- */
+* Copyright (c) 2018 Calypso Networks Association https://www.calypsonet-asso.org/
+*
+* All rights reserved. This program and the accompanying materials are made available under the
+* terms of the Eclipse Public License version 2.0 which accompanies this distribution, and is
+* available at https://www.eclipse.org/org/documents/epl-2.0/EPL-2.0.html
+*/
 
-#ifndef KEYPLE_PLUGIN_PCSC_CARD_H
-#define KEYPLE_PLUGIN_PCSC_CARD_H
+#pragma once
+
+#include <vector>
 
 /* Smartcard I/O */
-#include "CardChannel.h"
 #include "CardException.h"
+#include "PCSCException.h"
 
 /* Common */
+#include "Export.h"
 #include "Logger.h"
 #include "LoggerFactory.h"
+#include "Thread.h"
 
+/* PC/SC */
+#if defined(WIN32) || defined(__MINGW32__) || defined(__MINGW64__)
+#include <winscard.h>
+#else
+#include <PCSC/winscard.h>
+#include <PCSC/wintypes.h>
+#endif
+
+namespace org { namespace eclipse { namespace keyple { namespace smartcardio { class ATR; }}}}
+namespace org { namespace eclipse { namespace keyple { namespace smartcardio { class CardChannel; }}}}
+namespace org { namespace eclipse { namespace keyple { namespace smartcardio { class CardTerminal; }}}}
+
+namespace org {
+namespace eclipse {
 namespace keyple {
-    namespace plugin {
-        namespace pcsc {
+namespace smartcardio {
 
-            using Logger = org::eclipse::keyple::common::Logger;
-            using LoggerFactory = org::eclipse::keyple::common::LoggerFactory;
+using Logger        = org::eclipse::keyple::common::Logger;
+using LoggerFactory = org::eclipse::keyple::common::LoggerFactory;
 
-            /**
-             * @class Card
-             *
-             */
-            class Card {
-            public:
-                /**
-                 * Constructor
-                 *
-                 * Constructs a new Card object.
-                 *
-                 * This constructor is called by subclasses only. Application should call list() or
-                 * getTerminal() to obtain a CardTerminal object.
-                 */
-                Card()
-                {
-                    logger->debug("Card::Card\n");
-                }
+class EXPORT Card {
+public:
+    /** */
+    enum State {
+        OK = 0,
+        REMOVED,
+        DISCONNECTED
+    };
 
-                /**
-                 * Returns the CardChannel for the basic logical channel. The basic logical
-                 * channel has a channel number of 0.
-                 *
-                 * @throws SecurityException if a SecurityManager exists and the caller does
-                 *                           not have the required permission
-                 * @throws IllegalStateException if this card object has been disposed of via
-                 *                               the disconnect() method
-                 */
-                std::shared_ptr<CardChannel> getBasicChannel()
-                {
-                    logger->debug("Card::getBasicChannel\n");
+    /** 
+     * Protocol in use, one of SCARD_PROTOCOL_T0 and SCARD_PROTOCOL_T1 
+     */
+    DWORD protocol;
 
-                    return std::make_shared<CardChannel>(channel);
-                }
+    /**
+     * The native SCARDHANDL
+     */
+    SCARDHANDLE cardhdl;
 
+    /**
+     * 
+     */
+    SCARD_IO_REQUEST pioSendPCI;
 
-                /**
-                 * Returns the ATR of this card.
-                 *
-                 * @return the ATR of this card.
-                 */
-                std::vector<char> getATR()
-                {
-                    return atr;
-                }
+private:
+    /**
+     * ATR of this card
+     */
+    ATR* atr;
 
-                /**
-                 * Requests exclusive access to this card.
-                 *
-                 * Once a thread has invoked beginExclusive, only this thread is
-                 * allowed to communicate with this card until it calls
-                 * endExclusive. Other threads attempting communication will
-                 * receive a CardException.
-                 *
-                 * Applications have to ensure that exclusive access is
-                 * correctly released. This can be achieved by executing the
-                 * beginExclusive() and endExclusive calls in a try ... finally
-                 * block.
-                 *
-                 * @throw SecurityException if a SecurityManager exists and the
-                 *        caller does not have the required permission
-                 * @throw CardException if exclusive access has already been set
-                 *        or if exclusive access could not be established
-                 * @throw IllegalStateException if this card object has been
-                 *        disposed of via the disconnect() method
-                 */
-                void beginExclusive()
-                {
+    /**
+     * 
+     */
+    const std::shared_ptr<Logger> logger = LoggerFactory::getLogger(typeid(Card));
 
-                }
+    /**
+     * The terminal that created this card
+     */
+    CardTerminal* terminal;
 
-                /**
-                 * Releases the exclusive access previously established using beginExclusive.
-                 *
-                 * @throws SecurityException if a SecurityManager exists and the caller does not have the required
-                 *                           permission
-                 * @throws llegalStateException if the active Thread does not currently have exclusive access to this
-                 *                              card or if this card object has been disposed of via the disconnect()
-                 *                              method
-                 * @throws CardException if the operation failed
-                 */
-                 void endExclusive()
-                 {
+    /**
+     * The basic logical channel (channel 0)
+     */
+    CardChannel* basicChannel;
 
-                 }
+    /**
+     * State of this card connection
+     */
+    State state;
 
-                /**
-                 * Disconnects the connection with this card. After this method
-                 * returns, calling methods on this object or in CardChannels
-                 * associated with this object that require interaction with
-                 * the card will raise an IllegalStateException.
-                 *
-                 * @param reset whether to reset the card after disconnecting.
-                 *
-                 * @throw CardException if the card operation failed
-                 * @throw SecurityException if a SecurityManager exists and the
-                 *        caller does not have the required permission
-                 */
-                void disconnect(bool reset)
-                {
-                    (void)reset;
-                }
+    /**
+     * Thread holding exclusive access to the card, or null
+     */
+    Thread *exclusiveThread;
 
-            private:
-                /**
-                 *
-                 */
-                CardChannel channel;
+public:
+    /**
+     * Constructor
+     *
+     * Constructs a new Card object.
+     *
+     * This constructor is called by subclasses only. Application should call list() or
+     * getTerminal() to obtain a CardTerminal object.
+     */
+    Card(CardTerminal* terminal, std::string protocol);
 
-                /**
-                 *
-                 */
-                std::vector<char> atr;
+    /**
+     * Returns the ATR of this card.
+     *
+     * @return the ATR of this card.
+     */
+    ATR* getATR();
 
-                /**
-                 *
-                 */
-                const std::shared_ptr<Logger> logger = LoggerFactory::getLogger(typeid(this));
-            };
-        }
-    }
+    /**
+     * 
+     */
+    std::string getProtocol();
+
+    /**
+     * Returns the CardChannel for the basic logical channel. The basic logical
+     * channel has a channel number of 0.
+     *
+     * @throws SecurityException if a SecurityManager exists and the caller does
+     *                           not have the required permission
+     * @throws IllegalStateException if this card object has been disposed of via
+     *                               the disconnect() method
+     */
+    CardChannel* getBasicChannel();
+
+    /**
+     * 
+     */
+    CardChannel* openLogicalChannel();
+
+    /**
+     * Requests exclusive access to this card.
+     *
+     * Once a thread has invoked beginExclusive, only this thread is
+     * allowed to communicate with this card until it calls
+     * endExclusive. Other threads attempting communication will
+     * receive a CardException.
+     *
+     * Applications have to ensure that exclusive access is
+     * correctly released. This can be achieved by executing the
+     * beginExclusive() and endExclusive calls in a try ... finally
+     * block.
+     *
+     * @throw SecurityException if a SecurityManager exists and the
+     *        caller does not have the required permission
+     * @throw CardException if exclusive access has already been set
+     *        or if exclusive access could not be established
+     * @throw IllegalStateException if this card object has been
+     *        disposed of via the disconnect() method
+     */
+    void beginExclusive();
+
+    /**
+     * Releases the exclusive access previously established using beginExclusive.
+     *
+     * @throws SecurityException if a SecurityManager exists and the caller does not have the required
+     *                           permission
+     * @throws llegalStateException if the active Thread does not currently have exclusive access to this
+     *                              card or if this card object has been disposed of via the disconnect()
+     *                              method
+     * @throws CardException if the operation failed
+     */
+    void endExclusive();
+
+    /**
+     * Disconnects the connection with this card. After this method
+     * returns, calling methods on this object or in CardChannels
+     * associated with this object that require interaction with
+     * the card will raise an IllegalStateException.
+     *
+     * @param reset whether to reset the card after disconnecting.
+     *
+     * @throw CardException if the card operation failed
+     * @throw SecurityException if a SecurityManager exists and the
+     *        caller does not have the required permission
+     */
+    void disconnect(bool reset);
+
+    /**
+     * 
+     */
+    bool isValid();
+
+    /**
+     * 
+     */
+    void checkExclusive();
+
+    /**
+     * 
+     */
+    void checkState();
+
+    /**
+     *
+     */
+    void checkSecurity(std::string action);
+
+    /**
+     * 
+     */
+    void handleError(PCSCException e);
+
+private:
+    /**
+     *
+     */
+    static int getSW(std::vector<char> b);
+};
+
 }
-
-#endif /* KEYPLE_PLUGIN_PCSC_CARD_H */
+}
+}
+}

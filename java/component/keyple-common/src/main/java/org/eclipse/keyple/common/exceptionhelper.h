@@ -1,8 +1,6 @@
 #pragma once
 
 #include <string>
-#include <sstream>
-#include <iostream>
 
 /* Common */
 #include "Exception.h"
@@ -142,6 +140,21 @@ class IllegalStateException : public std::exception {
     }
 };
 
+class IllegalArgumentException : public std::exception {
+  private:
+    std::string msg;
+
+  public:
+    IllegalArgumentException(const std::string &message = "") : msg(message)
+    {
+    }
+
+    const char *what()
+    {
+        return msg.c_str();
+    }
+};
+
 /*
 class InterruptedException : public std::exception
 {
@@ -208,12 +221,12 @@ class JsonParseException : public std::exception {
     }
 };
 
-class FileNotFoundException : public std::exception {
+class FileNotFoundException : public Exception {
   private:
     std::string msg;
 
   public:
-    FileNotFoundException(const std::string &message = "") : msg(message)
+    FileNotFoundException(const std::string &message = "") : Exception(message)
     {
     }
 
@@ -229,6 +242,36 @@ class URISyntaxException : public std::exception {
 
   public:
     URISyntaxException(const std::string &message = "") : msg(message)
+    {
+    }
+
+    const char *what()
+    {
+        return msg.c_str();
+    }
+};
+
+class CardNotPresentException : public std::exception {
+  private:
+    std::string msg;
+
+  public:
+    CardNotPresentException(const std::string &message = "") : msg(message)
+    {
+    }
+
+    const char *what()
+    {
+        return msg.c_str();
+    }
+};
+
+class NumberFormatException : public std::exception {
+  private:
+    std::string msg;
+
+  public:
+    NumberFormatException(const std::string &message = "") : msg(message)
     {
     }
 

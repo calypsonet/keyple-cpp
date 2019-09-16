@@ -10,10 +10,10 @@
 #include "PcscPlugin.h"
 
 using ObservableReaderNotificationEngine = org::eclipse::keyple::example::generic::common::ObservableReaderNotificationEngine;
-using PcscPlugin = org::eclipse::keyple::plugin::pcsc::PcscPlugin;
-using SeProxyService = org::eclipse::keyple::seproxy::SeProxyService;
-using ReaderPlugin = org::eclipse::keyple::seproxy::ReaderPlugin;
-using ObservablePlugin = org::eclipse::keyple::seproxy::event::ObservablePlugin;
+using PcscPlugin                         = org::eclipse::keyple::plugin::pcsc::PcscPlugin;
+using SeProxyService                     = org::eclipse::keyple::core::seproxy::SeProxyService;
+using ReaderPlugin                       = org::eclipse::keyple::core::seproxy::ReaderPlugin;
+using ObservablePlugin                   = org::eclipse::keyple::core::seproxy::event::ObservablePlugin;
 
 int main(int argc, char **argv)
 {
@@ -36,15 +36,16 @@ int main(int argc, char **argv)
      */
     PcscPlugin pcscplugin = PcscPlugin::getInstance();
     pcscplugin.initReaders();
+    std::shared_ptr<PcscPlugin> shared_plugin = std::shared_ptr<PcscPlugin>(&pcscplugin);
 
     /* Instantiate SeProxyService and add PC/SC plugin */
     SeProxyService& seProxyService = SeProxyService::getInstance();
-    seProxyService.addPlugin(std::make_shared<PcscPlugin>(PcscPlugin::getInstance()));
+    seProxyService.addPlugin(shared_plugin);
 
     /* Set observers */
     demoEngine->setPluginObserver();
 
-    std::cout << "Wait for reader or SE insertion/removal" << std::endl;
+                            std::cout << "Wait for reader or SE insertion/removal" << std::endl;
 
     /* Wait indefinitely. CTRL-C to exit. */
 //JAVA TO C++ CONVERTER TODO TASK: Multithread locking is not converted to native C++ unless you choose one of the options on the 'Modern C++ Options' dialog:

@@ -1,110 +1,138 @@
-#include "UseCase_Generic3_GroupedMultiSelection_Pcsc.h"
-#include "../../../../../../../../../../../../component/keyple-core/src/main/java/org/eclipse/keyple/seproxy/exception/KeypleBaseException.h"
-#include "../../../../../../../../../../../../component/keyple-core/src/main/java/org/eclipse/keyple/seproxy/exception/NoStackTraceThrowable.h"
-#include "../../../../../../../../../../../../component/keyple-core/src/main/java/org/eclipse/keyple/seproxy/SeProxyService.h"
-#include "../../../../../../../../../../../../component/keyple-plugin/pcsc/src/main/java/org/eclipse/keyple/plugin/pcsc/PcscPlugin.h"
-#include "../../../../../../../../../../../../component/keyple-core/src/main/java/org/eclipse/keyple/seproxy/SeReader.h"
+#include "ApduResponse.h"
+#include "ByteArrayUtil.h"
+#include "ChannelState.h"
+#include "GenericSeSelectionRequest.h"
+#include "KeypleBaseException.h"
+#include "MatchingSelection.h"
+#include "NoStackTraceThrowable.h"
+#include "PcscPlugin.h"
 #include "ReaderUtilities.h"
-#include "../../../../../../../../../../../../component/keyple-core/src/main/java/org/eclipse/keyple/seproxy/ChannelState.h"
-#include "../../../../../../../../../../../../component/keyple-core/src/main/java/org/eclipse/keyple/seproxy/SeSelector.h"
-#include "../../../../../../../../../../../../component/keyple-core/src/main/java/org/eclipse/keyple/seproxy/protocol/ContactlessProtocols.h"
-#include "../../../../../../../../../../../../component/keyple-core/src/main/java/org/eclipse/keyple/util/ByteArrayUtils.h"
+#include "SeCommonProtocols.h"
+#include "SelectionsResult.h"
+#include "SelectionStatus.h"
+#include "SeProtocol.h"
+#include "SeProxyService.h"
+#include "SeReader.h"
+#include "SeResponse.h"
+#include "SeSelection.h"
+#include "SeSelector.h"
 
-namespace org {
-    namespace eclipse {
-        namespace keyple {
-            namespace example {
-                namespace generic_Renamed {
-                    namespace pc {
-                        using PcscPlugin = org::eclipse::keyple::plugin::pcsc::PcscPlugin;
-                        using ChannelState = org::eclipse::keyple::seproxy::ChannelState;
-                        using SeProxyService = org::eclipse::keyple::seproxy::SeProxyService;
-                        using SeReader = org::eclipse::keyple::seproxy::SeReader;
-                        using SeSelector = org::eclipse::keyple::seproxy::SeSelector;
-                        using KeypleBaseException = org::eclipse::keyple::seproxy::exception::KeypleBaseException;
-                        using NoStackTraceThrowable = org::eclipse::keyple::seproxy::exception::NoStackTraceThrowable;
-                        using ContactlessProtocols = org::eclipse::keyple::seproxy::protocol::ContactlessProtocols;
-                        using namespace org::eclipse::keyple::transaction;
-                        using ByteArrayUtils = org::eclipse::keyple::util::ByteArrayUtils;
-                        using org::slf4j::Logger;
-                        using org::slf4j::LoggerFactory;
-const std::shared_ptr<org::slf4j::Logger> UseCase_Generic3_GroupedMultiSelection_Pcsc::logger = org::slf4j::LoggerFactory::getLogger(UseCase_Generic1_ExplicitSelectionAid_Pcsc::typeid);
+/* Examples */
+#include "ReaderUtilities.h"
 
-                        void UseCase_Generic3_GroupedMultiSelection_Pcsc::main(std::vector<std::string> &args) throw(KeypleBaseException, InterruptedException, IOException, NoStackTraceThrowable) {
+using namespace org::eclipse::keyple::common;
+using namespace org::eclipse::keyple::core::selection;
+using namespace org::eclipse::keyple::core::seproxy;
+using namespace org::eclipse::keyple::core::seproxy::exception;
+using namespace org::eclipse::keyple::core::seproxy::message;
+using namespace org::eclipse::keyple::core::seproxy::protocol;
+using namespace org::eclipse::keyple::core::util;
+using namespace org::eclipse::keyple::plugin::pcsc;
+using namespace org::eclipse::keyple::example::generic::common;
+using namespace org::eclipse::keyple::example::generic::pc;
 
-                            /* Get the instance of the SeProxyService (Singleton pattern) */
-                            std::shared_ptr<SeProxyService> seProxyService = SeProxyService::getInstance();
+class UseCase_Generic3_GroupedMultiSelection_Pcsc {
 
-                            /* Get the instance of the PC/SC plugin */
-                            std::shared_ptr<PcscPlugin> pcscPlugin = PcscPlugin::getInstance();
+};
 
-                            /* Assign PcscPlugin to the SeProxyService */
-                            seProxyService->addPlugin(pcscPlugin);
+const std::shared_ptr<Logger> logger = LoggerFactory::getLogger(typeid(UseCase_Generic3_GroupedMultiSelection_Pcsc));
 
-                            /*
-                             * Get a SE reader ready to work with generic SE. Use the getReader helper method from the
-                             * ReaderUtilities class.
-                             */
-                            std::shared_ptr<SeReader> seReader = ReaderUtilities::getDefaultContactLessSeReader(seProxyService);
+int main(int argc, char **argv)
+{
+    (void)argc;
+    (void)argv;
 
-                            /* Check if the reader exists */
-                            if (seReader == nullptr) {
-                                throw std::make_shared<IllegalStateException>("Bad SE reader setup");
-                            }
+    /* Get the instance of the PC/SC plugin */
+    PcscPlugin pcscplugin = PcscPlugin::getInstance();
+    pcscplugin.initReaders();
 
-                            logger->info("=============== UseCase Generic #3: AID based grouped explicit multiple selection ==================");
-                            logger->info("= SE Reader  NAME = {}", seReader->getName());
+    /* Assign PcscPlugin to the SeProxyService */
+    SeProxyService& seProxyService = SeProxyService::getInstance();
+    seProxyService.addPlugin(std::make_shared<PcscPlugin>(pcscplugin));
 
-                            std::vector<std::shared_ptr<MatchingSe>> matchingSeTable(3);
+    /*
+     * Get a SE reader ready to work with contactless SE. Use the getReader helper method from
+     * the ReaderUtilities class.
+     */
+    std::shared_ptr<SeReader> seReader = ReaderUtilities::getDefaultContactLessSeReader();
 
-                            /* Check if a SE is present in the reader */
-                            if (seReader->isSePresent()) {
-
-                                /* CLOSE_AFTER pour assurer la sélection de toutes les applications */
-                                std::shared_ptr<SeSelection> seSelection = std::make_shared<SeSelection>(seReader);
-
-                                /* operate SE selection (change the AID here to adapt it to the SE used for the test) */
-                                std::string seAidPrefix = "A000000404012509";
-
-                                /* AID based selection */
-                                matchingSeTable[0] = seSelection->prepareSelection(std::make_shared<SeSelectionRequest>(std::make_shared<SeSelector>(std::make_shared<SeSelector::AidSelector>(ByteArrayUtils::fromHex(seAidPrefix), nullptr), nullptr, "Initial selection #1"), ChannelState::CLOSE_AFTER, ContactlessProtocols::PROTOCOL_ISO14443_4));
-                                /* next selection */
-                                matchingSeTable[1] = seSelection->prepareSelection(std::make_shared<SeSelectionRequest>(std::make_shared<SeSelector>(std::make_shared<SeSelector::AidSelector>(ByteArrayUtils::fromHex(seAidPrefix), nullptr), nullptr, "Next selection #2"), ChannelState::CLOSE_AFTER, ContactlessProtocols::PROTOCOL_ISO14443_4));
-                                /* next selection */
-                                matchingSeTable[2] = seSelection->prepareSelection(std::make_shared<SeSelectionRequest>(std::make_shared<SeSelector>(std::make_shared<SeSelector::AidSelector>(ByteArrayUtils::fromHex(seAidPrefix), nullptr), nullptr, "Next selection #3"), ChannelState::CLOSE_AFTER, ContactlessProtocols::PROTOCOL_ISO14443_4));
-                                /*
-                                 * Actual SE communication: operate through a single request the SE selection
-                                 */
-                                if (seSelection->processExplicitSelection()) {
-
-                                    int matchedSelection = 0;
-                                    /* Count the number of SE that matched the selection */
-                                    for (int i = 0; i < matchingSeTable.size(); i++) {
-                                        if (matchingSeTable[i]->getSelectionSeResponse() != nullptr) {
-                                            matchedSelection++;
-                                        }
-                                    }
-                                    logger->info("The SE matched {} time(s) the selection.", matchedSelection);
-
-                                    for (int i = 0; i < matchingSeTable.size(); i++) {
-
-                                        if (matchingSeTable[i]->getSelectionSeResponse() != nullptr) {
-                                            logger->info("Selection status for case {}: \n\t\tATR: {}\n\t\tFCI: {}", i + 1, ByteArrayUtils::toHex(matchingSeTable[i]->getSelectionSeResponse().getSelectionStatus().getAtr().getBytes()), ByteArrayUtils::toHex(matchingSeTable[i]->getSelectionSeResponse().getSelectionStatus().getFci().getDataOut()));
-                                        }
-                                    }
-                                }
-                                else {
-                                    logger->info("The selection process did not return any selected SE.");
-                                }
-                            }
-                            else {
-                                logger->error("No SE were detected.");
-                            }
-                            exit(0);
-                        }
-                    }
-                }
-            }
-        }
+    /* Check if the reader exists */
+    if (seReader == nullptr) {
+        throw std::make_shared<IllegalStateException>("Bad SE reader setup");
     }
+
+    logger->info("=============== UseCase Generic #3: AID based grouped explicit multiple selection ==================\n");
+    logger->info("= SE Reader  NAME = %s\n", seReader->getName());
+
+    /* Check if a SE is present in the reader */
+    if (seReader->isSePresent()) {
+
+        /* CLOSE_AFTER pour assurer la sélection de toutes les applications */
+        std::shared_ptr<SeSelection> seSelection = std::make_shared<SeSelection>();
+
+        /* operate SE selection (change the AID here to adapt it to the SE used for the test) */
+        //std::string seAidPrefix = "A000000404012509";
+        std::string seAidPrefix = "304554502E494341";
+
+        /* AID based selection (1st selection, later indexed 0 */
+        {
+        std::vector<char> aid = ByteArrayUtil::fromHex(seAidPrefix);
+        std::shared_ptr<SeSelector::AidSelector::IsoAid> isoAid = std::make_shared<SeSelector::AidSelector::IsoAid>(aid);
+        std::shared_ptr<SeSelector::AidSelector> aidSelector  = 
+            std::make_shared<SeSelector::AidSelector>(isoAid, nullptr, SeSelector::AidSelector::FileOccurrence::FIRST,
+                                                      SeSelector::AidSelector::FileControlInformation::FCI);
+        std::shared_ptr<SeSelector> seSelector =
+            std::make_shared<SeSelector>(SeCommonProtocols::PROTOCOL_ISO14443_4, nullptr, aidSelector, "Initial selection #1");
+        std::shared_ptr<GenericSeSelectionRequest> genericSeSelectionRequest =
+            std::make_shared<GenericSeSelectionRequest>(seSelector, ChannelState::CLOSE_AFTER);
+        seSelection->prepareSelection(genericSeSelectionRequest);
+        }
+
+        /* next selection (2nd selection, later indexed 1) */
+        {
+        std::vector<char> aid = ByteArrayUtil::fromHex(seAidPrefix);
+        std::shared_ptr<SeSelector::AidSelector::IsoAid> isoAid = std::make_shared<SeSelector::AidSelector::IsoAid>(aid);
+        std::shared_ptr<SeSelector::AidSelector> aidSelector  = 
+            std::make_shared<SeSelector::AidSelector>(isoAid, nullptr, SeSelector::AidSelector::FileOccurrence::NEXT,
+                                                      SeSelector::AidSelector::FileControlInformation::FCI);
+        std::shared_ptr<SeSelector> seSelector =
+            std::make_shared<SeSelector>(SeCommonProtocols::PROTOCOL_ISO14443_4, nullptr, aidSelector, "Initial selection #2");
+        std::shared_ptr<GenericSeSelectionRequest> genericSeSelectionRequest =
+            std::make_shared<GenericSeSelectionRequest>(seSelector, ChannelState::CLOSE_AFTER);
+        seSelection->prepareSelection(genericSeSelectionRequest);
+        }
+        /* next selection */
+        {
+        std::vector<char> aid = ByteArrayUtil::fromHex(seAidPrefix);
+        std::shared_ptr<SeSelector::AidSelector::IsoAid> isoAid = std::make_shared<SeSelector::AidSelector::IsoAid>(aid);
+        std::shared_ptr<SeSelector::AidSelector> aidSelector  = 
+            std::make_shared<SeSelector::AidSelector>(isoAid, nullptr, SeSelector::AidSelector::FileOccurrence::NEXT,
+                                                      SeSelector::AidSelector::FileControlInformation::FCI);
+        std::shared_ptr<SeSelector> seSelector =
+            std::make_shared<SeSelector>(SeCommonProtocols::PROTOCOL_ISO14443_4, nullptr, aidSelector, "Initial selection #3");
+        std::shared_ptr<GenericSeSelectionRequest> genericSeSelectionRequest =
+            std::make_shared<GenericSeSelectionRequest>(seSelector, ChannelState::CLOSE_AFTER);
+        seSelection->prepareSelection(genericSeSelectionRequest);
+        }
+
+        /*
+         * Actual SE communication: operate through a single request the SE selection
+         */
+        std::shared_ptr<SelectionsResult> selectionsResult = seSelection->processExplicitSelection(seReader);
+        if (selectionsResult->getMatchingSelections().size() > 0) {
+            for (auto matchingSelection : selectionsResult->getMatchingSelections()) {
+                std::shared_ptr<AbstractMatchingSe> matchingSe = matchingSelection->getMatchingSe();
+                logger->info("Selection status for selection \"%s\" (indexed %d): \n\t\tATR: %s\n\t\tFCI: %s",
+                             matchingSelection->getExtraInfo(), matchingSelection->getSelectionIndex(),
+                             ByteArrayUtil::toHex(matchingSe->getSelectionStatus()->getAtr()->getBytes()),
+                             ByteArrayUtil::toHex(matchingSe->getSelectionStatus()->getFci()->getDataOut()));
+            }
+        } else {
+            logger->info("No SE matched the selection\n");
+        }
+    } else {
+        logger->error("No SE were detected\n");
+    }
+
+    return 0;
 }
