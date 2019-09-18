@@ -1,6 +1,6 @@
 #include "BaseStubTest.h"
-#include "../../../../../../../main/java/org/eclipse/keyple/plugin/stub/StubPlugin.h"
-#include "../../../../../../../../../../keyple-core/src/main/java/org/eclipse/keyple/seproxy/exception/KeypleReaderException.h"
+#include "StubPlugin.h"
+#include "KeypleReaderException.h"
 
 namespace org {
     namespace eclipse {

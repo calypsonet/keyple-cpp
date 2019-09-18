@@ -82,6 +82,8 @@ INCLUDE_DIRECTORIES(
 
 	# google test and mock
 	${CMAKE_CURRENT_BINARY_DIR}/googletest-src
+	${CMAKE_CURRENT_BINARY_DIR}/googletest-src/googlemock/include
+	${CMAKE_CURRENT_BINARY_DIR}/googletest-src/googletest/include
 )
 
 ADD_EXECUTABLE(TU_plugin_stub_test

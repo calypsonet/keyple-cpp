@@ -1,9 +1,6 @@
+
 #pragma once
 
-#include "../../../../../../../../../../keyple-core/src/main/java/org/eclipse/keyple/seproxy/event/ObservablePlugin.h"
-#include "../../../../../../../../../../keyple-core/src/main/java/org/eclipse/keyple/seproxy/event/ObservableReader.h"
-#include "../../../../../../../../../../keyple-core/src/main/java/org/eclipse/keyple/util/CountDownLatch.h"
-#include "../../../../../../../main/java/org/eclipse/keyple/plugin/stub/StubSecureElement.h"
 #include <string>
 #include <unordered_map>
 #include <vector>
