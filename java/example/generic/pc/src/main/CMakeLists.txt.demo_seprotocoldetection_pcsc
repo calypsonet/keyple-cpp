@@ -59,7 +59,7 @@ ADD_EXECUTABLE(demo_seprotocoldetection_pcsc
 )
 
 IF(UNIX)
-	SET(SPEC_LIBS pthread pcsclite)
+#	SET(SPEC_LIBS pthread pcsclite)
 ENDIF(UNIX)
 
 IF(APPLE)

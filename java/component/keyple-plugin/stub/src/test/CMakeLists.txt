@@ -88,11 +88,12 @@ INCLUDE_DIRECTORIES(
 
 ADD_EXECUTABLE(TU_plugin_stub_test
 	# TU Stub
-	${CMAKE_CURRENT_SOURCE_DIR}/java/org/eclipse/keyple/plugin/stub/BaseStubTest.cpp
+	#${CMAKE_CURRENT_SOURCE_DIR}/java/org/eclipse/keyple/plugin/stub/BaseStubTest.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/java/org/eclipse/keyple/plugin/stub/StubPluginTest.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/java/org/eclipse/keyple/plugin/stub/StubReaderTest.cpp
+	#${CMAKE_CURRENT_SOURCE_DIR}/java/org/eclipse/keyple/plugin/stub/StubReaderTest.cpp
 )
 
-SET(LINK_LIBS gtest gmock ${WINSCARD} )
+SET(LINK_LIBS ${WINSCARD} )
+#SET(LINK_LIBS gtest gmock ${WINSCARD} )
 
 TARGET_LINK_LIBRARIES(TU_plugin_stub_test ${LINK_LIBS})

@@ -71,7 +71,8 @@ IF(APPLE)
 ENDIF(APPLE)
 
 IF(UNIX)
-    FIND_LIBRARY(WINSCARD pcsclite)
+    #FIND_LIBRARY(WINSCARD pcsclite)
+#	SET(WINSCARD pcsclite)
 ENDIF(UNIX)
 
 TARGET_LINK_LIBRARIES(usecase_generic3_groupedmultiselection_pcsc keyplepluginpcsc keyplecalypso keyplecore keyplesmartcardio ${WINSCARD})

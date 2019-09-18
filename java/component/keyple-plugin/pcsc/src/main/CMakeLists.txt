@@ -77,6 +77,9 @@ ENDIF(APPLE)
 #	NAMES keyplecore
 #	PATHS ${CMAKE_BUILD_DIRECTORY}
 #	PATH_SUFFIXES bin)
+If(UNIX)
+	SET(WINSCARD pcsclite)
+ENDIF(UNIX)
 
 SET(LINK_LIBS ${WINSCARD} keyplecore keyplesmartcardio)
 

@@ -53,7 +53,8 @@ IF(APPLE)
 ENDIF(APPLE)
 
 IF(UNIX)
-	FIND_LIBRARY(WINSCARD pcsclite)
+	#SET(WINSCARD "-usr/lib/x86_64-linux-gnu/libpcsclite")
+#	SET(WINSCARD pcsclite)
 ENDIF(UNIX)
 
 ADD_EXECUTABLE(demo_observablereadernotification_pcsc
