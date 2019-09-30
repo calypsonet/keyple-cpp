@@ -1,9 +1,10 @@
 #pragma once
 
 #include "BaseStubTest.h"
-#include "../../../../../../../../../../keyple-core/src/main/java/org/eclipse/keyple/seproxy/event/ObservablePlugin.h"
-#include "../../../../../../../../../../../java/example/generic/common/src/main/java/org/eclipse/keyple/example/generic/common/ObservableReaderNotificationEngine.h"
-#include "../../../../../../../../../../keyple-core/src/main/java/org/eclipse/keyple/util/CountDownLatch.h"
+#include "AbstractObservablePlugin.h"
+#include "ObservableReaderNotificationEngine.h"
+#include "CountDownLatch.h"
+
 #include <string>
 #include <unordered_set>
 #include <stdexcept>
