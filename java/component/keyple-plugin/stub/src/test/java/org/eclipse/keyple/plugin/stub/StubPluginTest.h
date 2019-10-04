@@ -1,7 +1,7 @@
 #pragma once
 
 #include "BaseStubTest.h"
-#include "AbstractObservablePlugin.h"
+#include "ObservablePlugin.h"
 #include "ObservableReaderNotificationEngine.h"
 #include "CountDownLatch.h"
 
@@ -78,7 +78,7 @@ namespace org {
                         virtual void testA_PlugOneReaderEvent();
 
                     // private
-                        class PluginObserverAnonymousInnerClass : public std::enable_shared_from_this<PluginObserverAnonymousInnerClass>, public ObservablePlugin::PluginObserver 
+                        class PluginObserverAnonymousInnerClass : public std::enable_shared_from_this<PluginObserverAnonymousInnerClass>//, public ObservablePlugin::PluginObserver 
                         {
                         private:
                             std::shared_ptr<StubPluginTest> outerInstance;
@@ -131,7 +131,7 @@ namespace org {
                         virtual void testB_UnplugOneReaderEvent();
 
                     //private:
-                        class PluginObserverAnonymousInnerClass2 : public std::enable_shared_from_this<PluginObserverAnonymousInnerClass2>, public ObservablePlugin::PluginObserver
+                        class PluginObserverAnonymousInnerClass2 : public std::enable_shared_from_this<PluginObserverAnonymousInnerClass2>//, public ObservablePlugin::PluginObserver
                         {
                         private:
                             std::shared_ptr<StubPluginTest> outerInstance;
@@ -178,7 +178,7 @@ namespace org {
                         virtual void testE_PlugMultiReadersEvent();
 
                     //private:
-                        class PluginObserverAnonymousInnerClass3 : public std::enable_shared_from_this<PluginObserverAnonymousInnerClass3>, public ObservablePlugin::PluginObserver 
+                        class PluginObserverAnonymousInnerClass3 : public std::enable_shared_from_this<PluginObserverAnonymousInnerClass3>//, public ObservablePlugin::PluginObserver 
                         {
                         private:
                             std::shared_ptr<StubPluginTest> outerInstance;
@@ -210,7 +210,7 @@ namespace org {
 
                     //private:
                     public:
-                        class PluginObserverAnonymousInnerClass4 : public std::enable_shared_from_this<PluginObserverAnonymousInnerClass4>, public ObservablePlugin::PluginObserver 
+                        class PluginObserverAnonymousInnerClass4 : public std::enable_shared_from_this<PluginObserverAnonymousInnerClass4>//, public ObservablePlugin::PluginObserver 
                         {
                         private:
                             std::shared_ptr<StubPluginTest> outerInstance;

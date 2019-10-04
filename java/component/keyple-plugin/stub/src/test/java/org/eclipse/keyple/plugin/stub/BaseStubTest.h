@@ -34,11 +34,10 @@ namespace org {
         namespace keyple {
             namespace plugin {
                 namespace stub {
-                    using KeypleReaderException = org::eclipse::keyple::seproxy::exception::KeypleReaderException;
                     using Logger                = org::eclipse::keyple::common::Logger;
                     using LoggerFactory         = org::eclipse::keyple::common::LoggerFactory;
 
-                    class BaseStubTest : public std::enable_shared_from_this<BaseStubTest> 
+                    class BaseStubTest : public std::enable_shared_from_this<BaseStubTest>//, public testing::Test
                     {
 
                     public:
@@ -53,12 +52,15 @@ namespace org {
 //ORIGINAL LINE: @Rule public org.junit.rules.TestName name = new org.junit.rules.TestName();
                         std::shared_ptr<BaseStubTest> name = std::make_shared<BaseStubTest>();
 
-                        virtual void setUp();
+                        void setUp();
 
-                        virtual void tearDown();
+                        void tearDown();
+
+                        void TestBoby();
                     };
                 }
             }
         }
     }
 }
+
