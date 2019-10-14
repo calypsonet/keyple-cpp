@@ -6,14 +6,14 @@
 
 #include "Export.h"
 
-class Pattern;  
+class Pattern;
 
 class EXPORT Matcher {
-private:
+  private:
     /**
      * The Pattern object that created this Matcher.
      */
-    Pattern* parentPattern;
+    Pattern *parentPattern;
 
     /**
      * The original string being matched.
@@ -26,7 +26,7 @@ private:
      * changes these values.
      */
     int from;
-    //int to;
+    int to;
 
     /**
      * Matcher state used by the last node. NOANCHOR is used when a
@@ -43,12 +43,12 @@ private:
      * holds the index of the end of the last match (which is where the
      * next search starts).
      */
-    //int first = -1, last = 0;
+    int first = -1, last = 0;
 
     /**
      * The end index of what matched in the last match operation.
      */
-    //int oldLast = -1;
+    int oldLast = -1;
 
     /**
      * Boolean indicating whether or not more input could change
@@ -78,16 +78,38 @@ private:
     //bool requireEnd;
 
     /**
+     * Substring on which the regex_search is applied. It used to be a temp
+     * variable whithin the Matcher::search() function but for some
+     * reasons, on Windows, the 'groups' std::smatch doesn't keep its data
+     * after leaving the Matcher::search() function (e.g. in other words, it's
+     * very probable that std::match only provides references to specific
+     * locations in an existing string).
+     */
+    std::string subs;
+
+    /**
      * The storage used by groups. They may contain invalid values if
      * a group was skipped during the matching.
      */
-    std::vector<int> groups;
+    std::smatch groups;
 
-public:
+    /**
+     * The index of the last position appended in the substitution.
+     */
+    int lastAppendPosition = 0;
+
+    /**
+     * Storage used by nodes to tell what repetition they are on in
+     * a pattern, and where groups begin. The nodes themselves are stateless,
+     * so they rely on this field to hold state during a match.
+     */
+    std::vector<int> locals;
+
+  public:
     /**
      * All matchers have the state used by Pattern during a match.
      */
-    Matcher(Pattern* parent, const std::string& text);
+    Matcher(Pattern *parent, const std::string &text);
 
     /**
      * Initiates a search for an anchored match to a Pattern within the given
@@ -144,7 +166,7 @@ public:
      */
     std::string replaceAll(std::string replacement);
 
-    /*
+    /**
      * Attempts to find the next subsequence of the input sequence that matches the pattern.
      * 
      * This method starts at the beginning of this matcher's region, o, if a previous invocation of
@@ -157,7 +179,7 @@ public:
      */
     bool find();
 
-    /*
+    /**
      * Resets this matcher and then attempts to find the next subsequence of the input sequence that
      * matches the pattern, starting at the specified index.
      * 
@@ -172,7 +194,7 @@ public:
      */
     bool find(int start);
 
-    /*
+    /**
      * Returns the text that matched a given group of the regular expression. Explicit capturing groups
      * in the pattern are numbered left to right in order of their opening parenthesis, starting at 1. The
      * special group 0 represents the entire match (as if the entier pattern is surrounded by an implicit
@@ -191,7 +213,7 @@ public:
      */
     std::string group(int group);
 
-    /*
+    /**
      * Returns the text that matched the whole regular expression.
      * 
      * @return the text
@@ -199,4 +221,33 @@ public:
      * @throws IllegalStateException if no successful match has been made
      */
     std::string group();
+
+    /**
+     * Initiates a search to find a Pattern within the given bounds. The groups are filled with defaults
+     * values and the match of the root of the state machine is called. The state machine will hold the
+     * state of the match as it proceeds in this matcher.
+     *
+     * Matcher.from is not set here, because it is the 'hard' boundary of the start of the search which
+     * anchors will set to. The from param is the 'soft' boundary of the start of the search, meaning
+     * that the regex tries to match at that index but won't match there. Subsequent calls to the search
+     * methods start at a new 'soft' boundary which is the end of the previous match.
+     */
+    bool search(int from);
+
+    /**
+     * Returns the end index of the text.
+     *
+     * @return the index after the last charaecter in the text
+     */
+    int getTextLength();
+
+    /**
+     * Resets this matcher.
+     *
+     * <p> Resetting a matcher discards all of its explicit states information and sets its append
+     * position to zero. The matcher's region is set to the default region, which is its entire
+     * character sequence. The anchoring and transparency of this matcher's region boundaries are
+     * unaffected.
+     */
+    Matcher *reset();
 };

@@ -8,9 +8,9 @@
 #include "PoCustomModificationCommandBuilder.h"
 #include "ReadRecordsRespPars.h"
 #include "ReadRecordsCmdBuild.h"
-#include "SeCommonProtocols.h"
-#include "SeSelector.h"
-#include "SeProtocol.h"
+#include "SeCommonProtocols_Import.h"
+#include "SeSelector_Import.h"
+#include "SeProtocol_Import.h"
 #include "SelectFileRespPars.h"
 #include "SelectFileCmdBuild.h"
 #include "SeResponse.h"
@@ -190,7 +190,8 @@ std::shared_ptr<AbstractApduResponseParser> PoSelectionRequest::getCommandParser
 //std::shared_ptr<CalypsoPo> PoSelectionRequest::parse(std::shared_ptr<SeResponse> seResponse) {
 std::shared_ptr<AbstractMatchingSe> PoSelectionRequest::parse(std::shared_ptr<SeResponse> seResponse)
 {
-    return std::make_shared<AbstractMatchingSe>(seResponse, seSelector->getSeProtocol().getTransmissionMode(), seSelector->getExtraInfo());
+    /* Return an AbstractMatchingSe but *instanciate* a CalypsoPo otherwise some members won't be initialized */
+    return std::make_shared<CalypsoPo>(seResponse, seSelector->getSeProtocol().getTransmissionMode(), seSelector->getExtraInfo());
 }
 
 }

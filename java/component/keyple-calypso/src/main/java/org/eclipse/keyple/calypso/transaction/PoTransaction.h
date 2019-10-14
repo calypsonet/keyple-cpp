@@ -27,15 +27,15 @@
 #include "PoBuilderParser.h"
 #include "PoModificationCommand.h"
 #include "PoResource.h"
-#include "PoTransaction.h"
 #include "SamResource.h"
-#include "SamRevision.h"
+#include "SamRevision_Import.h"
 #include "SecuritySettings.h"
 #include "SelectFileCmdBuild.h"
 
 /* Core */
 #include "ProxyReader.h"
 #include "ReadDataStructure.h"
+#include "SeProtocol_Import.h"
 #include "SeRequest.h"
 #include "TransmissionMode.h"
 
@@ -88,7 +88,7 @@ public:
     /**
      * The PO Transaction Access Level: personalization, loading or debiting
      */
-    class SessionAccessLevel final {
+    class EXPORT SessionAccessLevel final {
     public:
         /**
          *
@@ -254,7 +254,7 @@ public:
      *
      * - checkPoSignature: Digest Authenticate, verify the PO part of the signature
      */
-    class DigestProcessor : public std::enable_shared_from_this<DigestProcessor> {
+    class EXPORT DigestProcessor : public std::enable_shared_from_this<DigestProcessor> {
         /*
          * The digest data cache stores all PO data to be send to SAM during a Secure Session. The
          * 1st buffer is the data buffer to be provided with Digest Init. The following buffers are
@@ -316,7 +316,7 @@ public:
     /**
      * The class handles the anticipated response computation.
      */
-    class AnticipatedResponseBuilder : public std::enable_shared_from_this<AnticipatedResponseBuilder> {
+    class EXPORT AnticipatedResponseBuilder : public std::enable_shared_from_this<AnticipatedResponseBuilder> {
         /**
          * A nested class to associate a request with a response
          */
@@ -420,57 +420,130 @@ private:
     static constexpr int OFFSET_Lc   = 4;
     static constexpr int OFFSET_DATA = 5;
 
-    /** Ratification command APDU for rev <= 2.4 */
+    /**
+     * Ratification command APDU for rev <= 2.4
+     */
     static std::vector<char> ratificationCmdApduLegacy;
-    /** Ratification command APDU for rev > 2.4 */
+
+    /**
+     * Ratification command APDU for rev > 2.4
+     */
     static std::vector<char> ratificationCmdApdu;
 
+    /**
+     *
+     */
     const std::shared_ptr<Logger> logger = LoggerFactory::getLogger(typeid(PoTransaction));
 
-    /** The reader for PO. */
+    /**
+     * The reader for PO
+     */
     const std::shared_ptr<ProxyReader> poReader;
-    /** The reader for session SAM. */
+
+    /**
+     * The reader for session SAM
+     */
     std::shared_ptr<ProxyReader> samReader;
-    /** The SAM default revision. */
+
+    /**
+     * The SAM default revision
+     */
     const SamRevision samRevision = SamRevision::C1;
-    /** The security settings. */
+
+    /**
+     * The security settings
+     */
     std::shared_ptr<SecuritySettings> securitySettings;
-    /** The PO serial number extracted from FCI */
+
+    /**
+     * The PO serial number extracted from FCI
+     */
     std::vector<char> poCalypsoInstanceSerial;
-    /** The current CalypsoPo */
+
+    /**
+     * The current CalypsoPo
+     */
     const std::shared_ptr<CalypsoPo> calypsoPo;
-    /** the type of the notified event. */
+
+    /**
+     * the type of the notified event
+     */
     SessionState sessionState;
-    /** Selected AID of the Calypso PO. */
+
+    /**
+     * Selected AID of the Calypso PO
+     */
     std::vector<char> poCalypsoInstanceAid;
-    /** The PO Calypso Revision. */
+
+    /**
+     * The PO Calypso Revision
+     */
     PoRevision poRevision = static_cast<PoRevision>(0);
-    /** The PO Secure Session final status according to mutual authentication result */
+
+    /**
+     * The PO Secure Session final status according to mutual authentication result
+     */
     bool transactionResult = false;
-    /** The diversification status */
+
+    /**
+     * The diversification status
+     */
     bool isDiversificationDone = false;
-    /** The PO KIF */
+
+    /**
+     * The PO KIF
+     */
     char poKif = 0;
-    /** The previous PO Secure Session ratification status */
-    //JAVA TO C++ CONVERTER NOTE: Fields cannot have the same name as methods:
+
+    /**
+     * The previous PO Secure Session ratification status
+     */
     bool wasRatified_Renamed = false;
-    /** The data read at opening */
+
+    /**
+     * The data read at opening
+     */
     std::vector<char> openRecordDataRead;
-    /** The list to contain the prepared commands and their parsers */
-    std::vector<std::shared_ptr<PoBuilderParser<AbstractPoCommandBuilder<
-        AbstractPoResponseParser>>>> poBuilderParserList =
-            std::vector<std::shared_ptr<PoBuilderParser<
-                AbstractPoCommandBuilder<AbstractPoResponseParser>>>>();
-    /** The current secure session modification mode: ATOMIC or MULTIPLE */
+
+    /**
+     * The list to contain the prepared commands and their parsers
+     */
+    std::vector<std::shared_ptr<PoBuilderParser<AbstractPoCommandBuilder<AbstractPoResponseParser>>>> poBuilderParserList =
+        std::vector<std::shared_ptr<PoBuilderParser<AbstractPoCommandBuilder<AbstractPoResponseParser>>>>();
+
+    /**
+     * The current secure session modification mode: ATOMIC or MULTIPLE
+     */
     ModificationMode currentModificationMode;
-    /** The current secure session access level: PERSO, RELOAD, DEBIT */
+
+    /**
+     * The current secure session access level: PERSO, RELOAD, DEBIT
+     */
     SessionAccessLevel currentAccessLevel;
-    /* modifications counter management */
+
+    /**
+     * Modifications counter management
+     */
     bool modificationsCounterIsInBytes = false;
+
+    /**
+     *
+     */
     int modificationsCounterMax        = 0;
+
+    /**
+     *
+     */
     int modificationsCounter           = 0;
 
+    /**
+     *
+     */
     bool preparedCommandsProcessed = false;
+
+    /**
+     *
+     */
     int preparedCommandIndex = 0;
 
 public:

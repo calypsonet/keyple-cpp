@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "AbstractMatchingSe.h"
 #include "SelectionsResult.h"
 #include "MatchingSelection.h"
@@ -14,7 +16,8 @@ using MatchingSelection  = org::eclipse::keyple::core::selection::MatchingSelect
 SelectionsResult::SelectionsResult() {
 }
 
-void SelectionsResult::addMatchingSelection(std::shared_ptr<MatchingSelection> matchingSelection) {
+void SelectionsResult::addMatchingSelection(std::shared_ptr<MatchingSelection> matchingSelection)
+{
     matchingSelectionList.push_back(matchingSelection);
     /* test if the current selection is active */
     if (matchingSelection->getMatchingSe()->isSelected()) {
@@ -22,8 +25,10 @@ void SelectionsResult::addMatchingSelection(std::shared_ptr<MatchingSelection> m
     }
 }
 
-std::shared_ptr<MatchingSelection> SelectionsResult::getActiveSelection() {
+std::shared_ptr<MatchingSelection> SelectionsResult::getActiveSelection()
+{
     std::shared_ptr<MatchingSelection> activeSelection = nullptr;
+
     for (auto matchingSelection : matchingSelectionList) {
         if (matchingSelection != nullptr && matchingSelection->getMatchingSe()->isSelected()) {
             activeSelection = matchingSelection;
@@ -33,11 +38,13 @@ std::shared_ptr<MatchingSelection> SelectionsResult::getActiveSelection() {
     return activeSelection;
 }
 
-std::vector<std::shared_ptr<MatchingSelection>> SelectionsResult::getMatchingSelections() {
+std::vector<std::shared_ptr<MatchingSelection>> SelectionsResult::getMatchingSelections()
+{
     return matchingSelectionList;
 }
 
-std::shared_ptr<MatchingSelection> SelectionsResult::getMatchingSelection(int selectionIndex) {
+std::shared_ptr<MatchingSelection> SelectionsResult::getMatchingSelection(int selectionIndex)
+{
     for (auto matchingSelection : matchingSelectionList) {
         if (matchingSelection->getSelectionIndex() == selectionIndex) {
             return matchingSelection;
@@ -46,7 +53,8 @@ std::shared_ptr<MatchingSelection> SelectionsResult::getMatchingSelection(int se
     return nullptr;
 }
 
-bool SelectionsResult::hasActiveSelection() {
+bool SelectionsResult::hasActiveSelection()
+{
     return hasActiveSelection_Renamed;
 }
 

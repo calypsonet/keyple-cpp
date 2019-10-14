@@ -17,7 +17,7 @@
 #include "Configurable.h"
 #include "Comparable.h"
 #include "Nameable.h"
-#include "SeProtocol.h"
+#include "SeProtocol_Import.h"
 #include "NoStackTraceThrowable.h"
 #include "TransmissionMode.h"
 
@@ -50,6 +50,11 @@ using TransmissionMode      = org::eclipse::keyple::core::seproxy::protocol::Tra
  */
 class SeReader : public virtual Nameable, public Configurable, public Comparable<std::shared_ptr<SeReader>> {
 public:
+    /**
+     *
+     */
+    virtual ~SeReader() {}
+
     /**
      * Checks if is SE present.
      *

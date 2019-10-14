@@ -13,11 +13,12 @@
 #include "KeypleApplicationSelectionException.h"
 #include "ReaderEvent_Import.h"
 #include "SeRequest.h"
-#include "SeProtocol.h"
+#include "SeProtocol_Import.h"
 #include "SeResponse.h"
 #include "SeResponseSet.h"
 #include "SeRequestSet.h"
 #include "SeRequest.h"
+#include "SeSelector_Import.h"
 
 namespace org {
 namespace eclipse {
@@ -177,7 +178,7 @@ std::shared_ptr<ApduResponse> AbstractLocalReader::openChannelForAidHackGetData(
         fciResponse = processApduRequest(std::make_shared<ApduRequest>("Internal Get Data", getDataCommand, false,
                                          aidSelector->getSuccessfulSelectionStatusCodes()));
         if (!fciResponse->isSuccessful()) {
-            logger->trace("[%s] openChannelForAidHackGetData => Get data failed. SELECTOR = %s", this->getName(), aidSelector);
+            logger->trace("[%s] openChannelForAidHackGetData => Get data failed. SELECTOR = %s\n", this->getName(), aidSelector);
         }
     }
 
@@ -202,10 +203,10 @@ std::shared_ptr<SelectionStatus> AbstractLocalReader::openLogicalChannel(std::sh
         }
 
         if (logger->isTraceEnabled()) {
-            logger->trace("[%s] openLogicalChannel => ATR = %s", this->getName(), ByteArrayUtil::toHex(atr));
+            logger->trace("[%s] openLogicalChannel => ATR = %s\n", this->getName(), ByteArrayUtil::toHex(atr));
         }
         if (!seSelector->getAtrFilter()->atrMatches(atr)) {
-            logger->info("[%s] openLogicalChannel => ATR didn't match. SELECTOR = %s, ATR = %s", this->getName(),
+            logger->info("[%s] openLogicalChannel => ATR didn't match. SELECTOR = %s, ATR = %s\n", this->getName(),
                          seSelector, ByteArrayUtil::toHex(atr));
             selectionHasMatched = false;
         }
@@ -300,10 +301,13 @@ std::shared_ptr<SeResponseSet> AbstractLocalReader::processSeRequestSet(std::sha
     std::vector<bool> requestMatchesProtocol(requestSet->getRequests()->size());
     int requestIndex = 0, lastRequestIndex;
 
-    // Determine which requests are matching the current ATR
+    /* Determine which requests are matching the current ATR */
+    logger->debug("processSeRequestSet - determining which requests are matching the ATR\n");
     for (auto request : *(requestSet->getRequests())) {
+        logger->debug("processSeRequestSet - retrieving request's se selector\n");
         std::shared_ptr<SeSelector> seSelector = request->getSeSelector();
         if (seSelector != nullptr) {
+            logger->debug("processSeRequestSet - checking protocol flag match\n");
             requestMatchesProtocol[requestIndex] = protocolFlagMatches(request->getSeSelector()->getSeProtocol());
         }
         else {
@@ -313,39 +317,38 @@ std::shared_ptr<SeResponseSet> AbstractLocalReader::processSeRequestSet(std::sha
     }
 
     /*
-        * we have now an array of booleans saying whether the corresponding request and the current
-        * SE match or not
-        */
-
+     * we have now an array of booleans saying whether the corresponding request and the current
+     * SE match or not
+     */
     lastRequestIndex = requestIndex;
     requestIndex = 0;
 
     /*
-        * The current requestSet is possibly made of several APDU command lists.
-        *
-        * If the requestMatchesProtocol is true we process the requestSet.
-        *
-        * If the requestMatchesProtocol is false we skip to the next requestSet.
-        *
-        * If keepChannelOpen is false, we close the physical channel for the last request.
-        */
+     * The current requestSet is possibly made of several APDU command lists.
+     *
+     * If the requestMatchesProtocol is true we process the requestSet.
+     *
+     * If the requestMatchesProtocol is false we skip to the next requestSet.
+     *
+     * If keepChannelOpen is false, we close the physical channel for the last request.
+     */
+    logger->debug("processSeRequestSet - processing requests set\n");
     std::vector<std::shared_ptr<SeResponse>> responses;
     bool stopProcess = false;
     for (auto request : *(requestSet->getRequests())) {
-
+        logger->debug("processSeRequestSet - stopProcess ? %d\n", stopProcess);
         if (!stopProcess) {
             if (requestMatchesProtocol[requestIndex]) {
-                logger->debug("[%s] processSeRequestSet => transmit %s\n",
-                              AbstractLoggedObservable<ReaderEvent>::getName(), request);
+                logger->debug("[%s] processSeRequestSet => transmit %s\n", AbstractLoggedObservable<ReaderEvent>::getName(), request);
                 std::shared_ptr<SeResponse> response = nullptr;
                 try {
                     response = processSeRequestLogical(request);
                 }
                 catch (KeypleReaderException &ex) {
                     /*
-                        * The process has been interrupted. We launch a KeypleReaderException with
-                        * the responses collected so far.
-                        */
+                     * The process has been interrupted. We launch a KeypleReaderException with
+                     * the responses collected so far.
+                     */
                     /* Add the latest (and partial) SeResponse to the current list. */
                     responses.push_back(ex.getSeResponse());
                     /* Build a SeResponseSet with the available data. */
@@ -362,19 +365,19 @@ std::shared_ptr<SeResponseSet> AbstractLocalReader::processSeRequestSet(std::sha
             }
             else {
                 /*
-                    * in case the protocolFlag of a SeRequest doesn't match the reader status, a
-                    * null SeResponse is added to the SeResponseSet.
-                    */
+                 * in case the protocolFlag of a SeRequest doesn't match the reader status, a
+                 * null SeResponse is added to the SeResponseSet.
+                 */
                 responses.push_back(nullptr);
             }
             requestIndex++;
             if (!request->isKeepChannelOpen()) {
                 if (lastRequestIndex == requestIndex) {
                     /*
-                        * For the processing of the last SeRequest with a protocolFlag matching the
-                        * SE reader status, if the logical channel doesn't require to be kept open,
-                        * then the physical channel is closed.
-                        */
+                     * For the processing of the last SeRequest with a protocolFlag matching the
+                     * SE reader status, if the logical channel doesn't require to be kept open,
+                     * then the physical channel is closed.
+                     */
                     closePhysicalChannel();
 
                     logger->debug("[%s] processSeRequestSet => Closing of the physical channel\n", AbstractLoggedObservable<ReaderEvent>::getName());
@@ -385,12 +388,12 @@ std::shared_ptr<SeResponseSet> AbstractLocalReader::processSeRequestSet(std::sha
                     stopProcess = true;
                 }
                 /*
-                    * When keepChannelOpen is true, we stop after the first matching request we
-                    * exit the for loop here For the processing of a SeRequest with a protocolFlag
-                    * which matches the current SE reader status, in case it's requested to keep
-                    * the logical channel open, then the other remaining SeRequest are skipped, and
-                    * null SeRequest are returned for them.
-                    */
+                 * exit the for loop here For the processing of a SeRequest with a protocolFlag
+                 * When keepChannelOpen is true, we stop after the first matching request we
+                 * which matches the current SE reader status, in case it's requested to keep
+                 * the logical channel open, then the other remaining SeRequest are skipped, and
+                 * null SeRequest are returned for them.
+                 */
             }
         }
     }
@@ -552,6 +555,7 @@ std::shared_ptr<ApduResponse> AbstractLocalReader::processApduRequest(std::share
     logger->debug("processApduRequest - response: %s\n", ByteArrayUtil::toHex(rapdu));
     apduResponse = std::make_shared<ApduResponse>(rapdu, apduRequest->getSuccessfulStatusCodes());
 
+    logger->debug("apduResponse->getDataOut() ? %d\n", apduResponse->getDataOut().size());
     if (apduRequest->isCase4() && apduResponse->getDataOut().empty() && apduResponse->isSuccessful()) {
         // do the get response command but keep the original status code
         apduResponse = case4HackGetResponse(apduResponse->getStatusCode());

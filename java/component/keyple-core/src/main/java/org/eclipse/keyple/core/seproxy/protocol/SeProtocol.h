@@ -30,16 +30,17 @@ namespace protocol {
 using namespace org::eclipse::keyple::core::seproxy::protocol;
 
 class EXPORT SeProtocol {
+private:
+	/**
+     *
+     */
+    static int nextOrdinal;
+
 public:
     /**
      *
      */
     const int ordinalValue;
-
-    /**
-     *
-     */
-    static int nextOrdinal;
 
     /**
      *
