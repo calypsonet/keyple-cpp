@@ -17,15 +17,15 @@
 
 //JAVA TO C++ CONVERTER NOTE: Forward class declarations:
 namespace org { namespace eclipse { namespace keyple { namespace plugin { namespace stub { class StubReader; } } } } }
-namespace org { namespace eclipse { namespace keyple { namespace seproxy { namespace exception { class KeypleReaderException; } } } } }
-namespace org { namespace eclipse { namespace keyple { namespace seproxy { namespace event { class PluginEvent; } } } } }
-namespace org { namespace eclipse { namespace keyple { namespace seproxy { class SeReader; } } } }
-namespace org { namespace eclipse { namespace keyple { namespace seproxy { namespace event { class ReaderEvent; } } } } }
-namespace org { namespace eclipse { namespace keyple { namespace seproxy { namespace event { class ObservableReader; } } } } }
-namespace org { namespace eclipse { namespace keyple { namespace seproxy { namespace event { class ReaderObserver; } } } } }
-namespace org { namespace eclipse { namespace keyple { namespace seproxy { namespace exception { class KeypleIOReaderException; } } } } }
+namespace org { namespace eclipse { namespace keyple { namespace core { namespace seproxy { namespace exception { class KeypleReaderException; } } } } } }
+namespace org { namespace eclipse { namespace keyple { namespace core { namespace seproxy { namespace event { class PluginEvent; } } } } } }
+namespace org { namespace eclipse { namespace keyple { namespace core { namespace seproxy { class SeReader; } } } } }
+namespace org { namespace eclipse { namespace keyple { namespace core { namespace seproxy { namespace event { class ReaderEvent; } } } } } }
+namespace org { namespace eclipse { namespace keyple { namespace core { namespace seproxy { namespace event { class ObservableReader; } } } } } }
+namespace org { namespace eclipse { namespace keyple { namespace core { namespace seproxy { namespace event { class ReaderObserver; } } } } } }
+namespace org { namespace eclipse { namespace keyple { namespace core { namespace seproxy { namespace exception { class KeypleIOReaderException; } } } } } }
 namespace org { namespace eclipse { namespace keyple { namespace plugin { namespace stub { class StubSecureElement; } } } } }
-namespace org { namespace eclipse { namespace keyple { namespace seproxy { namespace exception { class KeypleChannelStateException; } } } } }
+namespace org { namespace eclipse { namespace keyple { namespace core { namespace seproxy { namespace exception { class KeypleChannelStateException; } } } } } }
 namespace org { namespace eclipse { namespace keyple { namespace util { class CountDownLatch; } } } }
 
 /********************************************************************************
@@ -47,11 +47,11 @@ namespace org {
 
 
 
-                    using SeReader              = org::eclipse::keyple::seproxy::SeReader;
-                    using KeypleReaderException = org::eclipse::keyple::seproxy::exception::KeypleReaderException;
+                    using SeReader              = org::eclipse::keyple::core::seproxy::SeReader;
+                    using KeypleReaderException = org::eclipse::keyple::core::seproxy::exception::KeypleReaderException;
                     using Logger                = org::eclipse::keyple::common::Logger;
                     using LoggerFactory         = org::eclipse::keyple::common::LoggerFactory;
-                    using namespace org::eclipse::keyple::seproxy::message;
+                    using namespace org::eclipse::keyple::core::seproxy::message;
                     //using namespace org::junit;
 
 

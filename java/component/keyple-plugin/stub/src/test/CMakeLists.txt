@@ -63,9 +63,6 @@ INCLUDE_DIRECTORIES(
 	${CMAKE_CURRENT_SOURCE_DIR}/../../../../../component/keyple-common/src/main/java/org/eclipse/keyple/common
 
 	# Core
-	${CMAKE_CURRENT_SOURCE_DIR}/../../../../../component/keyple-core/src/main/java/org/eclipse/keyple/util
-
-	# Core
 	${CMAKE_CURRENT_SOURCE_DIR}/../../../../../component/keyple-core/src/main/java/org/eclipse/keyple/core/util
 	${CMAKE_CURRENT_SOURCE_DIR}/../../../../../component/keyple-core/src/main/java/org/eclipse/keyple/core/seproxy
 	${CMAKE_CURRENT_SOURCE_DIR}/../../../../../component/keyple-core/src/main/java/org/eclipse/keyple/core/seproxy/event
@@ -73,12 +70,25 @@ INCLUDE_DIRECTORIES(
 	${CMAKE_CURRENT_SOURCE_DIR}/../../../../../component/keyple-core/src/main/java/org/eclipse/keyple/core/seproxy/message
 	${CMAKE_CURRENT_SOURCE_DIR}/../../../../../component/keyple-core/src/main/java/org/eclipse/keyple/core/seproxy/plugin
 	${CMAKE_CURRENT_SOURCE_DIR}/../../../../../component/keyple-core/src/main/java/org/eclipse/keyple/core/seproxy/protocol
+	${CMAKE_CURRENT_SOURCE_DIR}/../../../../../component/keyple-core/src/main/java/org/eclipse/keyple/core/selection
 	${CMAKE_CURRENT_SOURCE_DIR}/../../../../../component/keyple-core/src/main/java/org/eclipse/keyple/core/transaction
+	${CMAKE_CURRENT_SOURCE_DIR}/../../../../../component/keyple-core/src/main/java/org/eclipse/keyple/core/command
 
 	# Calypso
-	${CMAKE_CURRENT_SOURCE_DIR}/../../../../../component/keyple-calypso/src/main/java/org/eclipse/keyple/calypso/transaction
+	${CMAKE_CURRENT_SOURCE_DIR}/../../../../../component/keyple-calypso/src/main/java/org/eclipse/keyple/calypso/
 	${CMAKE_CURRENT_SOURCE_DIR}/../../../../../component/keyple-calypso/src/main/java/org/eclipse/keyple/calypso/command
+	${CMAKE_CURRENT_SOURCE_DIR}/../../../../../component/keyple-calypso/src/main/java/org/eclipse/keyple/calypso/command/po
+	${CMAKE_CURRENT_SOURCE_DIR}/../../../../../component/keyple-calypso/src/main/java/org/eclipse/keyple/calypso/command/po/builder
+	${CMAKE_CURRENT_SOURCE_DIR}/../../../../../component/keyple-calypso/src/main/java/org/eclipse/keyple/calypso/command/po/builder/security
 	${CMAKE_CURRENT_SOURCE_DIR}/../../../../../component/keyple-calypso/src/main/java/org/eclipse/keyple/calypso/command/po/parser
+	${CMAKE_CURRENT_SOURCE_DIR}/../../../../../component/keyple-calypso/src/main/java/org/eclipse/keyple/calypso/command/po/parser/security
+	${CMAKE_CURRENT_SOURCE_DIR}/../../../../../component/keyple-calypso/src/main/java/org/eclipse/keyple/calypso/command/sam
+	${CMAKE_CURRENT_SOURCE_DIR}/../../../../../component/keyple-calypso/src/main/java/org/eclipse/keyple/calypso/command/sam/builder
+	${CMAKE_CURRENT_SOURCE_DIR}/../../../../../component/keyple-calypso/src/main/java/org/eclipse/keyple/calypso/command/sam/builder/security
+	${CMAKE_CURRENT_SOURCE_DIR}/../../../../../component/keyple-calypso/src/main/java/org/eclipse/keyple/calypso/command/sam/parser
+	${CMAKE_CURRENT_SOURCE_DIR}/../../../../../component/keyple-calypso/src/main/java/org/eclipse/keyple/calypso/command/sam/parser/security
+	${CMAKE_CURRENT_SOURCE_DIR}/../../../../../component/keyple-calypso/src/main/java/org/eclipse/keyple/calypso/transaction
+	${CMAKE_CURRENT_SOURCE_DIR}/../../../../../component/keyple-calypso/src/main/java/org/eclipse/keyple/calypso/transaction/exception
 
 	# Plugin - stub
 	${CMAKE_CURRENT_SOURCE_DIR}/../../../../../component/keyple-plugin/stub/src/main/java/org/eclipse/keyple/plugin/stub
