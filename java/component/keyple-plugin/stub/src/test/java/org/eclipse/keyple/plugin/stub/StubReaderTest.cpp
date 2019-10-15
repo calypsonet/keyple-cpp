@@ -1,58 +1,13 @@
 
 #include "StubReaderTest.h"
-#include "StubReader.h"
-#include "KeypleReaderException.h"
-#include "StubPlugin.h"
-#include "PluginEvent.h"
-#include "SeReader.h"
-#include "SeSelection.h"
-#include "ChannelState.h"
-#include "SeSelector.h"
-#include "SeProtocol.h"
-#include "AbstractSeSelectionRequest.h"
-#include "ReaderEvent.h"
-#include "ByteArrayUtil.h"
-#include "KeypleIOReaderException.h"
-#include "AbstractMatchingSe.h"
-//#include "SeProtocolSetting.h"
-#include "StubProtocolSetting.h"
-#include "PoClass.h"
-#include "ReadRecordsCmdBuild.h"
-#include "IncreaseCmdBuild.h"
-#include "KeypleChannelStateException.h"
+
 
 namespace org {
     namespace eclipse {
         namespace keyple {
             namespace plugin {
                 namespace stub {
-                    using PoClass = org::eclipse::keyple::calypso::command::PoClass;
-                    using IncreaseCmdBuild = org::eclipse::keyple::calypso::command::po::builder::IncreaseCmdBuild;
-                    using ReadRecordsCmdBuild = org::eclipse::keyple::calypso::command::po::builder::ReadRecordsCmdBuild;
-                    using ChannelState = org::eclipse::keyple::core::seproxy::ChannelState;
-                    using SeReader = org::eclipse::keyple::core::seproxy::SeReader;
-                    using SeSelector = org::eclipse::keyple::core::seproxy::SeSelector;
-                    using ObservablePlugin = org::eclipse::keyple::core::seproxy::event::ObservablePlugin;
-                    using ObservableReader = org::eclipse::keyple::core::seproxy::event::ObservableReader;
-                    using PluginEvent = org::eclipse::keyple::core::seproxy::event::PluginEvent;
-                    using ReaderEvent = org::eclipse::keyple::core::seproxy::event::ReaderEvent;
-                    using KeypleChannelStateException = org::eclipse::keyple::core::seproxy::exception::KeypleChannelStateException;
-                    using KeypleIOReaderException = org::eclipse::keyple::core::seproxy::exception::KeypleIOReaderException;
-                    using KeypleReaderException = org::eclipse::keyple::core::seproxy::exception::KeypleReaderException;
-                    using namespace org::eclipse::keyple::core::seproxy::message;
-                    using Protocol = org::eclipse::keyple::core::seproxy::protocol::SeProtocol;
-                    using SeProtocolSetting = org::eclipse::keyple::core::seproxy::protocol::SeProtocolSetting;
-                    using MatchingSe = org::eclipse::keyple::core::transaction::MatchingSe;
-                    using SeSelection = org::eclipse::keyple::core::transaction::SeSelection;
-                    using SeSelectionRequest = org::eclipse::keyple::core::transaction::SeSelectionRequest;
-                    using ByteArrayUtils = org::eclipse::keyple::util::ByteArrayUtils;
-                    using Logger                = org::eclipse::keyple::common::Logger;
-                    using LoggerFactory         = org::eclipse::keyple::common::LoggerFactory;
 
-                    //using namespace org::junit;
-                    //using org::junit::runner::RunWith;
-                    //using org::junit::runners::MethodSorters;
-                    //using org::mockito::junit::MockitoJUnitRunner;
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Before public void SetUp() throws InterruptedException, org.eclipse.keyple.seproxy.exception.KeypleReaderException

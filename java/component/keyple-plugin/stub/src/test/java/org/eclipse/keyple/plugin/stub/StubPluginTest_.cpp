@@ -8,9 +8,9 @@ namespace org {
         namespace keyple {
             namespace plugin {
                 namespace stub {
-                    using ObservablePlugin = org::eclipse::keyple::seproxy::event::ObservablePlugin;
-                    using PluginEvent = org::eclipse::keyple::seproxy::event::PluginEvent;
-                    using KeypleReaderException = org::eclipse::keyple::seproxy::exception::KeypleReaderException;
+                    using ObservablePlugin = org::eclipse::keyple::core::seproxy::event::ObservablePlugin;
+                    using PluginEvent = org::eclipse::keyple::core::seproxy::event::PluginEvent;
+                    using KeypleReaderException = org::eclipse::keyple::core::seproxy::exception::KeypleReaderException;
                     using Logger                = org::eclipse::keyple::common::Logger;
                     using LoggerFactory         = org::eclipse::keyple::common::LoggerFactory;
                     //using namespace org::junit;

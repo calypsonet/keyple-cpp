@@ -14,6 +14,7 @@ IF(WIN32)
 	ADD_COMPILE_OPTIONS(/wd4275 /wd4251 /wd4290)
 ENDIF(WIN32)
 
+
 #CONFIGURE_FILE(CMakeLists.txt.in googletest-download/CMakeLists.txt)
 #EXECUTE_PROCESS(
 #    COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
@@ -63,6 +64,7 @@ INCLUDE_DIRECTORIES(
 	${CMAKE_CURRENT_SOURCE_DIR}/../../../../../component/keyple-common/src/main/java/org/eclipse/keyple/common
 
 	# Core
+	${CMAKE_CURRENT_SOURCE_DIR}/../../../../../component/keyple-core/src/main/java/org/eclipse/keyple/util
 	${CMAKE_CURRENT_SOURCE_DIR}/../../../../../component/keyple-core/src/main/java/org/eclipse/keyple/core/util
 	${CMAKE_CURRENT_SOURCE_DIR}/../../../../../component/keyple-core/src/main/java/org/eclipse/keyple/core/seproxy
 	${CMAKE_CURRENT_SOURCE_DIR}/../../../../../component/keyple-core/src/main/java/org/eclipse/keyple/core/seproxy/event

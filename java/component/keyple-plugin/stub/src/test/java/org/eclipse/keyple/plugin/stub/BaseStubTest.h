@@ -16,7 +16,7 @@
 //JAVA TO C++ CONVERTER NOTE: Forward class declarations:
 namespace org { namespace eclipse { namespace keyple { namespace plugin { namespace stub { class StubPlugin; } } } } }
 namespace org { namespace eclipse { namespace keyple { namespace seproxy { namespace exception { class KeypleReaderException; } } } } }
-namespace testing {}
+namespace testing { namespace gtest {} }
 
 /********************************************************************************
  * Copyright (c) 2019 Calypso Networks Association https://www.calypsonet-asso.org/
@@ -37,7 +37,7 @@ namespace org {
                     using Logger                = org::eclipse::keyple::common::Logger;
                     using LoggerFactory         = org::eclipse::keyple::common::LoggerFactory;
 
-                    class BaseStubTest : public std::enable_shared_from_this<BaseStubTest>//, public testing::Test
+                    class BaseStubTest : public std::enable_shared_from_this<BaseStubTest>
                     {
 
                     public:

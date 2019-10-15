@@ -8,9 +8,9 @@ namespace org {
         namespace keyple {
             namespace plugin {
                 namespace stub {
-                    using ObservablePlugin = org::eclipse::keyple::seproxy::event::ObservablePlugin;
-                    using PluginEvent = org::eclipse::keyple::seproxy::event::PluginEvent;
-                    using KeypleReaderException = org::eclipse::keyple::seproxy::exception::KeypleReaderException;
+                    using ObservablePlugin = org::eclipse::keyple::core::seproxy::event::ObservablePlugin;
+                    using PluginEvent = org::eclipse::keyple::core::seproxy::event::PluginEvent;
+                    using KeypleReaderException = org::eclipse::keyple::core::seproxy::exception::KeypleReaderException;
                     using Logger                = org::eclipse::keyple::common::Logger;
                     using LoggerFactory         = org::eclipse::keyple::common::LoggerFactory;
                     //using namespace org::junit;
@@ -40,24 +40,25 @@ namespace org {
                         const std::string READER_NAME = "testA_PlugOneReaderCount";
 
                         // connect reader
-                        //stubPlugin->plugStubReader(READER_NAME, true);
-                        //Assert::assertEquals(1, stubPlugin->getReaders()->size());
+                        stubPlugin = StubPlugin::getInstance();
+                        stubPlugin->plugStubReader(READER_NAME, true);
+                        ASSERT_EQ(1, stubPlugin->getReaders()->size());
                     }
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void testA_PlugOneReaderEvent() throws InterruptedException, org.eclipse.keyple.seproxy.exception.KeypleReaderException
                     void StubPluginTest::testA_PlugOneReaderEvent() 
                     {
-/*                        std::shared_ptr<CountDownLatch> readerConnected = std::make_shared<CountDownLatch>(1);
+                        std::shared_ptr<CountDownLatch> readerConnected = std::make_shared<CountDownLatch>(1);
                         const std::string READER_NAME = "testA_PlugReaders";
 
                         // add READER_CONNECTED assert observer
                         stubPlugin->addObserver(std::make_shared<PluginObserverAnonymousInnerClass>(shared_from_this(), readerConnected, READER_NAME));
 
                         stubPlugin->plugStubReader(READER_NAME, false);
-                        readerConnected->await(2, TimeUnit::SECONDS);
-                        Assert::assertEquals(0, readerConnected->getCount());
-*/                    }
+                        readerConnected->await(2, SECONDS);
+                        ASSERT_EQ(0, readerConnected->getCount());
+                    }
 
                     StubPluginTest::PluginObserverAnonymousInnerClass::PluginObserverAnonymousInnerClass(std::shared_ptr<StubPluginTest> outerInstance, std::shared_ptr<CountDownLatch> readerConnected, const std::string &READER_NAME) 
                     {
@@ -66,32 +67,32 @@ namespace org {
                         this->READER_NAME = READER_NAME;
                     }
 
-                    void StubPluginTest::PluginObserverAnonymousInnerClass::update(std::shared_ptr<PluginEvent> event) 
+                    void StubPluginTest::PluginObserverAnonymousInnerClass::update(std::shared_ptr<PluginEvent> event_Renamed) 
                     {
-/*                        Assert::assertEquals(PluginEvent::EventType::READER_CONNECTED, event_Renamed->getEventType());
-                        Assert::assertEquals(1, event_Renamed->getReaderNames()->size());
-                        Assert::assertEquals(READER_NAME, event_Renamed->getReaderNames()->first());
+                        ASSERT_EQ(PluginEvent::EventType::READER_CONNECTED, event_Renamed->getEventType());
+                        ASSERT_EQ(1, event_Renamed->getReaderNames()->size());
+                        ASSERT_EQ(READER_NAME, event_Renamed->getReaderNames()->begin());// first());
                         readerConnected->countDown();
-*/                    }
+                    }
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void testA_UnplugOneReaderCount() throws InterruptedException, org.eclipse.keyple.seproxy.exception.KeypleReaderException
                     void StubPluginTest::testA_UnplugOneReaderCount() 
                     {
-/*                        const std::string READER_NAME = "testA_UnplugOneReaderCount";
+                        const std::string READER_NAME = "testA_UnplugOneReaderCount";
                         // connect reader
                         stubPlugin->plugStubReader(READER_NAME, true);
-                        Assert::assertEquals(1, stubPlugin->getReaders()->size());
+                        ASSERT_EQ(1, stubPlugin->getReaders()->size());
                         stubPlugin->unplugStubReader(READER_NAME, true);
-                        Assert::assertEquals(0, stubPlugin->getReaders()->size());
-*/
+                        ASSERT_EQ(0, stubPlugin->getReaders()->size());
+
                     }
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void testB_UnplugOneReaderEvent() throws InterruptedException, org.eclipse.keyple.seproxy.exception.KeypleReaderException
                     void StubPluginTest::testB_UnplugOneReaderEvent() 
                     {
-/*                        std::shared_ptr<CountDownLatch> * const readerConnected = std::make_shared<CountDownLatch>(1);
+                        std::shared_ptr<CountDownLatch> * const readerConnected = std::make_shared<CountDownLatch>(1);
                         std::shared_ptr<CountDownLatch> * const readerDisconnected = std::make_shared<CountDownLatch>(1);
                         const std::string READER_NAME = "testB_PlugUnplugOneReaders";
 
@@ -110,8 +111,8 @@ namespace org {
 
                         // wait for event to be raised
                         readerDisconnected->await(2, TimeUnit::SECONDS);
-                        Assert::assertEquals(0, readerDisconnected->getCount());
-*/                    }
+                        ASSERT_EQ(0, readerDisconnected->getCount());
+                    }
 
                     StubPluginTest::PluginObserverAnonymousInnerClass2::PluginObserverAnonymousInnerClass2(std::shared_ptr<StubPluginTest> outerInstance, std::shared_ptr<CountDownLatch> readerConnected, std::shared_ptr<CountDownLatch> readerDisconnected, const std::string &READER_NAME) 
                     {
@@ -124,60 +125,60 @@ namespace org {
 
                     void StubPluginTest::PluginObserverAnonymousInnerClass2::update(std::shared_ptr<PluginEvent> event_Renamed) 
                     {
-/*                        outerInstance->logger->info("event {} {}", event_Renamed->getEventType(), event_Renamed->getReaderNames()->size());
+                        outerInstance->logger->info("event {} {}", event_Renamed->getEventType(), event_Renamed->getReaderNames()->size());
                         if (event_i == 1) 
                         {
-                            Assert::assertEquals(PluginEvent::EventType::READER_CONNECTED, event_Renamed->getEventType());
+                            ASSERT_EQ(PluginEvent::EventType::READER_CONNECTED, event_Renamed->getEventType());
                             readerConnected->countDown();
                         }
                         // analyze the second event, should be a READER_DISCONNECTED
                         if (event_i == 2) 
                         {
-                            Assert::assertEquals(PluginEvent::EventType::READER_DISCONNECTED, event_Renamed->getEventType());
-                            Assert::assertEquals(1, event_Renamed->getReaderNames()->size());
-                            Assert::assertEquals(READER_NAME, event_Renamed->getReaderNames()->first());
+                            ASSERT_EQ(PluginEvent::EventType::READER_DISCONNECTED, event_Renamed->getEventType());
+                            ASSERT_EQ(1, event_Renamed->getReaderNames()->size());
+                            ASSERT_EQ(READER_NAME, event_Renamed->getReaderNames()->begin());
                             readerDisconnected->countDown();
                         }
                         event_i++;
-*/                    }
+                    }
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void testC_PlugSameReaderTwice() throws InterruptedException, org.eclipse.keyple.seproxy.exception.KeypleReaderException
                     void StubPluginTest::testC_PlugSameReaderTwice() 
                     {
-/*                        const std::string READER_NAME = "testC_PlugSameReaderTwice";
+                        const std::string READER_NAME = "testC_PlugSameReaderTwice";
 
                         stubPlugin->plugStubReader(READER_NAME, true);
                         stubPlugin->plugStubReader(READER_NAME, true);
                         logger->debug("Stubplugin readers size {} ", stubPlugin->getReaders()->size());
 
-                        Assert::assertEquals(1, stubPlugin->getReaders()->size());
-*/                    }
+                        ASSERT_EQ(1, stubPlugin->getReaders()->size());
+                    }
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void testD_GetName()
                     void StubPluginTest::testD_GetName() 
                     {
-/*                        Assert::assertNotNull(stubPlugin->getName());
-*/                    }
+                        ASSERT_NE(stubPlugin->getName(), NULL);
+                    }
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void testE_PlugMultiReadersCount() throws InterruptedException, org.eclipse.keyple.seproxy.exception.KeypleReaderException
                     void StubPluginTest::testE_PlugMultiReadersCount() 
                     {
-/*                        std::shared_ptr<Set<std::string>> newReaders = std::unordered_set<std::string>(Arrays::asList("EC_reader1", "EC_reader2", "EC_reader3"));
+                        std::shared_ptr<std::set<std::string>> newReaders = std::unordered_set<std::string>(Arrays::asList("EC_reader1", "EC_reader2", "EC_reader3"));
                         // connect readers at once
                         stubPlugin->plugStubReaders(newReaders, true);
                         logger->info("Stub Readers connected {}", stubPlugin->getReaderNames());
-                        Assert::assertEquals(newReaders, stubPlugin->getReaderNames());
-                        Assert::assertEquals(3, stubPlugin->getReaders()->size());
-*/                    }
+                        ASSERT_EQ(newReaders, stubPlugin->getReaderNames());
+                        ASSERT_EQ(3, stubPlugin->getReaders()->size());
+                    }
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void testE_PlugMultiReadersEvent() throws InterruptedException, org.eclipse.keyple.seproxy.exception.KeypleReaderException
                     void StubPluginTest::testE_PlugMultiReadersEvent() 
                     {
-/*                        std::shared_ptr<Set<std::string>> * const READERS = std::unordered_set<std::string>(Arrays::asList("E_Reader1", "E_Reader2", "E_Reader3"));
+                        std::shared_ptr<std::set<std::string>> * const READERS = std::unordered_set<std::string>(Arrays::asList("E_Reader1", "E_Reader2", "E_Reader3"));
 
                         // lock test until message is received
                         std::shared_ptr<CountDownLatch> * const readerConnected = std::make_shared<CountDownLatch>(1);
@@ -191,11 +192,11 @@ namespace org {
 
                         // wait for event to be raised
                         readerConnected->await(2, TimeUnit::SECONDS);
-                        Assert::assertEquals(0, readerConnected->getCount());
-*/
+                        ASSERT_EQ(0, readerConnected->getCount());
+
                     }
 
-                    StubPluginTest::PluginObserverAnonymousInnerClass3::PluginObserverAnonymousInnerClass3(std::shared_ptr<StubPluginTest> outerInstance, std::shared_ptr<Set<std::string>> READERS, std::shared_ptr<CountDownLatch> readerConnected) 
+                    StubPluginTest::PluginObserverAnonymousInnerClass3::PluginObserverAnonymousInnerClass3(std::shared_ptr<StubPluginTest> outerInstance, std::shared_ptr<std::set<std::string>> READERS, std::shared_ptr<CountDownLatch> readerConnected) 
                     {
                         this->outerInstance = outerInstance;
                         this->READERS = READERS;
@@ -204,30 +205,30 @@ namespace org {
 
                     void StubPluginTest::PluginObserverAnonymousInnerClass3::update(std::shared_ptr<PluginEvent> event_Renamed) 
                     {
-/*                        outerInstance->logger->info("event {} {}", event_Renamed->getEventType(), event_Renamed->getReaderNames()->size());
-                        Assert::assertEquals(PluginEvent::EventType::READER_CONNECTED, event_Renamed->getEventType());
-                        Assert::assertEquals(3, event_Renamed->getReaderNames()->size());
-                        Assert::assertEquals(READERS, event_Renamed->getReaderNames());
+                        outerInstance->logger->info("event {} {}", event_Renamed->getEventType(), event_Renamed->getReaderNames()->size());
+                        ASSERT_EQ(PluginEvent::EventType::READER_CONNECTED, event_Renamed->getEventType());
+                        ASSERT_EQ(3, event_Renamed->getReaderNames()->size());
+                        ASSERT_EQ(READERS, event_Renamed->getReaderNames());
                         readerConnected->countDown();
-*/                    }
+                    }
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void testF_PlugUnplugMultiReadersCount() throws InterruptedException, org.eclipse.keyple.seproxy.exception.KeypleReaderException
                     void StubPluginTest::testF_PlugUnplugMultiReadersCount() 
                     {
-/*                        std::shared_ptr<Set<std::string>> * const READERS = std::unordered_set<std::string>(Arrays::asList("FC_Reader1", "FC_Reader2", "FC_Reader3"));
+                        std::shared_ptr<std::set<std::string>> * const READERS = std::unordered_set<std::string>(Arrays::asList("FC_Reader1", "FC_Reader2", "FC_Reader3"));
                         // connect readers at once
                         stubPlugin->plugStubReaders(READERS, true);
-                        Assert::assertEquals(3, stubPlugin->getReaders()->size());
+                        ASSERT_EQ(3, stubPlugin->getReaders()->size());
                         stubPlugin->unplugStubReaders(READERS, true);
-                        Assert::assertEquals(0, stubPlugin->getReaders()->size());
-*/                    }
+                        ASSERT_EQ(0, stubPlugin->getReaders()->size());
+                    }
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void testF_PlugUnplugMultiReadersEvent() throws InterruptedException, org.eclipse.keyple.seproxy.exception.KeypleReaderException
                     void StubPluginTest::testF_PlugUnplugMultiReadersEvent() 
                     {
-/*                        std::shared_ptr<Set<std::string>> * const READERS = std::unordered_set<std::string>(Arrays::asList("F_Reader1", "F_Reader2", "F_Reader3"));
+                        std::shared_ptr<std::set<std::string>> * const READERS = std::unordered_set<std::string>(Arrays::asList("F_Reader1", "F_Reader2", "F_Reader3"));
 
                         // lock test until message is received
                         std::shared_ptr<CountDownLatch> * const readerConnected = std::make_shared<CountDownLatch>(1);
@@ -240,20 +241,20 @@ namespace org {
                         // connect reader
                         stubPlugin->plugStubReaders(READERS, false);
 
-                        Assert::assertTrue(readerConnected->await(5, TimeUnit::SECONDS));
+                        //Assert::assertTrue(readerConnected->await(5, TimeUnit::SECONDS));
 
                         stubPlugin->unplugStubReaders(READERS, false);
 
-                        Assert::assertTrue(readerDisconnected->await(5, TimeUnit::SECONDS));
+                        //Assert::assertTrue(readerDisconnected->await(5, TimeUnit::SECONDS));
 
                         delay(1000); // Todo fix me, should works without sleep
                         logger->debug("Stub Readers connected {}", stubPlugin->getReaderNames());
-                        Assert::assertEquals(0, stubPlugin->getReaders()->size());
-                        Assert::assertEquals(0, readerConnected->getCount());
-                        Assert::assertEquals(0, readerDisconnected->getCount());
-*/                    }
+                        ASSERT_EQ(0, stubPlugin->getReaders()->size());
+                        ASSERT_EQ(0, readerConnected->getCount());
+                        ASSERT_EQ(0, readerDisconnected->getCount());
+                    }
 
-                    StubPluginTest::PluginObserverAnonymousInnerClass4::PluginObserverAnonymousInnerClass4(std::shared_ptr<StubPluginTest> outerInstance, std::shared_ptr<Set<std::string>> READERS, std::shared_ptr<CountDownLatch> readerConnected, std::shared_ptr<CountDownLatch> readerDisconnected) 
+                    StubPluginTest::PluginObserverAnonymousInnerClass4::PluginObserverAnonymousInnerClass4(std::shared_ptr<StubPluginTest> outerInstance, std::shared_ptr<std::set<std::string>> READERS, std::shared_ptr<CountDownLatch> readerConnected, std::shared_ptr<CountDownLatch> readerDisconnected) 
                     {
                         this->outerInstance = outerInstance;
                         this->READERS = READERS;
@@ -264,22 +265,22 @@ namespace org {
 
                     void StubPluginTest::PluginObserverAnonymousInnerClass4::update(std::shared_ptr<PluginEvent> event_Renamed) 
                     {
-/*                        outerInstance->logger->info("event {} {}", event_Renamed->getEventType(), event_Renamed->getReaderNames()->size());
+                        outerInstance->logger->info("event {} {}", event_Renamed->getEventType(), event_Renamed->getReaderNames()->size());
                         if (event_i == 1) 
                         {
-                            Assert::assertEquals(PluginEvent::EventType::READER_CONNECTED, event_Renamed->getEventType());
+                            ASSERT_EQ(PluginEvent::EventType::READER_CONNECTED, event_Renamed->getEventType());
                             readerConnected->countDown();
                         }
                         // analyze the second event, should be a READER_DISCONNECTED
                         if (event_i == 2) 
                         {
-                            Assert::assertEquals(PluginEvent::EventType::READER_DISCONNECTED, event_Renamed->getEventType());
-                            Assert::assertEquals(3, event_Renamed->getReaderNames()->size());
-                            Assert::assertEquals(READERS, event_Renamed->getReaderNames());
+                            ASSERT_EQ(PluginEvent::EventType::READER_DISCONNECTED, event_Renamed->getEventType());
+                            ASSERT_EQ(3, event_Renamed->getReaderNames()->size());
+                            ASSERT_EQ(READERS, event_Renamed->getReaderNames());
                             readerDisconnected->countDown();
                         }
                         event_i++;
-*/                    }
+                    }
                 }
             }
         }

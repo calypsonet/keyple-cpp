@@ -19,10 +19,10 @@
 #include "LoggerFactory.h"
 
 //JAVA TO C++ CONVERTER NOTE: Forward class declarations:
-namespace org { namespace eclipse { namespace keyple { namespace seproxy { namespace exception { class KeypleReaderException; } } } } }
-namespace org { namespace eclipse { namespace keyple { namespace seproxy { namespace event { class PluginEvent; } } } } }
+namespace org { namespace eclipse { namespace keyple { namespace core { namespace seproxy { namespace exception { class KeypleReaderException; } } } } } }
+namespace org { namespace eclipse { namespace keyple { namespace core { namespace seproxy { namespace event { class PluginEvent; } } } } } }
 namespace org { namespace eclipse { namespace keyple { namespace util { class CountDownLatch; } } } }
-namespace org { namespace eclipse { namespace keyple { namespace seproxy { namespace event { class ObservablePlugin; } } } } }
+namespace org { namespace eclipse { namespace keyple { namespace core { namespace seproxy { namespace event { class ObservablePlugin; } } } } } }
 
 /********************************************************************************
  * Copyright (c) 2018 Calypso Networks Association https://www.calypsonet-asso.org/
@@ -41,15 +41,18 @@ namespace org {
             namespace plugin {
                 namespace stub {
 
-
-                    using KeypleReaderException = org::eclipse::keyple::seproxy::exception::KeypleReaderException;
+                    using PluginEvent           = org::eclipse::keyple::core::seproxy::event::PluginEvent;
+                    using KeypleReaderException = org::eclipse::keyple::core::seproxy::exception::KeypleReaderException;
                     using Logger                = org::eclipse::keyple::common::Logger;
                     using LoggerFactory         = org::eclipse::keyple::common::LoggerFactory;
+                    using ObservablePlugin      = org::eclipse::keyple::core::seproxy::event::ObservablePlugin;
+                    using namespace testing::gtest;
+
                     //using namespace org::junit;
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @RunWith(MockitoJUnitRunner.class) @FixMethodOrder(MethodSorters.NAME_ASCENDING) public class StubPluginTest extends BaseStubTest
-                    class StubPluginTest : public BaseStubTest {
+                    class StubPluginTest : public BaseStubTest, testing::Test {
 
                     public:
                         std::shared_ptr<Logger> logger = LoggerFactory::getLogger(typeid(StubPluginTest));
@@ -78,7 +81,7 @@ namespace org {
                         virtual void testA_PlugOneReaderEvent();
 
                     // private
-                        class PluginObserverAnonymousInnerClass : public std::enable_shared_from_this<PluginObserverAnonymousInnerClass>//, public ObservablePlugin::PluginObserver 
+                        class PluginObserverAnonymousInnerClass : public std::enable_shared_from_this<PluginObserverAnonymousInnerClass>, public ObservablePlugin::PluginObserver 
                         {
                         private:
                             std::shared_ptr<StubPluginTest> outerInstance;
@@ -89,7 +92,7 @@ namespace org {
                         public:
                             PluginObserverAnonymousInnerClass(std::shared_ptr<StubPluginTest> outerInstance, std::shared_ptr<CountDownLatch> readerConnected, const std::string &READER_NAME);
 
-                            void update(std::shared_ptr<PluginEvent> event_Renamed);
+                            void update(std::shared_ptr<PluginEvent> event);
                         };
 
                         /**
@@ -131,7 +134,7 @@ namespace org {
                         virtual void testB_UnplugOneReaderEvent();
 
                     //private:
-                        class PluginObserverAnonymousInnerClass2 : public std::enable_shared_from_this<PluginObserverAnonymousInnerClass2>//, public ObservablePlugin::PluginObserver
+                        class PluginObserverAnonymousInnerClass2 : public std::enable_shared_from_this<PluginObserverAnonymousInnerClass2>, public ObservablePlugin::PluginObserver
                         {
                         private:
                             std::shared_ptr<StubPluginTest> outerInstance;
@@ -178,18 +181,18 @@ namespace org {
                         virtual void testE_PlugMultiReadersEvent();
 
                     //private:
-                        class PluginObserverAnonymousInnerClass3 : public std::enable_shared_from_this<PluginObserverAnonymousInnerClass3>//, public ObservablePlugin::PluginObserver 
+                        class PluginObserverAnonymousInnerClass3 : public std::enable_shared_from_this<PluginObserverAnonymousInnerClass3>, public ObservablePlugin::PluginObserver 
                         {
                         private:
                             std::shared_ptr<StubPluginTest> outerInstance;
 
-                            std::shared_ptr<std::string> READERS;
+                            std::shared_ptr<std::set<std::string>> READERS;
                             std::shared_ptr<CountDownLatch> readerConnected;
 
                         public:
-                            PluginObserverAnonymousInnerClass3(std::shared_ptr<StubPluginTest> outerInstance, std::shared_ptr<std::string> READERS, std::shared_ptr<CountDownLatch> readerConnected);
+                            PluginObserverAnonymousInnerClass3(std::shared_ptr<StubPluginTest> outerInstance, std::shared_ptr<std::set<std::string>> READERS, std::shared_ptr<CountDownLatch> readerConnected);
 
-                            void update(std::shared_ptr<PluginEvent> event_Renamed);
+                            virtual void update(std::shared_ptr<PluginEvent> event_Renamed);
 
                         };
 
@@ -210,17 +213,17 @@ namespace org {
 
                     //private:
                     public:
-                        class PluginObserverAnonymousInnerClass4 : public std::enable_shared_from_this<PluginObserverAnonymousInnerClass4>//, public ObservablePlugin::PluginObserver 
+                        class PluginObserverAnonymousInnerClass4 : public std::enable_shared_from_this<PluginObserverAnonymousInnerClass4>, public ObservablePlugin::PluginObserver 
                         {
                         private:
                             std::shared_ptr<StubPluginTest> outerInstance;
 
-                            std::shared_ptr<std::string> READERS;
+                            std::shared_ptr<std::set<std::string>> READERS;
                             std::shared_ptr<CountDownLatch> readerConnected;
                             std::shared_ptr<CountDownLatch> readerDisconnected;
 
                         public:
-                            PluginObserverAnonymousInnerClass4(std::shared_ptr<StubPluginTest> outerInstance, std::shared_ptr<Set<std::string>> READERS, std::shared_ptr<CountDownLatch> readerConnected, std::shared_ptr<CountDownLatch> readerDisconnected);
+                            PluginObserverAnonymousInnerClass4(std::shared_ptr<StubPluginTest> outerInstance, std::shared_ptr<std::set<std::string>> READERS, std::shared_ptr<CountDownLatch> readerConnected, std::shared_ptr<CountDownLatch> readerDisconnected);
 
                             int event_i = 0;
 

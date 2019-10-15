@@ -16,6 +16,7 @@
 /* Core */
 #include "ReaderPlugin.h"
 #include "Observable.h"
+#include "PluginEvent.h"
 
 /* Common */
 #include "Export.h"
