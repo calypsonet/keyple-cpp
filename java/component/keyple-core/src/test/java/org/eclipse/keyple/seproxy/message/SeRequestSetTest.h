@@ -37,7 +37,7 @@ namespace org {
                         std::shared_ptr<SeRequestSet> seRequestSet;
 
                         // attributes
-                        std::shared_ptr<Set<std::shared_ptr<SeRequest>>> sortedRequests;
+                        std::shared_ptr<std::set<std::shared_ptr<SeRequest>>> sortedRequests;
 
                         std::shared_ptr<SeRequest> firstRequest;
 

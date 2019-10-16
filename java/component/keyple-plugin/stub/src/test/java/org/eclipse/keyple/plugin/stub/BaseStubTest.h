@@ -36,10 +36,10 @@ namespace org {
                 namespace stub {
                     using Logger                = org::eclipse::keyple::common::Logger;
                     using LoggerFactory         = org::eclipse::keyple::common::LoggerFactory;
+                    using namespace testing;
 
                     class BaseStubTest : public std::enable_shared_from_this<BaseStubTest>
                     {
-
                     public:
                         std::shared_ptr<StubPlugin> stubPlugin;
 
@@ -52,9 +52,9 @@ namespace org {
 //ORIGINAL LINE: @Rule public org.junit.rules.TestName name = new org.junit.rules.TestName();
                         std::shared_ptr<BaseStubTest> name = std::make_shared<BaseStubTest>();
 
-                        void setUp();
+                        virtual void setUp();
 
-                        void tearDown();
+                        virtual void tearDown();
 
                         void TestBoby();
                     };

@@ -1,25 +1,22 @@
 
 #pragma once
 
-#include "ObservablePlugin.h"
-#include "ObservableReader.h"
-#include "CountDownLatch.h"
+#include "BaseStubTest.h"
+#include "StubPlugin.h"
 #include "StubReader.h"
+#include "ObservablePlugin.h"
+//#include "ObservableReader.h"
+#include "CountDownLatch.h"
 #include "StubSecureElement.h"
 #include "KeypleReaderException.h"
-#include "StubPlugin.h"
 #include "PluginEvent.h"
-#include "SeReader.h"
 #include "SeSelection.h"
 #include "ChannelState.h"
-#include "SeSelector.h"
-#include "SeProtocol.h"
+//#include "SeSelector.h"
 #include "AbstractSeSelectionRequest.h"
-#include "ReaderEvent.h"
 #include "ByteArrayUtil.h"
 #include "KeypleIOReaderException.h"
 #include "AbstractMatchingSe.h"
-//#include "SeProtocolSetting.h"
 #include "StubProtocolSetting.h"
 #include "PoClass.h"
 #include "ReadRecordsCmdBuild.h"
@@ -41,8 +38,9 @@
 #include "LoggerFactory.h"
 
 //JAVA TO C++ CONVERTER NOTE: Forward class declarations:
-namespace org { namespace eclipse { namespace keyple { namespace plugin { namespace stub { class StubReader; } } } } }
-namespace org { namespace eclipse { namespace keyple { namespace plugin { namespace stub { class StubSecureElement; } } } } }
+//namespace org { namespace eclipse { namespace keyple { namespace plugin { namespace stub { class StubReader; } } } } }
+//namespace org { namespace eclipse { namespace keyple { namespace plugin { namespace stub { class StubPlugin; } } } } }
+//namespace org { namespace eclipse { namespace keyple { namespace plugin { namespace stub { class StubSecureElement; } } } } }
 namespace org { namespace eclipse { namespace keyple { namespace core { namespace seproxy { namespace exception { class KeypleReaderException; } } } } } }
 namespace org { namespace eclipse { namespace keyple { namespace core { namespace seproxy { namespace event { class PluginEvent; } } } } } }
 namespace org { namespace eclipse { namespace keyple { namespace core { namespace seproxy { class SeReader; } } } } }
@@ -50,7 +48,7 @@ namespace org { namespace eclipse { namespace keyple { namespace core { namespac
 namespace org { namespace eclipse { namespace keyple { namespace core { namespace seproxy { namespace event { class ObservableReader; } } } } } }
 namespace org { namespace eclipse { namespace keyple { namespace core { namespace seproxy { namespace event { class ReaderObserver; } } } } } }
 namespace org { namespace eclipse { namespace keyple { namespace core { namespace seproxy { namespace exception { class KeypleIOReaderException; } } } } } }
-namespace org { namespace eclipse { namespace keyple { namespace plugin { namespace stub { class StubSecureElement; } } } } }
+//namespace org { namespace eclipse { namespace keyple { namespace plugin { namespace stub { class StubSecureElement; } } } } }
 namespace org { namespace eclipse { namespace keyple { namespace core { namespace seproxy { namespace exception { class KeypleChannelStateException; } } } } } }
 namespace org { namespace eclipse { namespace keyple { namespace util { class CountDownLatch; } } } }
 namespace org { namespace eclipse { namespace keyple { namespace core { namespace seproxy { namespace event { class ObservablePlugin; } } } } } }
@@ -71,18 +69,12 @@ namespace org {
         namespace keyple {
             namespace plugin {
                 namespace stub {
-
-
+                    using StubPlugin = org::eclipse::keyple::plugin::stub::StubPlugin;
                     using PoClass = org::eclipse::keyple::calypso::command::PoClass;
                     using IncreaseCmdBuild = org::eclipse::keyple::calypso::command::po::builder::IncreaseCmdBuild;
                     using ReadRecordsCmdBuild = org::eclipse::keyple::calypso::command::po::builder::ReadRecordsCmdBuild;
                     using ChannelState = org::eclipse::keyple::core::seproxy::ChannelState;
-                    using SeReader = org::eclipse::keyple::core::seproxy::SeReader;
                     using SeSelector = org::eclipse::keyple::core::seproxy::SeSelector;
-                    using ObservablePlugin = org::eclipse::keyple::core::seproxy::event::ObservablePlugin;
-                    using ObservableReader = org::eclipse::keyple::core::seproxy::event::ObservableReader;
-                    using PluginEvent = org::eclipse::keyple::core::seproxy::event::PluginEvent;
-                    using ReaderEvent = org::eclipse::keyple::core::seproxy::event::ReaderEvent;
                     using KeypleChannelStateException = org::eclipse::keyple::core::seproxy::exception::KeypleChannelStateException;
                     using KeypleIOReaderException = org::eclipse::keyple::core::seproxy::exception::KeypleIOReaderException;
                     using KeypleReaderException = org::eclipse::keyple::core::seproxy::exception::KeypleReaderException;
@@ -91,7 +83,7 @@ namespace org {
                     using SeProtocolSetting = org::eclipse::keyple::core::seproxy::protocol::SeProtocolSetting;
                     using MatchingSe = org::eclipse::keyple::core::selection::AbstractMatchingSe;
                     using SeSelection = org::eclipse::keyple::core::selection::SeSelection;
-                    using SeSelectionRequest = org::eclipse::keyple::core::selection::AbstractSeSelectionRequest;
+                    using AbstractSeSelectionRequest = org::eclipse::keyple::core::selection::AbstractSeSelectionRequest;
                     using ByteArrayUtils = org::eclipse::keyple::core::util::ByteArrayUtil;
                     using Logger                = org::eclipse::keyple::common::Logger;
                     using LoggerFactory         = org::eclipse::keyple::common::LoggerFactory;
@@ -102,20 +94,17 @@ namespace org {
                     //using org::mockito::junit::MockitoJUnitRunner;
 
                     using SeReader              = org::eclipse::keyple::core::seproxy::SeReader;
-                    using KeypleReaderException = org::eclipse::keyple::core::seproxy::exception::KeypleReaderException;
-                    using Logger                = org::eclipse::keyple::common::Logger;
-                    using LoggerFactory         = org::eclipse::keyple::common::LoggerFactory;
-                    using namespace org::eclipse::keyple::core::seproxy::message;
                     using ObservablePlugin      = org::eclipse::keyple::core::seproxy::event::ObservablePlugin;
                     using ObservableReader      = org::eclipse::keyple::core::seproxy::event::ObservableReader;
                     using PluginEvent           = org::eclipse::keyple::core::seproxy::event::PluginEvent;
                     using ReaderEvent           = org::eclipse::keyple::core::seproxy::event::ReaderEvent;
                     //using namespace org::junit;
+                    using namespace testing::gtest;
 
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @SuppressWarnings("PMD.SignatureDeclareThrowsException") @RunWith(MockitoJUnitRunner.class) @FixMethodOrder(MethodSorters.NAME_ASCENDING) public class StubReaderTest
-                    class StubReaderTest : public std::enable_shared_from_this<StubReaderTest>
+                    class StubReaderTest : public std::enable_shared_from_this<StubReaderTest>, public BaseStubTest, public testing::Test
                     {
 
                     public:

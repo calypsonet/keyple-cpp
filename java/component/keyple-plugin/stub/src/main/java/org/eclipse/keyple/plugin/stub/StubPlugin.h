@@ -198,7 +198,7 @@ protected:
     {
         return AbstractThreadedObservablePlugin::AbstractLoggedObservable::setParameters(parameters);
     }
-
+public:
     std::string getName() override
     {
         return AbstractThreadedObservablePlugin::AbstractLoggedObservable::getName();
@@ -208,7 +208,6 @@ protected:
     {
         (void)observer;
     }
-    
 };
 
 } // namespace stub

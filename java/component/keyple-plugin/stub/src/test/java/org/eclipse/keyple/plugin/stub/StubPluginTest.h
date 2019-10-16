@@ -1,6 +1,7 @@
 #pragma once
 
 #include "BaseStubTest.h"
+#include "StubPlugin.h"
 #include "ObservablePlugin.h"
 #include "ObservableReaderNotificationEngine.h"
 #include "CountDownLatch.h"
@@ -40,7 +41,7 @@ namespace org {
         namespace keyple {
             namespace plugin {
                 namespace stub {
-
+                    using StubPlugin            = org::eclipse::keyple::plugin::stub::StubPlugin;
                     using PluginEvent           = org::eclipse::keyple::core::seproxy::event::PluginEvent;
                     using KeypleReaderException = org::eclipse::keyple::core::seproxy::exception::KeypleReaderException;
                     using Logger                = org::eclipse::keyple::common::Logger;
@@ -52,7 +53,8 @@ namespace org {
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @RunWith(MockitoJUnitRunner.class) @FixMethodOrder(MethodSorters.NAME_ASCENDING) public class StubPluginTest extends BaseStubTest
-                    class StubPluginTest : public BaseStubTest, testing::Test {
+                    class StubPluginTest : public BaseStubTest, public testing::Test 
+                    {
 
                     public:
                         std::shared_ptr<Logger> logger = LoggerFactory::getLogger(typeid(StubPluginTest));

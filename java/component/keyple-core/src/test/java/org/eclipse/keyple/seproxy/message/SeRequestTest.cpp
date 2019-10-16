@@ -148,7 +148,7 @@ namespace org {
                         std::vector<std::shared_ptr<ApduRequest>> apdus = getAapduLists();
                         ChannelState channelState = ChannelState::KEEP_OPEN;
                         std::shared_ptr<SeProtocol> seProtocol = getASeProtocol();
-                        std::shared_ptr<Set<Integer>> selectionStatusCode = ApduRequestTest::getASuccessFulStatusCode();
+                        std::shared_ptr<std::set<Integer>> selectionStatusCode = ApduRequestTest::getASuccessFulStatusCode();
 
                         return std::make_shared<SeRequest>(getSelector(selectionStatusCode), apdus, channelState, seProtocol);
 
@@ -166,7 +166,7 @@ namespace org {
                         return ContactlessProtocols::PROTOCOL_B_PRIME;
                     }
 
-                    std::shared_ptr<SeSelector> SeRequestTest::getSelector(std::shared_ptr<Set<Integer>> selectionStatusCode) {
+                    std::shared_ptr<SeSelector> SeRequestTest::getSelector(std::shared_ptr<std::set<Integer>> selectionStatusCode) {
                         /*
                          * We can use a fake AID here because it is not fully interpreted, the purpose of this unit
                          * test is to verify the proper format of the request.

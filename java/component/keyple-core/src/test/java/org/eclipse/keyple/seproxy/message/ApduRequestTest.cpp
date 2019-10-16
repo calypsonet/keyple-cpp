@@ -47,7 +47,7 @@ namespace org {
                     }
 
                     std::shared_ptr<ApduRequest> ApduRequestTest::getApduSample() {
-                        std::shared_ptr<Set<Integer>> successfulStatusCodes = getASuccessFulStatusCode();
+                        std::shared_ptr<std::set<Integer>> successfulStatusCodes = getASuccessFulStatusCode();
                         Boolean case4 = true;
                         std::vector<char> command = getACommand();
                         std::shared_ptr<ApduRequest> request = std::make_shared<ApduRequest>(command, case4, successfulStatusCodes);
@@ -59,8 +59,8 @@ namespace org {
                         return ByteArrayUtils::fromHex("FEDCBA98 9005h");
                     }
 
-                    std::shared_ptr<Set<Integer>> ApduRequestTest::getASuccessFulStatusCode() {
-                        std::shared_ptr<Set<Integer>> successfulStatusCodes = std::unordered_set<Integer>();
+                    std::shared_ptr<std::set<int>> ApduRequestTest::getASuccessFulStatusCode() {
+                        std::shared_ptr<std::set<Integer>> successfulStatusCodes = std::unordered_set<Integer>();
                         successfulStatusCodes->add(std::stoi("9000"));
                         return successfulStatusCodes;
                     }

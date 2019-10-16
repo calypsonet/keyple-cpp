@@ -84,7 +84,7 @@ namespace org {
                          */
 
 
-                        static std::shared_ptr<Set<Integer>> getA9005CustomCode();
+                        static std::shared_ptr<std::set<Integer>> getA9005CustomCode();
 
                         static std::shared_ptr<AnswerToReset> getAAtr();
 

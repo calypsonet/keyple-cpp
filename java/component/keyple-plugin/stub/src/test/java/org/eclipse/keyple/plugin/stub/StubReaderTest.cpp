@@ -14,22 +14,21 @@ namespace org {
                     void StubReaderTest::SetUp()
                     {
                         // clear observers from others tests as StubPlugin is a singleton
-/*
-                        std::shared_ptr<StubPlugin> stubPlugin = StubPlugin::getInstance();
+                        stubPlugin = std::make_shared<StubPlugin>( StubPlugin::getInstance() );
 
                         // add an observer to start the plugin monitoring thread
                         stubPlugin->addObserver(std::make_shared<PluginObserverAnonymousInnerClass>(shared_from_this()));
 
                         logger->info("Stubplugin readers size {}", stubPlugin->getReaders()->size());
-                        Assert::assertEquals(0, stubPlugin->getReaders()->size());
+                        ASSERT_EQ(0, stubPlugin->getReaders()->size());
 
                         logger->info("Stubplugin observers size {}", stubPlugin->countObservers());
-                        Assert::assertEquals(1, stubPlugin->countObservers());
+                        ASSERT_EQ(1, stubPlugin->countObservers());
 
                         stubPlugin->plugStubReader("StubReaderTest", true);
 
                         reader = std::static_pointer_cast<StubReader>(stubPlugin->getReader("StubReaderTest"));
-*/                    }
+                    }
 
                     StubReaderTest::PluginObserverAnonymousInnerClass::PluginObserverAnonymousInnerClass(std::shared_ptr<StubReaderTest> outerInstance) 
                     {
@@ -38,13 +37,14 @@ namespace org {
 
                     void StubReaderTest::PluginObserverAnonymousInnerClass::update(std::shared_ptr<PluginEvent> event_Renamed)
                     {
+                        event_Renamed = event_Renamed;
                     }
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @After public void tearDown() throws InterruptedException, org.eclipse.keyple.seproxy.exception.KeypleReaderException
                     void StubReaderTest::tearDown() 
                     {
-                        std::shared_ptr<StubPlugin> stubPlugin = StubPlugin::getInstance();
+                        std::shared_ptr<StubPlugin> stubPlugin = std::make_shared<StubPlugin>( StubPlugin::getInstance() );
                         stubPlugin->clearObservers();
                         reader->clearObservers();
                         stubPlugin->getInstance().unplugStubReader("StubReaderTest", true);
@@ -58,14 +58,13 @@ namespace org {
                         /* Prepare selector, ignore MatchingSe here */
                         seSelection->prepareSelection(seSelectionRequest);
 
-                        seSelection->processExplicitSelection();
+                        seSelection->processExplicitSelection(reader);
                     }
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void testInsert() throws InterruptedException
                     void StubReaderTest::testInsert() 
                     {
-/*
                         // CountDown lock
                         std::shared_ptr<CountDownLatch> * const lock = std::make_shared<CountDownLatch>(1);
 
@@ -75,10 +74,10 @@ namespace org {
                         reader->insertSe(hoplinkSE());
 
                         // lock thread for 2 seconds max to wait for the event
-                        lock->await(2, TimeUnit::SECONDS);
-                        Assert::assertEquals(0, lock->getCount()); // should be 0 because countDown is called by
+                        //lock->await(2, TimeUnit::SECONDS);
+                        ASSERT_EQ(0, lock->getCount()); // should be 0 because countDown is called by
                         // observer
-*/
+
                     }
 
                     StubReaderTest::ReaderObserverAnonymousInnerClass::ReaderObserverAnonymousInnerClass(std::shared_ptr<StubReaderTest> outerInstance, std::shared_ptr<CountDownLatch> lock) 
@@ -89,20 +88,19 @@ namespace org {
 
                     void StubReaderTest::ReaderObserverAnonymousInnerClass::update(std::shared_ptr<ReaderEvent> event_Renamed) 
                     {
-/*                        Assert::assertEquals(event_Renamed->getReaderName(), outerInstance->reader->getName());
-                        Assert::assertEquals(event_Renamed->getPluginName(), StubPlugin::getInstance()->getName());
-                        Assert::assertEquals(ReaderEvent::EventType::SE_INSERTED, event_Renamed->getEventType());
+                        ASSERT_EQ(event_Renamed->getReaderName(), outerInstance->reader->getName());
+                        ASSERT_EQ(event_Renamed->getPluginName(), StubPlugin::getInstance()->getName());
+                        ASSERT_EQ(ReaderEvent::EventType::SE_INSERTED, event_Renamed->getEventType());
 
                         outerInstance->logger->debug("testInsert event is correct");
                         // unlock thread
                         lock->countDown();
-*/                    }
+                    }
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void testInsertMatchingSe() throws InterruptedException
                     void StubReaderTest::testInsertMatchingSe() 
                     {
-/*
                         // CountDown lock
                         std::shared_ptr<CountDownLatch> * const lock = std::make_shared<CountDownLatch>(1);
                         const std::string poAid = "A000000291A000000191";
@@ -122,10 +120,9 @@ namespace org {
                         reader->insertSe(hoplinkSE());
 
                         // lock thread for 2 seconds max to wait for the event
-                        lock->await(2, TimeUnit::SECONDS);
-                        Assert::assertEquals(0, lock->getCount()); // should be 0 because countDown is called by
+                        //lock->await(2, TimeUnit::SECONDS);
+                        ASSERT_EQ(0, lock->getCount()); // should be 0 because countDown is called by
                         // observer
-*/
                     }
 
                     StubReaderTest::ReaderObserverAnonymousInnerClass2::ReaderObserverAnonymousInnerClass2(std::shared_ptr<StubReaderTest> outerInstance, std::shared_ptr<CountDownLatch> lock, const std::string &poAid) 
@@ -137,11 +134,11 @@ namespace org {
 
                     void StubReaderTest::ReaderObserverAnonymousInnerClass2::update(std::shared_ptr<ReaderEvent> event_Renamed) 
                     {
-/*                        Assert::assertEquals(event_Renamed->getReaderName(), outerInstance->reader->getName());
-                        Assert::assertEquals(event_Renamed->getPluginName(), StubPlugin::getInstance()->getName());
-                        Assert::assertEquals(ReaderEvent::EventType::SE_MATCHED, event_Renamed->getEventType());
-                        Assert::assertTrue(event_Renamed->getDefaultSelectionResponse()->getSelectionSeResponseSet()->getSingleResponse()->getSelectionStatus()->hasMatched());
-                        Assert::assertArrayEquals(event_Renamed->getDefaultSelectionResponse()->getSelectionSeResponseSet()->getSingleResponse()->getSelectionStatus()->getAtr()->getBytes(), hoplinkSE()->getATR());
+                        ASSERT_EQ(event_Renamed->getReaderName(), outerInstance->reader->getName());
+                        ASSERT_EQ(event_Renamed->getPluginName(), StubPlugin::getInstance()->getName());
+                        ASSERT_EQ(ReaderEvent::EventType::SE_MATCHED, event_Renamed->getEventType());
+                        //Assert::assertTrue(event_Renamed->getDefaultSelectionResponse()->getSelectionSeResponseSet()->getSingleResponse()->getSelectionStatus()->hasMatched());
+                        //Assert::assertArrayEquals(event_Renamed->getDefaultSelectionResponse()->getSelectionSeResponseSet()->getSingleResponse()->getSelectionStatus()->getAtr()->getBytes(), hoplinkSE()->getATR());
 
                         // retrieve the expected FCI from the Stub SE running the select application command
                         std::vector<char> aid = ByteArrayUtils::fromHex(poAid);
@@ -162,18 +159,18 @@ namespace org {
                             e->printStackTrace();
                         }
 
-                        Assert::assertArrayEquals(event_Renamed->getDefaultSelectionResponse()->getSelectionSeResponseSet()->getSingleResponse()->getSelectionStatus()->getFci()->getBytes(), fci);
+                        //Assert::assertArrayEquals(event_Renamed->getDefaultSelectionResponse()->getSelectionSeResponseSet()->getSingleResponse()->getSelectionStatus()->getFci()->getBytes(), fci);
 
                         outerInstance->logger->debug("match event is correct");
                         // unlock thread
                         lock->countDown();
-*/                    }
+                    }
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void testInsertNotMatching_MatchedOnly() throws InterruptedException
                     void StubReaderTest::testInsertNotMatching_MatchedOnly() 
                     {
-/*                        // CountDown lock
+                        // CountDown lock
                         std::shared_ptr<CountDownLatch> * const lock = std::make_shared<CountDownLatch>(1);
 
                         // add observer
@@ -193,9 +190,9 @@ namespace org {
 
 
                         // lock thread for 2 seconds max to wait for the event
-                        lock->await(100, TimeUnit::MILLISECONDS);
-                        Assert::assertEquals(1, lock->getCount()); // should be 1 because countDown is never called
-*/                    }
+                        //lock->await(100, TimeUnit::MILLISECONDS);
+                        ASSERT_EQ(1, lock->getCount()); // should be 1 because countDown is never called
+                    }
 
                     StubReaderTest::ReaderObserverAnonymousInnerClass3::ReaderObserverAnonymousInnerClass3(std::shared_ptr<StubReaderTest> outerInstance, std::shared_ptr<CountDownLatch> lock) 
                     {
@@ -213,7 +210,6 @@ namespace org {
 //ORIGINAL LINE: @Test public void testInsertNotMatching_Always() throws InterruptedException
                     void StubReaderTest::testInsertNotMatching_Always() 
                     {
-/*
                         // CountDown lock
                         std::shared_ptr<CountDownLatch> * const lock = std::make_shared<CountDownLatch>(1);
 
@@ -233,10 +229,10 @@ namespace org {
                         reader->insertSe(hoplinkSE());
 
                         // lock thread for 2 seconds max to wait for the event
-                        lock->await(2, TimeUnit::SECONDS);
-                        Assert::assertEquals(0, lock->getCount()); // should be 0 because countDown is called by
+                        //lock->await(2, TimeUnit::SECONDS);
+                        ASSERT_EQ(0, lock->getCount()); // should be 0 because countDown is called by
                         // observer
-*/                    }
+                    }
 
                     StubReaderTest::ReaderObserverAnonymousInnerClass4::ReaderObserverAnonymousInnerClass4(std::shared_ptr<StubReaderTest> outerInstance, std::shared_ptr<CountDownLatch> lock) 
                     {
@@ -246,23 +242,23 @@ namespace org {
 
                     void StubReaderTest::ReaderObserverAnonymousInnerClass4::update(std::shared_ptr<ReaderEvent> event_Renamed)
                     {
-/*                        Assert::assertEquals(event_Renamed->getReaderName(), outerInstance->reader->getName());
-                        Assert::assertEquals(event_Renamed->getPluginName(), StubPlugin::getInstance()->getName());
+                        ASSERT_EQ(event_Renamed->getReaderName(), outerInstance->reader->getName());
+                        ASSERT_EQ(event_Renamed->getPluginName(), StubPlugin::getInstance()->getName());
 
                         // an SE_INSERTED event is thrown
-                        Assert::assertEquals(ReaderEvent::EventType::SE_INSERTED, event_Renamed->getEventType());
+                        ASSERT_EQ(ReaderEvent::EventType::SE_INSERTED, event_Renamed->getEventType());
 
                         // card has not match
-                        Assert::assertFalse(event_Renamed->getDefaultSelectionResponse()->getSelectionSeResponseSet()->getSingleResponse()->getSelectionStatus()->hasMatched());
+                        ASSERT_FALSE(event_Renamed->getDefaultSelectionResponse()->getSelectionSeResponseSet()->getSingleResponse()->getSelectionStatus()->hasMatched());
 
                         lock->countDown(); // should be called
-*/                    }
+                    }
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void testATR() throws InterruptedException
                     void StubReaderTest::testATR() 
                     {
-/*                        // CountDown lock
+                        // CountDown lock
                         std::shared_ptr<CountDownLatch> * const lock = std::make_shared<CountDownLatch>(1);
 
                         // add observer
@@ -272,8 +268,7 @@ namespace org {
                         reader->insertSe(hoplinkSE());
 
                         // lock thread for 2 seconds max to wait for the event
-                        lock->await(2, TimeUnit::SECONDS);
-*/
+                        //lock->await(2, TimeUnit::SECONDS);
                     }
 
                     StubReaderTest::ReaderObserverAnonymousInnerClass5::ReaderObserverAnonymousInnerClass5(std::shared_ptr<StubReaderTest> outerInstance, std::shared_ptr<CountDownLatch> lock) 
@@ -284,8 +279,7 @@ namespace org {
 
                     void StubReaderTest::ReaderObserverAnonymousInnerClass5::update(std::shared_ptr<ReaderEvent> event_Renamed) 
                     {
-/*
-                        Assert::assertEquals(ReaderEvent::EventType::SE_INSERTED, event_Renamed->getEventType());
+                        ASSERT_EQ(ReaderEvent::EventType::SE_INSERTED, event_Renamed->getEventType());
 
                         std::shared_ptr<SeSelection> seSelection = std::make_shared<SeSelection>(outerInstance->reader);
                         std::shared_ptr<SeSelectionRequest> seSelectionRequest = std::make_shared<SeSelectionRequest>(std::make_shared<SeSelector>(nullptr, std::make_shared<SeSelector::AtrFilter>("3B.*"), "Test ATR"), ChannelState::KEEP_OPEN, Protocol::ANY);
@@ -293,20 +287,22 @@ namespace org {
                         // Prepare selector, ignore MatchingSe here
                         seSelection->prepareSelection(seSelectionRequest);
 
-                        try {
+                        try 
+                        {
                             seSelection->processExplicitSelection();
 
                             std::shared_ptr<MatchingSe> matchingSe = seSelection->getSelectedSe();
 
-                            Assert::assertNotNull(matchingSe);
+                            ASSERT_FALSE(matchingSe == nullptr);
 
                         }
-                        catch (const KeypleReaderException &e) {
-                            Assert::fail("Unexcepted exception");
+                        catch (const KeypleReaderException &e) 
+                        {
+                            //Assert::fail("Unexcepted exception");
                         }
                         // unlock thread
                         lock->countDown();
-*/                    }
+                    }
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test(expected = IllegalArgumentException.class) public void transmit_Hoplink_null() throws Exception
@@ -322,7 +318,7 @@ namespace org {
 //ORIGINAL LINE: @Test public void transmit_Hoplink_Successful() throws org.eclipse.keyple.seproxy.exception.KeypleReaderException, InterruptedException
                     void StubReaderTest::transmit_Hoplink_Successful() 
                     {
-/*                        // init Request
+                        // init Request
                         std::shared_ptr<SeRequestSet> requests = getRequestIsoDepSetSample();
 
                         // init SE
@@ -337,14 +333,14 @@ namespace org {
                         std::shared_ptr<SeResponseSet> seResponse = reader->transmitSet(requests);
 
                         // assert
-                        Assert::assertTrue(seResponse->getSingleResponse()->getApduResponses()[0]->isSuccessful());
-*/                    }
+                        ASSERT_TRUE(seResponse->getSingleResponse()->getApduResponses()[0]->isSuccessful());
+                    }
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test(expected = org.eclipse.keyple.seproxy.exception.KeypleReaderException.class) public void transmit_no_response() throws org.eclipse.keyple.seproxy.exception.KeypleReaderException, InterruptedException
                     void StubReaderTest::transmit_no_response() 
                     {
-/*                        // init Request
+                        // init Request
                         std::shared_ptr<SeRequestSet> requests = getNoResponseRequest();
 
                         // init SE
@@ -358,13 +354,13 @@ namespace org {
 
                         // test
                         std::shared_ptr<SeResponseSet> seResponse = reader->transmitSet(requests);
-*/                    }
+                    }
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void transmit_partial_response_set_0() throws org.eclipse.keyple.seproxy.exception.KeypleReaderException, InterruptedException
                     void StubReaderTest::transmit_partial_response_set_0() 
                     {
-/*                        // init Request
+                        // init Request
                         std::shared_ptr<SeRequestSet> seRequestSet = getPartialRequestSet(0);
 
                         // init SE
@@ -377,20 +373,22 @@ namespace org {
                         selectSe(reader);
 
                         // test
-                        try {
+                        try 
+                        {
                             std::shared_ptr<SeResponseSet> seResponseSet = reader->transmitSet(seRequestSet);
                         }
-                        catch (const KeypleReaderException &ex) {
-                            Assert::assertEquals(ex->getSeResponseSet()->getResponses().size(), 1);
-                            Assert::assertEquals(ex->getSeResponseSet()->getResponses()[0]->getApduResponses()->size(), 2);
+                        catch (const KeypleReaderException &ex) 
+                        {
+                            ASSERT_EQ(ex->getSeResponseSet()->getResponses().size(), 1);
+                            ASSERT_EQ(ex->getSeResponseSet()->getResponses()[0]->getApduResponses()->size(), 2);
                         }
-*/                    }
+                    }
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void transmit_partial_response_set_1() throws org.eclipse.keyple.seproxy.exception.KeypleReaderException, InterruptedException
                     void StubReaderTest::transmit_partial_response_set_1() 
                     {
-/*                        // init Request
+                        // init Request
                         std::shared_ptr<SeRequestSet> seRequestSet = getPartialRequestSet(1);
 
                         // init SE
@@ -403,22 +401,24 @@ namespace org {
                         selectSe(reader);
 
                         // test
-                        try {
+                        try 
+                        {
                             std::shared_ptr<SeResponseSet> seResponseSet = reader->transmitSet(seRequestSet);
                         }
-                        catch (const KeypleReaderException &ex) {
-                            Assert::assertEquals(ex->getSeResponseSet()->getResponses().size(), 2);
-                            Assert::assertEquals(ex->getSeResponseSet()->getResponses()[0]->getApduResponses()->size(), 4);
-                            Assert::assertEquals(ex->getSeResponseSet()->getResponses()[1]->getApduResponses()->size(), 2);
-                            Assert::assertEquals(ex->getSeResponseSet()->getResponses()[1]->getApduResponses()->size(), 2);
+                        catch (const KeypleReaderException &ex)
+                        {
+                            ASSERT_EQ(ex->getSeResponseSet()->getResponses().size(), 2);
+                            ASSERT_EQ(ex->getSeResponseSet()->getResponses()[0]->getApduResponses()->size(), 4);
+                            ASSERT_EQ(ex->getSeResponseSet()->getResponses()[1]->getApduResponses()->size(), 2);
+                            ASSERT_EQ(ex->getSeResponseSet()->getResponses()[1]->getApduResponses()->size(), 2);
                         }
-*/                    }
+                    }
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void transmit_partial_response_set_2() throws org.eclipse.keyple.seproxy.exception.KeypleReaderException, InterruptedException
                     void StubReaderTest::transmit_partial_response_set_2() 
                     {
-/*                        // init Request
+                        // init Request
                         std::shared_ptr<SeRequestSet> seRequestSet = getPartialRequestSet(2);
 
                         // init SE
@@ -431,22 +431,24 @@ namespace org {
                         selectSe(reader);
 
                         // test
-                        try {
+                        try 
+                        {
                             std::shared_ptr<SeResponseSet> seResponseSet = reader->transmitSet(seRequestSet);
                         }
-                        catch (const KeypleReaderException &ex) {
-                            Assert::assertEquals(ex->getSeResponseSet()->getResponses().size(), 3);
-                            Assert::assertEquals(ex->getSeResponseSet()->getResponses()[0]->getApduResponses()->size(), 4);
-                            Assert::assertEquals(ex->getSeResponseSet()->getResponses()[1]->getApduResponses()->size(), 4);
-                            Assert::assertEquals(ex->getSeResponseSet()->getResponses()[2]->getApduResponses()->size(), 2);
+                        catch (const KeypleReaderException &ex) 
+                        {
+                            ASSERT_EQ(ex->getSeResponseSet()->getResponses().size(), 3);
+                            ASSERT_EQ(ex->getSeResponseSet()->getResponses()[0]->getApduResponses()->size(), 4);
+                            ASSERT_EQ(ex->getSeResponseSet()->getResponses()[1]->getApduResponses()->size(), 4);
+                            ASSERT_EQ(ex->getSeResponseSet()->getResponses()[2]->getApduResponses()->size(), 2);
                         }
-*/                    }
+                    }
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void transmit_partial_response_set_3() throws org.eclipse.keyple.seproxy.exception.KeypleReaderException, InterruptedException
                     void StubReaderTest::transmit_partial_response_set_3() 
                     {
-/*                        // init Request
+                        // init Request
                         std::shared_ptr<SeRequestSet> seRequestSet = getPartialRequestSet(3);
 
                         // init SE
@@ -459,22 +461,24 @@ namespace org {
                         selectSe(reader);
 
                         // test
-                        try {
+                        try 
+                        {
                             std::shared_ptr<SeResponseSet> seResponseSet = reader->transmitSet(seRequestSet);
                         }
-                        catch (const KeypleReaderException &ex) {
-                            Assert::assertEquals(ex->getSeResponseSet()->getResponses().size(), 3);
-                            Assert::assertEquals(ex->getSeResponseSet()->getResponses()[0]->getApduResponses()->size(), 4);
-                            Assert::assertEquals(ex->getSeResponseSet()->getResponses()[1]->getApduResponses()->size(), 4);
-                            Assert::assertEquals(ex->getSeResponseSet()->getResponses()[2]->getApduResponses()->size(), 4);
+                        catch (const KeypleReaderException &ex)
+                        {
+                            ASSERT_EQ(ex->getSeResponseSet()->getResponses().size(), 3);
+                            ASSERT_EQ(ex->getSeResponseSet()->getResponses()[0]->getApduResponses()->size(), 4);
+                            ASSERT_EQ(ex->getSeResponseSet()->getResponses()[1]->getApduResponses()->size(), 4);
+                            ASSERT_EQ(ex->getSeResponseSet()->getResponses()[2]->getApduResponses()->size(), 4);
                         }
-*/                    }
+                    }
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void transmit_partial_response_0() throws org.eclipse.keyple.seproxy.exception.KeypleReaderException, InterruptedException
                     void StubReaderTest::transmit_partial_response_0() 
                     {
-/*                        // init Request
+                        // init Request
                         std::shared_ptr<SeRequest> seRequest = getPartialRequest(0);
 
                         // init SE
@@ -487,19 +491,21 @@ namespace org {
                         selectSe(reader);
 
                         // test
-                        try {
+                        try 
+                        {
                             std::shared_ptr<SeResponse> seResponse = reader->transmit(seRequest);
                         }
-                        catch (const KeypleReaderException &ex) {
-                            Assert::assertEquals(ex->getSeResponse()->getApduResponses().size(), 0);
+                        catch (const KeypleReaderException &ex) 
+                        {
+                            ASSERT_EQ(ex->getSeResponse()->getApduResponses().size(), 0);
                         }
-*/                    }
+                    }
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void transmit_partial_response_1() throws org.eclipse.keyple.seproxy.exception.KeypleReaderException, InterruptedException
                     void StubReaderTest::transmit_partial_response_1() 
                     {
-/*                        // init Request
+                        // init Request
                         std::shared_ptr<SeRequest> seRequest = getPartialRequest(1);
 
                         // init SE
@@ -512,19 +518,21 @@ namespace org {
                         selectSe(reader);
 
                         // test
-                        try {
+                        try 
+                        {
                             std::shared_ptr<SeResponse> seResponse = reader->transmit(seRequest);
                         }
-                        catch (const KeypleReaderException &ex) {
-                            Assert::assertEquals(ex->getSeResponse()->getApduResponses().size(), 1);
+                        catch (const KeypleReaderException &ex) 
+                        {
+                            ASSERT_EQ(ex->getSeResponse()->getApduResponses().size(), 1);
                         }
-*/                    }
+                    }
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void transmit_partial_response_2() throws org.eclipse.keyple.seproxy.exception.KeypleReaderException, InterruptedException
                     void StubReaderTest::transmit_partial_response_2() 
                     {
-/*                        // init Request
+                        // init Request
                         std::shared_ptr<SeRequest> seRequest = getPartialRequest(2);
 
                         // init SE
@@ -537,19 +545,21 @@ namespace org {
                         selectSe(reader);
 
                         // test
-                        try {
+                        try 
+                        {
                             std::shared_ptr<SeResponse> seResponse = reader->transmit(seRequest);
                         }
-                        catch (const KeypleReaderException &ex) {
-                            Assert::assertEquals(ex->getSeResponse()->getApduResponses().size(), 2);
+                        catch (const KeypleReaderException &ex) 
+                        {
+                            ASSERT_EQ(ex->getSeResponse()->getApduResponses().size(), 2);
                         }
-*/                    }
+                    }
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void transmit_partial_response_3() throws org.eclipse.keyple.seproxy.exception.KeypleReaderException, InterruptedException
                     void StubReaderTest::transmit_partial_response_3() 
                     {
-/*                        // init Request
+                        // init Request
                         std::shared_ptr<SeRequest> seRequest = getPartialRequest(3);
 
                         // init SE
@@ -562,20 +572,22 @@ namespace org {
                         selectSe(reader);
 
                         // test
-                        try {
+                        try 
+                        {
                             std::shared_ptr<SeResponse> seResponse = reader->transmit(seRequest);
                         }
-                        catch (const KeypleReaderException &ex) {
-                            Assert::assertEquals(ex->getSeResponse()->getApduResponses().size(), 3);
+                        catch (const KeypleReaderException &ex) 
+                        {
+                            ASSERT_EQ(ex->getSeResponse()->getApduResponses().size(), 3);
                         }
-*/                    }
+                    }
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void testGetName()
                     void StubReaderTest::testGetName() 
                     {
-/*                        Assert::assertNotNull(reader->getName());
-*/                    }
+                        //Assert::assertNotNull(reader->getName());
+                    }
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test(expected = org.eclipse.keyple.seproxy.exception.KeypleReaderException.class) public void testSetWrongParameter() throws Exception
@@ -598,15 +610,13 @@ namespace org {
 //ORIGINAL LINE: @Test public void testSetParameters() throws Exception
                     void StubReaderTest::testSetParameters() 
                     {
-/*                        std::unordered_map<std::string, std::string> p1;
+                        std::unordered_map<std::string, std::string> p1;
                         p1.emplace(StubReader::ALLOWED_PARAMETER_1, "a");
                         p1.emplace(StubReader::ALLOWED_PARAMETER_2, "a");
 
                         reader->setParameters(p1);
                         std::unordered_map<std::string, std::string> p2 = reader->getParameters();
-                        assert(p1.equals(p2));
-
-*/
+                        //assert(p1.equals(p2));
                     }
 
                     void StubReaderTest::ReaderObserverAnonymousInnerClass6::update(std::shared_ptr<ReaderEvent> readerEvent)

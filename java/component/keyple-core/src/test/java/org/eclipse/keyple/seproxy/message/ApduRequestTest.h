@@ -55,7 +55,7 @@ namespace org {
 
                         static std::vector<char> getACommand();
 
-                        static std::shared_ptr<Set<Integer>> getASuccessFulStatusCode();
+                        static std::shared_ptr<std::set<Integer>> getASuccessFulStatusCode();
 
                         static std::string getAName();
 

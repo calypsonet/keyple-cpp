@@ -47,7 +47,7 @@ namespace org {
                         std::vector<std::shared_ptr<ApduRequest>> apdus;
                         ChannelState channelState = static_cast<ChannelState>(0);
                         std::shared_ptr<SeProtocol> seProtocol;
-                        std::shared_ptr<Set<Integer>> selectionStatusCode;
+                        std::shared_ptr<std::set<Integer>> selectionStatusCode;
                         std::shared_ptr<SeSelector> selector;
 
 
@@ -115,7 +115,7 @@ namespace org {
 
                         static std::shared_ptr<SeProtocol> getASeProtocol();
 
-                        static std::shared_ptr<SeSelector> getSelector(std::shared_ptr<Set<Integer>> selectionStatusCode);
+                        static std::shared_ptr<SeSelector> getSelector(std::shared_ptr<std::set<Integer>> selectionStatusCode);
 
                     };
 

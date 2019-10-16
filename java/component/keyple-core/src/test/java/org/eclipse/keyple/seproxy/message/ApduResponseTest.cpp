@@ -116,8 +116,8 @@ namespace org {
                         assertNotNull(resp->toString());
                     }
 
-                    std::shared_ptr<Set<Integer>> ApduResponseTest::getA9005CustomCode() {
-                        std::shared_ptr<Set<Integer>> successfulStatusCodes = std::unordered_set<Integer>();
+                    std::shared_ptr<std::set<Integer>> ApduResponseTest::getA9005CustomCode() {
+                        std::shared_ptr<std::set<Integer>> successfulStatusCodes = std::unordered_set<Integer>();
                         successfulStatusCodes->add(0x9005);
                         return successfulStatusCodes;
                     }

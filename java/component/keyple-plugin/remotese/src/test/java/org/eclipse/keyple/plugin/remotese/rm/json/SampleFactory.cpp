@@ -108,7 +108,7 @@ namespace org {
 
                                 std::shared_ptr<SeRequest> seRequest2 = std::make_shared<SeRequest>(atrSelector, poApduRequestList, ChannelState::KEEP_OPEN, ContactsProtocols::PROTOCOL_ISO7816_3);
 
-                                std::shared_ptr<Set<std::shared_ptr<SeRequest>>> seRequests = std::unordered_set<std::shared_ptr<SeRequest>>();
+                                std::shared_ptr<std::set<std::shared_ptr<SeRequest>>> seRequests = std::unordered_set<std::shared_ptr<SeRequest>>();
                                 seRequests->add(seRequest);
                                 seRequests->add(seRequest2);
 

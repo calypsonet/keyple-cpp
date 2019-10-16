@@ -10,6 +10,8 @@
 #include "gtest/gtest.h"
 
 #include "BaseStubTest.h"
+#include "StubPluginTest.h"
+//#include "StubReaderTest.h"
 
 using namespace testing;
 
