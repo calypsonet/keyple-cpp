@@ -38,9 +38,10 @@
 #include "LoggerFactory.h"
 
 //JAVA TO C++ CONVERTER NOTE: Forward class declarations:
-//namespace org { namespace eclipse { namespace keyple { namespace plugin { namespace stub { class StubReader; } } } } }
-//namespace org { namespace eclipse { namespace keyple { namespace plugin { namespace stub { class StubPlugin; } } } } }
-//namespace org { namespace eclipse { namespace keyple { namespace plugin { namespace stub { class StubSecureElement; } } } } }
+namespace org { namespace eclipse { namespace keyple { namespace plugin { namespace stub { class StubReader; } } } } }
+namespace org { namespace eclipse { namespace keyple { namespace plugin { namespace stub { class StubPlugin; } } } } }
+namespace org { namespace eclipse { namespace keyple { namespace plugin { namespace stub { class StubSecureElement; } } } } }
+
 namespace org { namespace eclipse { namespace keyple { namespace core { namespace seproxy { namespace exception { class KeypleReaderException; } } } } } }
 namespace org { namespace eclipse { namespace keyple { namespace core { namespace seproxy { namespace event { class PluginEvent; } } } } } }
 namespace org { namespace eclipse { namespace keyple { namespace core { namespace seproxy { class SeReader; } } } } }
@@ -48,10 +49,10 @@ namespace org { namespace eclipse { namespace keyple { namespace core { namespac
 namespace org { namespace eclipse { namespace keyple { namespace core { namespace seproxy { namespace event { class ObservableReader; } } } } } }
 namespace org { namespace eclipse { namespace keyple { namespace core { namespace seproxy { namespace event { class ReaderObserver; } } } } } }
 namespace org { namespace eclipse { namespace keyple { namespace core { namespace seproxy { namespace exception { class KeypleIOReaderException; } } } } } }
-//namespace org { namespace eclipse { namespace keyple { namespace plugin { namespace stub { class StubSecureElement; } } } } }
 namespace org { namespace eclipse { namespace keyple { namespace core { namespace seproxy { namespace exception { class KeypleChannelStateException; } } } } } }
-namespace org { namespace eclipse { namespace keyple { namespace util { class CountDownLatch; } } } }
 namespace org { namespace eclipse { namespace keyple { namespace core { namespace seproxy { namespace event { class ObservablePlugin; } } } } } }
+
+namespace org { namespace eclipse { namespace keyple { namespace util { class CountDownLatch; } } } }
 
 /********************************************************************************
  * Copyright (c) 2018 Calypso Networks Association https://www.calypsonet-asso.org/
@@ -70,6 +71,7 @@ namespace org {
             namespace plugin {
                 namespace stub {
                     using StubPlugin = org::eclipse::keyple::plugin::stub::StubPlugin;
+                    using StubReader = org::eclipse::keyple::plugin::stub::StubReader;
                     using PoClass = org::eclipse::keyple::calypso::command::PoClass;
                     using IncreaseCmdBuild = org::eclipse::keyple::calypso::command::po::builder::IncreaseCmdBuild;
                     using ReadRecordsCmdBuild = org::eclipse::keyple::calypso::command::po::builder::ReadRecordsCmdBuild;
@@ -336,17 +338,11 @@ namespace org {
                          * @throws Exception
                          */
 
-
-                        std::shared_ptr<ObservableReader::ReaderObserver> obs1 = std::make_shared<ReaderObserverAnonymousInnerClass6>();
-
                     private:
                         class ReaderObserverAnonymousInnerClass6 : public std::enable_shared_from_this<ReaderObserverAnonymousInnerClass6>, public ObservableReader::ReaderObserver {
                         public:
                             void update(std::shared_ptr<ReaderEvent> readerEvent);
                         };
-
-                    public:
-                        std::shared_ptr<ObservableReader::ReaderObserver> obs2 = std::make_shared<ReaderObserverAnonymousInnerClass7>();
 
                     private:
                         class ReaderObserverAnonymousInnerClass7 : public std::enable_shared_from_this<ReaderObserverAnonymousInnerClass7>, public ObservableReader::ReaderObserver {
@@ -354,7 +350,9 @@ namespace org {
                             void update(std::shared_ptr<ReaderEvent> readerEvent);
                         };
 
+                        std::shared_ptr<ObservableReader::ReaderObserver> obs1 = std::make_shared<ReaderObserverAnonymousInnerClass6>();
 
+                        std::shared_ptr<ObservableReader::ReaderObserver> obs2 = std::make_shared<ReaderObserverAnonymousInnerClass7>();
 
                         /*
                          * HELPER METHODS
@@ -388,7 +386,8 @@ namespace org {
                         static std::shared_ptr<StubSecureElement> hoplinkSE();
 
                     private:
-                        class StubSecureElementAnonymousInnerClass : public StubSecureElement {
+                        class StubSecureElementAnonymousInnerClass : public std::enable_shared_from_this<StubSecureElementAnonymousInnerClass>, public StubSecureElement 
+                        {
 
                         public:
                             std::vector<char> processApdu(std::vector<char> &apduIn) override;
@@ -397,17 +396,19 @@ namespace org {
 
                             std::string getSeProcotol() override;
 
-protected:
-                            std::shared_ptr<StubSecureElementAnonymousInnerClass> shared_from_this() {
-                                return std::static_pointer_cast<StubSecureElementAnonymousInnerClass>(StubSecureElement::shared_from_this());
-                            }
+                    //protected:
+                    //        std::shared_ptr<StubSecureElementAnonymousInnerClass> shared_from_this() 
+                    //        {
+                    //            return std::static_pointer_cast<StubSecureElementAnonymousInnerClass>(StubSecureElement::shared_from_this());
+                    //        }
                         };
 
                     public:
                         static std::shared_ptr<StubSecureElement> noApduResponseSE();
 
                     private:
-                        class StubSecureElementAnonymousInnerClass2 : public StubSecureElement {
+                        class StubSecureElementAnonymousInnerClass2 : public StubSecureElement 
+                        {
 
                         public:
                             std::vector<char> processApdu(std::vector<char> &apduIn) override;
@@ -416,10 +417,10 @@ protected:
 
                             std::string getSeProcotol() override;
 
-protected:
-                            std::shared_ptr<StubSecureElementAnonymousInnerClass2> shared_from_this() {
-                                return std::static_pointer_cast<StubSecureElementAnonymousInnerClass2>(StubSecureElement::shared_from_this());
-                            }
+                        //protected:
+                        //    std::shared_ptr<StubSecureElementAnonymousInnerClass2> shared_from_this() {
+                        //        return std::static_pointer_cast<StubSecureElementAnonymousInnerClass2>(StubSecureElement::shared_from_this());
+                        //    }
                         };
 
                     public:

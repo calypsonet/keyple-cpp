@@ -147,8 +147,7 @@ void StubReader::setParameter(const std::string &name, const std::string &value)
     }
     else
     {
-        throw std::make_shared<KeypleReaderException>("parameter name not supported : " +
-                                                        name);
+        throw std::make_shared<KeypleReaderException>("parameter name not supported : " + name);
     }
 }
 
@@ -190,7 +189,8 @@ void StubReader::insertSe(std::shared_ptr<StubSecureElement> _se)
         {
             logger->debug("closing physical channel\n");
             closePhysicalChannel();
-        } catch (const KeypleReaderException &e)
+        } 
+        catch (const KeypleReaderException &e)
         {
             e.printStackTrace();
         }
@@ -222,7 +222,8 @@ bool StubReader::waitForCardPresent(long long timeout)
         try
         {
             Thread::sleep(10);
-        } catch (const InterruptedException &e)
+        } 
+        catch (const InterruptedException &e)
         {
             logger->debug("Sleep was interrupted\n");
         }

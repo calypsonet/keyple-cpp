@@ -48,7 +48,8 @@ using TransmissionMode      = org::eclipse::keyple::core::seproxy::protocol::Tra
  * </ul>
  * Interface used by applications processing SE.
  */
-class SeReader : public virtual Nameable, public Configurable, public Comparable<std::shared_ptr<SeReader>> {
+class SeReader : public virtual Nameable, public Configurable, public Comparable<std::shared_ptr<SeReader>> 
+{
 public:
     /**
      *

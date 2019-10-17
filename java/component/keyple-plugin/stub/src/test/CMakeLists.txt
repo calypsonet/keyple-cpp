@@ -105,7 +105,7 @@ ADD_EXECUTABLE(TU_plugin_stub_test
 	# TU Stub
 	${CMAKE_CURRENT_SOURCE_DIR}/java/org/eclipse/keyple/plugin/stub/MainTest.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/java/org/eclipse/keyple/plugin/stub/BaseStubTest.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/java/org/eclipse/keyple/plugin/stub/StubPluginTest.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/java/org/eclipse/keyple/plugin/stub/StubPluginTest.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/java/org/eclipse/keyple/plugin/stub/StubReaderTest.cpp
 )
 

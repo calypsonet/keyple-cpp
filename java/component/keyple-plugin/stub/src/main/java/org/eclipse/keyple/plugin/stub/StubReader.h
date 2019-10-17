@@ -104,15 +104,14 @@ public:
 
     std::vector<char> transmitApdu(std::vector<char> &apduIn) override;
 
+    void setParameter(const std::string &name, const std::string &value)  override;
+
+    std::unordered_map<std::string, std::string> getParameters() override;
+
 protected:
     bool protocolFlagMatches(const SeProtocol& protocolFlag)  override;
 
-
-        bool checkSePresence() override;
-
-        void setParameter(const std::string &name, const std::string &value)  override;
-
-    std::unordered_map<std::string, std::string> getParameters() override;
+    bool checkSePresence() override;
 
     /**
         * @return the current transmission mode

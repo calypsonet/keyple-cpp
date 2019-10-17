@@ -157,18 +157,22 @@ void StubPlugin::unplugStubReaders(std::shared_ptr<std::set<std::string>> names,
     logger->info("Unplug %d stub readers\n", names->size());
     logger->debug("Unplug stub readers.. %s\n", names);
     std::vector<std::shared_ptr<StubReader>> readersToDelete;
-    for (auto name : *names) {
-        try {
+    for (auto name : *names) 
+    {
+        try 
+        {
             readersToDelete.push_back(std::dynamic_pointer_cast<StubReader>(getReader(name)));
-    }
-        catch (const KeypleReaderNotFoundException &e) {
+        }
+        catch (const KeypleReaderNotFoundException &e) 
+        {
             (void)e;
             logger->warn("unplugStubReaders() No reader found with name %s\n", name);
         }
     }
     for (auto name : *names)
     	connectedStubNames->erase(name);
-    if (synchronous) {
+    if (synchronous)
+    {
         for (auto name : readersToDelete)
             readers->erase(name);
     }

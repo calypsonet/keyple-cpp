@@ -30,14 +30,16 @@ namespace event {
 
 using SeResponseSet = org::eclipse::keyple::core::seproxy::message::SeResponseSet;
 
-class EXPORT AbstractDefaultSelectionsResponse : public std::enable_shared_from_this<AbstractDefaultSelectionsResponse> {
+class EXPORT AbstractDefaultSelectionsResponse : public std::enable_shared_from_this<AbstractDefaultSelectionsResponse> 
+{
+public:
     /** The {@link org.eclipse.keyple.core.seproxy.message.SeResponseSet} */
+    virtual std::shared_ptr<SeResponseSet> getSelectionSeResponseSet() = 0;
+
 protected:
     const std::shared_ptr<SeResponseSet> selectionSeResponseSet;
 
     AbstractDefaultSelectionsResponse(std::shared_ptr<SeResponseSet> selectionSeResponseSet);
-
-    virtual std::shared_ptr<SeResponseSet> getSelectionSeResponseSet() = 0;
 };
 
 }
