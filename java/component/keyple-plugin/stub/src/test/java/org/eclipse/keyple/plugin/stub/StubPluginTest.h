@@ -47,31 +47,27 @@ namespace org {
                     using Logger                = org::eclipse::keyple::common::Logger;
                     using LoggerFactory         = org::eclipse::keyple::common::LoggerFactory;
                     using ObservablePlugin      = org::eclipse::keyple::core::seproxy::event::ObservablePlugin;
-                    using namespace testing::gtest;
+                    //using namespace ::testing::gtest;
 
                     //using namespace org::junit;
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @RunWith(MockitoJUnitRunner.class) @FixMethodOrder(MethodSorters.NAME_ASCENDING) public class StubPluginTest extends BaseStubTest
-                    class StubPluginTest : public BaseStubTest, public testing::Test 
+                    using ::testing::Mock;
+
+                    class StubPluginTest : public BaseStubTest
                     {
 
                     public:
                         std::shared_ptr<Logger> logger = LoggerFactory::getLogger(typeid(StubPluginTest));
 
-//JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
-//ORIGINAL LINE: @Before public void setUp() throws Exception
                         void setUp() override;
 
-//JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
-//ORIGINAL LINE: @After public void tearDown() throws InterruptedException, org.eclipse.keyple.seproxy.exception.KeypleReaderException
                         void tearDown() override;
 
                         /**
                          * Plug one reader and count if created
                          */
-//JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
-//ORIGINAL LINE: @Test public void testA_PlugOneReaderCount() throws InterruptedException, org.eclipse.keyple.seproxy.exception.KeypleReaderException
                         virtual void testA_PlugOneReaderCount();
 
 
@@ -232,7 +228,7 @@ namespace org {
                             void update(std::shared_ptr<PluginEvent> event_Renamed);
                         };
 
-protected:
+                        protected:
                         std::shared_ptr<StubPluginTest> shared_from_this() 
                         {
                             return std::static_pointer_cast<StubPluginTest>(BaseStubTest::shared_from_this());

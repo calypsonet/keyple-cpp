@@ -11,8 +11,44 @@
 
 #include "BaseStubTest.h"
 #include "StubPluginTest.h"
+#include "StubPlugin.h"
 
 using namespace testing;
+using org::eclipse::keyple::plugin::stub::StubPluginTest;
+using org::eclipse::keyple::plugin::stub::StubPlugin;
+using org::eclipse::keyple::plugin::stub::BaseStubTest;
+
+TEST(StubPluginTest, testA_PlugOneReaderCount) 
+{
+    StubPlugin stubplugin = StubPlugin::getInstance();
+    stubplugin.initReaders();
+
+    std::shared_ptr<StubPluginTest> LocalTest = std::make_shared<StubPluginTest>();
+
+    ASSERT_NE( LocalTest, nullptr);
+    LocalTest->testA_PlugOneReaderCount();
+}
+
+TEST(StubPluginTest, testA_PlugOneReaderEvent) 
+{
+    std::shared_ptr<StubPluginTest> LocalTest = std::make_shared<StubPluginTest>();
+
+    LocalTest->testA_PlugOneReaderEvent();
+}
+
+TEST(StubPluginTest, testA_UnplugOneReaderCount) 
+{
+    std::shared_ptr<StubPluginTest> LocalTest = std::make_shared<StubPluginTest>();
+
+    LocalTest->testA_UnplugOneReaderCount();
+}
+
+TEST(StubPluginTest, testB_UnplugOneReaderEvent) 
+{
+    std::shared_ptr<StubPluginTest> LocalTest = std::make_shared<StubPluginTest>();
+
+    LocalTest->testB_UnplugOneReaderEvent();
+}
 
 int main(int argc, char **argv)
 {

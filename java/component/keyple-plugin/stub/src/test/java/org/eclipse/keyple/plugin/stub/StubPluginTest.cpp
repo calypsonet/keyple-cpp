@@ -14,7 +14,7 @@ namespace org {
                     using KeypleReaderException = org::eclipse::keyple::core::seproxy::exception::KeypleReaderException;
                     using Logger                = org::eclipse::keyple::common::Logger;
                     using LoggerFactory         = org::eclipse::keyple::common::LoggerFactory;
-                    using namespace testing::gtest;
+                    //using namespace ::testing::gtest;
                     //using namespace org::junit;
                     //using org::junit::runner::RunWith;
                     //using org::junit::runners::MethodSorters;

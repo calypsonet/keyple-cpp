@@ -15,7 +15,9 @@
 
 //JAVA TO C++ CONVERTER NOTE: Forward class declarations:
 namespace org { namespace eclipse { namespace keyple { namespace plugin { namespace stub { class StubPlugin; } } } } }
+namespace org { namespace eclipse { namespace keyple { namespace plugin { namespace stub { class StubReader; } } } } }
 namespace org { namespace eclipse { namespace keyple { namespace seproxy { namespace exception { class KeypleReaderException; } } } } }
+namespace org { namespace eclipse { namespace keyple { namespace seproxy { namespace exception { class KeyplePluginException; } } } } }
 namespace testing { namespace gtest {} }
 
 /********************************************************************************
@@ -36,16 +38,16 @@ namespace org {
                 namespace stub {
                     using Logger                = org::eclipse::keyple::common::Logger;
                     using LoggerFactory         = org::eclipse::keyple::common::LoggerFactory;
-                    using namespace testing;
+                    //using namespace ::testing;
 
-                    class BaseStubTest : public std::enable_shared_from_this<BaseStubTest>
+                    class BaseStubTest : public std::enable_shared_from_this<BaseStubTest>//, public testing::Test
                     {
                     public:
                         std::shared_ptr<StubPlugin> stubPlugin;
+                        std::shared_ptr<StubReader> stubReader;
 
                     private:
                         static const std::shared_ptr<Logger> logger;
-
 
                     public:
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
