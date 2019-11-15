@@ -17,19 +17,25 @@ ENDIF(WIN32)
 
 INCLUDE_DIRECTORIES(
 	${CMAKE_CURRENT_SOURCE_DIR}
-    #${CMAKE_CURRENT_SOURCE_DIR}/java/org/eclipse/keyple
-    #${CMAKE_CURRENT_SOURCE_DIR}/java/org/eclipse/keyple/plugin/stub 
-    #${CMAKE_CURRENT_SOURCE_DIR}/java/org/eclipse/keyple/seproxy/exception
-    #${CMAKE_CURRENT_SOURCE_DIR}/java/org/eclipse/keyple/seproxy/plugin
-	#${CMAKE_CURRENT_SOURCE_DIR}/java/org/eclipse/keyple/seproxy/event
-	#${CMAKE_CURRENT_SOURCE_DIR}/java/org/eclipse/keyple/core/seproxy/plugin
+    #${CMAKE_CURRENT_SOURCE_DIR}/keyple
+    #${CMAKE_CURRENT_SOURCE_DIR}/keyple/plugin/stub 
+    #${CMAKE_CURRENT_SOURCE_DIR}/keyple/seproxy/exception
+    #${CMAKE_CURRENT_SOURCE_DIR}/keyple/seproxy/plugin
+	#${CMAKE_CURRENT_SOURCE_DIR}/keyple/seproxy/event
+	#${CMAKE_CURRENT_SOURCE_DIR}/keyple/core/seproxy/plugin
+	${CMAKE_CURRENT_SOURCE_DIR}/util
+
+	# common
+	${CMAKE_CURRENT_SOURCE_DIR}/../../../keyple-common/src/main
 
 	# TLV
-	${CMAKE_CURRENT_SOURCE_DIR}/../../../../../component/keyple-core/src/main/java/org/eclipse/keyple/core/util/bertlv
+	${CMAKE_CURRENT_SOURCE_DIR}/../main/util/bertlv
 
 	# Core
-	#${CMAKE_CURRENT_SOURCE_DIR}/../../../../../component/keyple-core/src/main/java/org/eclipse/keyple/util
-	#${CMAKE_CURRENT_SOURCE_DIR}/../../../../../component/keyple-core/src/main/java/org/eclipse/keyple/core/util
+	${CMAKE_CURRENT_SOURCE_DIR}/../main/util
+	${CMAKE_CURRENT_SOURCE_DIR}/../main/seproxy/event
+	${CMAKE_CURRENT_SOURCE_DIR}/../main/seproxy/message
+	${CMAKE_CURRENT_SOURCE_DIR}/../main/seproxy/exception
 
 	# google test and mock
 	${GOOGLETEST_DIRECTORY}/googletest-src
@@ -39,10 +45,16 @@ INCLUDE_DIRECTORIES(
 
 ADD_EXECUTABLE(TU_keyple_util_test
 	# TU keyple util
-	${CMAKE_CURRENT_SOURCE_DIR}/java/org/eclipse/keyple/util/MainTest.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/java/org/eclipse/keyple/util/TLVTest.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/java/org/eclipse/keyple/util/ObservableTest.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/java/org/eclipse/keyple/util/CoreBaseTest.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/MainTest.cpp
+	#${CMAKE_CURRENT_SOURCE_DIR}/CoreBaseTest.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/util/TLVTest.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/util/TagTest.cpp
+	#${CMAKE_CURRENT_SOURCE_DIR}/util/ObservableTest.cpp
+	#${CMAKE_CURRENT_SOURCE_DIR}/util/NameableTest.cpp
+
+	${CMAKE_CURRENT_SOURCE_DIR}/util/ConfigurableTest.cpp
+	#${CMAKE_CURRENT_SOURCE_DIR}/util/ByteArrayUtilTest.cpp
+	#${CMAKE_CURRENT_SOURCE_DIR}/util/CountDownLatchTest.cpp
 )
 
 SET(LINK_LIBS gtest gmock keyplecore ${WINSCARD} )

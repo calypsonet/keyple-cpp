@@ -4,8 +4,8 @@ namespace org {
     namespace eclipse {
         namespace keyple {
             namespace util {
-                using org::junit::Assert;
-                using org::junit::Test;
+                //using org::junit::Assert;
+                //using org::junit::Test;
 
                 ObservableTest::Event::Event(const std::string &name) : name(name) {
                 }
@@ -25,18 +25,19 @@ namespace org {
                     return "EventPlus{" + getName() + "}";
                 }
 
-                int ObservableTest::Observer::getNbCalls() {
-                    return nbCalls;
-                }
+                //int ObservableTest::Observer::getNbCalls() {
+                //    return nbCalls;
+                //}
 
-                void ObservableTest::Observer::update(std::shared_ptr<Event> arg) {
-                    // System.out.println(name + " received" + event);
-                    nbCalls += 1;
-                }
+                //void ObservableTest::Observer::update(std::shared_ptr<Event> arg) {
+                //    // System.out.println(name + " received" + event);
+                //    nbCalls += 1;
+                //}
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void sample()
-                void ObservableTest::sample() {
+                void ObservableTest::sample()
+                {
                     std::shared_ptr<Observable<std::shared_ptr<Event>>> pub = std::make_shared<Observable<std::shared_ptr<Event>>>();
                     std::shared_ptr<Observer> sub1 = std::make_shared<Observer>();
                     std::shared_ptr<Observer> sub2 = std::make_shared<Observer>();

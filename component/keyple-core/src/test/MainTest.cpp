@@ -10,6 +10,7 @@
 #include "gtest/gtest.h"
 
 #include "TLVTest.h"
+#include "TagTest.h"
 
 using namespace testing;
 using namespace keyple::core::util;
@@ -17,6 +18,15 @@ using namespace keyple::core::util;
 TEST(TLVTest, testA) 
 {
     std::shared_ptr<TLVTest> LocalTest = std::make_shared<TLVTest>();
+    int local = LocalTest->sample();
+
+    ASSERT_NE( local, 0);
+    ASSERT_EQ( local, 4);
+}
+
+TEST(TagTest, testA) 
+{
+    std::shared_ptr<TagTest> LocalTest = std::make_shared<TagTest>();
     int local = LocalTest->sample();
 
     ASSERT_NE( local, 0);

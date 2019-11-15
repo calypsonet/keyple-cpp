@@ -6,7 +6,7 @@
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 
-//#include "TLV.h"
+#include "TLV.h"
 
 /********************************************************************************
  * Copyright (c) 2018 Calypso Networks Association https://www.calypsonet-asso.org/
@@ -19,12 +19,11 @@
  *
  * SPDX-License-Identifier: EPL-2.0
  ********************************************************************************/
-namespace org {
-    namespace eclipse {
+
         namespace keyple {
             namespace core {
                 namespace util {
-                    
+                
                 using namespace testing;
 
                 class TLVTest : public std::enable_shared_from_this<TLVTest>
@@ -38,5 +37,3 @@ namespace org {
                 }
             }
         }
-    }
-}
