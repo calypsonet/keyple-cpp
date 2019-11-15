@@ -12,42 +12,71 @@
 #include "BaseStubTest.h"
 #include "StubPluginTest.h"
 #include "StubPlugin.h"
+#include "SeProxyService.h"
+#include "SeProtocol_Import.h"
+#include "SeReader.h"
+#include "StubReader.h"
 
 using namespace testing;
 using org::eclipse::keyple::plugin::stub::StubPluginTest;
 using org::eclipse::keyple::plugin::stub::StubPlugin;
 using org::eclipse::keyple::plugin::stub::BaseStubTest;
+using org::eclipse::keyple::core::seproxy::SeProxyService;
 
 TEST(StubPluginTest, testA_PlugOneReaderCount) 
 {
-    StubPlugin stubplugin = StubPlugin::getInstance();
+    /* Get the instance of the SeProxyService (Singleton pattern) */
+    SeProxyService seProxyService = SeProxyService::getInstance();
+
+    /* Get the instance of the Stub plugin */
+    StubPlugin& stubplugin = StubPlugin::getInstance();
     stubplugin.initReaders();
 
-    std::shared_ptr<StubPluginTest> LocalTest = std::make_shared<StubPluginTest>();
+    std::shared_ptr<StubPlugin> shared_stub = std::make_shared<StubPlugin>(stubplugin);
+    ASSERT_NE( shared_stub, nullptr);
+}
 
-    ASSERT_NE( LocalTest, nullptr);
-    LocalTest->testA_PlugOneReaderCount();
+TEST( StubPluinTest, testX_essai )
+{
+    /* Get the instance of the SeProxyService (Singleton pattern) */
+    SeProxyService seProxyService = SeProxyService::getInstance();
+
+    /* Get the instance of the Stub plugin */
+    StubPlugin& stubPlugin = StubPlugin::getInstance();
+    stubPlugin.initReaders();
+
+    std::shared_ptr<StubPlugin> shared_stub = std::make_shared<StubPlugin>(stubPlugin);
+    ASSERT_NE( shared_stub, nullptr);
+
+    /* Assign StubPlugin to the SeProxyService */
+    seProxyService.addPlugin(shared_stub);
+
+    /* Plug the PO stub reader */
+    stubPlugin.plugStubReader("poReader", true);
+
+    /* Plug the SAM stub reader. */
+    stubPlugin.plugStubReader("samReader", true);
 }
 
 TEST(StubPluginTest, testA_PlugOneReaderEvent) 
 {
-    std::shared_ptr<StubPluginTest> LocalTest = std::make_shared<StubPluginTest>();
+    //std::shared_ptr<StubPluginTest> LocalTest = std::make_shared<StubPluginTest>();
 
-    LocalTest->testA_PlugOneReaderEvent();
+    //LocalTest->testA_PlugOneReaderEvent();
 }
 
 TEST(StubPluginTest, testA_UnplugOneReaderCount) 
 {
-    std::shared_ptr<StubPluginTest> LocalTest = std::make_shared<StubPluginTest>();
+    //std::shared_ptr<StubPluginTest> LocalTest = std::make_shared<StubPluginTest>();
 
-    LocalTest->testA_UnplugOneReaderCount();
+    //LocalTest->testA_UnplugOneReaderCount();
 }
 
 TEST(StubPluginTest, testB_UnplugOneReaderEvent) 
 {
-    std::shared_ptr<StubPluginTest> LocalTest = std::make_shared<StubPluginTest>();
+    //std::shared_ptr<StubPluginTest> LocalTest = std::make_shared<StubPluginTest>();
 
-    LocalTest->testB_UnplugOneReaderEvent();
+    //LocalTest->testB_UnplugOneReaderEvent();
 }
 
 int main(int argc, char **argv)

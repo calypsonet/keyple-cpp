@@ -15,39 +15,6 @@ IF(WIN32)
 ENDIF(WIN32)
 
 
-#CONFIGURE_FILE(CMakeLists.txt.in googletest-download/CMakeLists.txt)
-#EXECUTE_PROCESS(
-#    COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
-#    RESULT_VARIABLE result
-#    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/googletest-download
-#)
-
-#IF(result)
-#    MESSAGE(FATAL_ERROR "CMake step for googletest failed: ${result}")
-#ENDIF()
-
-#EXECUTE_PROCESS(
-#    COMMAND ${CMAKE_COMMAND} --build .
-#    RESULT_VARIABLE result
-#    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/googletest-download
-#)
-
-#IF(result)
-#    MESSAGE(FATAL_ERROR "Build step for googletest failed: ${result}")
-#ENDIF()
-
-# Prevent overriding the parent project's compiler/linker
-# settings on Windows
-#SET(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-
-# Add googletest directly to our build. This defines
-# the gtest and gtest_main targets.
-ADD_SUBDIRECTORY(${CMAKE_CURRENT_BINARY_DIR}/googletest-src
-                 ${CMAKE_CURRENT_BINARY_DIR}/googletest-build
-                 EXCLUDE_FROM_ALL
-)
-
-
 INCLUDE_DIRECTORIES(
 	${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/java/org/eclipse/keyple
@@ -96,9 +63,9 @@ INCLUDE_DIRECTORIES(
 	${CMAKE_CURRENT_SOURCE_DIR}/../../../../../component/keyple-plugin/stub/src/main/java/org/eclipse/keyple/plugin/stub
 
 	# google test and mock
-	${CMAKE_CURRENT_BINARY_DIR}/googletest-src
-	${CMAKE_CURRENT_BINARY_DIR}/googletest-src/googlemock/include
-	${CMAKE_CURRENT_BINARY_DIR}/googletest-src/googletest/include
+	${GOOGLETEST_DIRECTORY}/googletest-src
+	${GOOGLETEST_DIRECTORY}/googletest-src/googlemock/include
+	${GOOGLETEST_DIRECTORY}/googletest-src/googletest/include
 )
 
 ADD_EXECUTABLE(TU_plugin_stub_test

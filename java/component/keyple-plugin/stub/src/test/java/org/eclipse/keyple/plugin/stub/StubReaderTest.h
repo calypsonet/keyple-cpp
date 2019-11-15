@@ -90,7 +90,6 @@ namespace org {
                     using Logger                = org::eclipse::keyple::common::Logger;
                     using LoggerFactory         = org::eclipse::keyple::common::LoggerFactory;
 
-                    //using namespace org::junit;
                     //using org::junit::runner::RunWith;
                     //using org::junit::runners::MethodSorters;
                     //using org::mockito::junit::MockitoJUnitRunner;
@@ -100,7 +99,7 @@ namespace org {
                     using ObservableReader      = org::eclipse::keyple::core::seproxy::event::ObservableReader;
                     using PluginEvent           = org::eclipse::keyple::core::seproxy::event::PluginEvent;
                     using ReaderEvent           = org::eclipse::keyple::core::seproxy::event::ReaderEvent;
-                    //using namespace org::junit;
+
                     using namespace testing::gtest;
 
 
