@@ -1,8 +1,12 @@
 #pragma once
 
-#include "Observable.h"
 #include <string>
 #include <memory>
+
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
+
+#include "Observable.h"
 
 /********************************************************************************
  * Copyright (c) 2018 Calypso Networks Association https://www.calypsonet-asso.org/
@@ -16,9 +20,11 @@
  * SPDX-License-Identifier: EPL-2.0
  ********************************************************************************/
         namespace keyple {
-            namespace util {
+            namespace core {
+                namespace util {
 
-
+                using namespace testing;
+                
                 class ObservableTest : public std::enable_shared_from_this<ObservableTest> {
                 public:
                     class Event : public std::enable_shared_from_this<Event> {
@@ -47,16 +53,17 @@ protected:
                         }
                     };
 
-//                public:
-//                    class Observer : public std::enable_shared_from_this<Observer>, public Observable::Observer<std::shared_ptr<Event>> {
-//                    private:
-//                        int nbCalls = 0;
+                //public:
+                //    class Observer : public std::enable_shared_from_this<Observer>, public Observer//<std::shared_ptr<Event>> 
+                //    {
+                //    private:
+                //        int nbCalls = 0;
 
-//                    public:
-//                        virtual int getNbCalls();
+                //    public:
+                //        virtual int getNbCalls();
 
-//                        void update(std::shared_ptr<Event> arg) override;
-//                    };
+                //        void update(std::shared_ptr<Event> arg) override;
+                //    };
 
                 public:
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
@@ -66,3 +73,4 @@ protected:
 
             }
         }
+    }

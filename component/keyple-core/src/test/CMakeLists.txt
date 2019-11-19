@@ -46,15 +46,15 @@ INCLUDE_DIRECTORIES(
 ADD_EXECUTABLE(TU_keyple_util_test
 	# TU keyple util
 	${CMAKE_CURRENT_SOURCE_DIR}/MainTest.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/CoreBaseTest.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/util/TLVTest.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/util/TagTest.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/util/ObservableTest.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/util/NameableTest.cpp
 
 	${CMAKE_CURRENT_SOURCE_DIR}/util/ConfigurableTest.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/util/ByteArrayUtilTest.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/util/CountDownLatchTest.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/util/ByteArrayUtilTest.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/util/CountDownLatchTest.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/util/ObservableTest.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/util/NameableTest.cpp
+	#${CMAKE_CURRENT_SOURCE_DIR}/CoreBaseTest.cpp
 )
 
 SET(LINK_LIBS gtest gmock keyplecore ${WINSCARD} )

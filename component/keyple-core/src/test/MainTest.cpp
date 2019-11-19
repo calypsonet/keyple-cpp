@@ -6,32 +6,17 @@
  * available at https://www.eclipse.org/org/documents/epl-2.0/EPL-2.0.html
  */
 
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
-
 #include "TLVTest.h"
 #include "TagTest.h"
 
+//#include "CoreBaseTest.h"
+//#include "ObservableTest.h"
+//#include "NameableTest.h"
+#include "ConfigurableTest.h"
+//#include "ByteArrayUtilTest.h"
+//#include "CountDownLatchTest.h"
+
 using namespace testing;
-using namespace keyple::core::util;
-
-TEST(TLVTest, testA) 
-{
-    std::shared_ptr<TLVTest> LocalTest = std::make_shared<TLVTest>();
-    int local = LocalTest->sample();
-
-    ASSERT_NE( local, 0);
-    ASSERT_EQ( local, 4);
-}
-
-TEST(TagTest, testA) 
-{
-    std::shared_ptr<TagTest> LocalTest = std::make_shared<TagTest>();
-    int local = LocalTest->sample();
-
-    ASSERT_NE( local, 0);
-    ASSERT_EQ( local, 4);
-}
 
 int main(int argc, char **argv)
 {

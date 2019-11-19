@@ -7,6 +7,7 @@
 #include "gtest/gtest.h"
 
 #include "TLV.h"
+#include "Tag.h"
 
 /********************************************************************************
  * Copyright (c) 2018 Calypso Networks Association https://www.calypsonet-asso.org/

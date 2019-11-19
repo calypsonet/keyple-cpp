@@ -14,14 +14,14 @@
 using namespace testing;
 using namespace keyple::core::util;
 
-TEST(TLVTest, testA) 
-{
-    std::shared_ptr<TLVTest> LocalTest = std::make_shared<TLVTest>();
-    int local = LocalTest->sample();
+//TEST(TLVTest, testA) 
+//{
+//    std::shared_ptr<TLVTest> LocalTest = std::make_shared<TLVTest>();
+//    int local = LocalTest->sample();
 
-    ASSERT_NE( local, 0);
-    ASSERT_EQ( local, 4);
-}
+//    ASSERT_NE( local, 0);
+//    ASSERT_EQ( local, 4);
+//}
 
 int main(int argc, char **argv)
 {

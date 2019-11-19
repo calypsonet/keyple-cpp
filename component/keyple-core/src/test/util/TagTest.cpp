@@ -1,6 +1,8 @@
 
 #include "TagTest.h"
 
+using namespace keyple::core::util;
+
         namespace keyple {
             namespace core {
                 namespace util {
@@ -21,3 +23,12 @@
                 }
             }
         }
+
+TEST(TagTest, testA) 
+{
+    std::shared_ptr<TagTest> LocalTest = std::make_shared<TagTest>();
+    int local = LocalTest->sample();
+
+    ASSERT_NE( local, 0);
+    ASSERT_EQ( local, 4);
+}

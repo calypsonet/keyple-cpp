@@ -31,7 +31,7 @@
                 public:
                     virtual ~ConfigurableTest(){};
 
-                    int sample();
+                    void sample(std::string szKey, std::string szValue);
                 };
 
                 }
