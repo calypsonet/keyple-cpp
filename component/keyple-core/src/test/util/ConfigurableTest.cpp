@@ -24,7 +24,7 @@ TEST(ConfigurableTest, testA)
 {
     std::shared_ptr<ConfigurableTest> LocalTest = std::make_shared<ConfigurableTest>();
     //std::shared_ptr<Configurable> Local = std::make_shared<Configurable>();
-    int local = 0;
+    int local = 4;
     
     LocalTest->sample( "TEST", "yes");
     LocalTest->sample( "ON", "1");

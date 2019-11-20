@@ -13,7 +13,7 @@ using namespace keyple::core::util;
                     {
                         std::vector<char> local = {'A', 'B', 'C', 'D'};
                         std::string szIn = "012345";
-                        int iOffset = 0;
+                        int iOffset = 4;
 
                         ByteArrayUtil pLocal = ByteArrayUtil();
                         local = pLocal.fromHex(szIn);

@@ -30,5 +30,5 @@ TEST(TagTest, testA)
     int local = LocalTest->sample();
 
     ASSERT_NE( local, 0);
-    ASSERT_EQ( local, 4);
+    ASSERT_EQ( local, 1);
 }
