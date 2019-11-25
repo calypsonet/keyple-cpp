@@ -80,9 +80,9 @@ ADD_EXECUTABLE(TU_keyple_calypso_test
 	#${CMAKE_CURRENT_SOURCE_DIR}/command/po/builder/DecreaseCmdBuild.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/command/po/builder/GetDataCmdBuildTest.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/command/po/builder/IncreaseCmdBuild.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/command/po/builder/ReadRecordsCmdBuild.cpp
+		#${CMAKE_CURRENT_SOURCE_DIR}/command/po/builder/ReadRecordsCmdBuildTest.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/command/po/builder/SelectFileCmdBuild.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/command/po/builder/UpdateRecordCmdBuild.cpp
+		#${CMAKE_CURRENT_SOURCE_DIR}/command/po/builder/UpdateRecordCmdBuildTest.cpp
 
 	# calypso - command - po - builder - security
 	#${CMAKE_CURRENT_SOURCE_DIR}/command/po/builder/security/AbstractOpenSessionCmdBuild.cpp
