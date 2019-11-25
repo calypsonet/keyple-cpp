@@ -25,6 +25,11 @@ INCLUDE_DIRECTORIES(
 	#${CMAKE_CURRENT_SOURCE_DIR}/keyple/core/seproxy/plugin
 	${CMAKE_CURRENT_SOURCE_DIR}/util
 
+	# calypso
+	${CMAKE_CURRENT_SOURCE_DIR}/../../../keyple-calypso/src/main/command
+	${CMAKE_CURRENT_SOURCE_DIR}/../../../keyple-calypso/src/main/command/po
+	${CMAKE_CURRENT_SOURCE_DIR}/../../../keyple-calypso/src/main/command/po/parser
+
 	# common
 	${CMAKE_CURRENT_SOURCE_DIR}/../../../keyple-common/src/main
 
@@ -33,6 +38,7 @@ INCLUDE_DIRECTORIES(
 
 	# Core
 	${CMAKE_CURRENT_SOURCE_DIR}/../main/util
+	${CMAKE_CURRENT_SOURCE_DIR}/../main/command
 	${CMAKE_CURRENT_SOURCE_DIR}/../main/seproxy/event
 	${CMAKE_CURRENT_SOURCE_DIR}/../main/seproxy/message
 	${CMAKE_CURRENT_SOURCE_DIR}/../main/seproxy/exception
@@ -57,6 +63,6 @@ ADD_EXECUTABLE(TU_keyple_util_test
 	#${CMAKE_CURRENT_SOURCE_DIR}/CoreBaseTest.cpp
 )
 
-SET(LINK_LIBS gtest gmock keyplecore ${WINSCARD} )
+SET(LINK_LIBS gtest gmock keyplecore keyplecalypso ${WINSCARD} )
 
 TARGET_LINK_LIBRARIES(TU_keyple_util_test ${LINK_LIBS})

@@ -2,14 +2,13 @@
 
 #include <string>
 #include <memory>
-#include <unordered_set>
 
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 
-#include "TLV.h"
-#include "GetDataFciRespPars.h"
-#include "ByteArrayUtil.h"
+#include "CalypsoBuilderParser.h"
+#include "Logger.h"
+#include "LoggerFactory.h"
 
 /********************************************************************************
  * Copyright (c) 2018 Calypso Networks Association https://www.calypsonet-asso.org/
@@ -24,31 +23,19 @@
  ********************************************************************************/
 
         namespace keyple {
-            namespace core {
-                namespace util {
-                
+            namespace calypso {
+                namespace command {                   
                 using namespace testing;
 
-                class TLVTest : public std::enable_shared_from_this<TLVTest>
+                class CalypsoBuilderParserTest : public std::enable_shared_from_this<CalypsoBuilderParserTest>
                 {
-                    bool isDfInvalidated_Renamed = false;
-                    bool isValidCalypsoFCI_Renamed = false;
-                    std::vector<char> dfName;
-                    std::vector<char> applicationSN;
-                    char siBufferSizeIndicator = 0;
-                    char siPlatform = 0;
-                    char siApplicationType = 0;
-                    char siApplicationSubtype = 0;
-                    char siSoftwareIssuer = 0;
-                    char siSoftwareVersion = 0;
-                    char siSoftwareRevision = 0;
 
                 public:
-                    virtual ~TLVTest(){};
+                    virtual ~CalypsoBuilderParserTest(){};
 
                     int sample();
                 };
-
                 }
             }
         }
+

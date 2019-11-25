@@ -6,15 +6,11 @@
  * available at https://www.eclipse.org/org/documents/epl-2.0/EPL-2.0.html
  */
 
-#include "TLVTest.h"
-#include "TagTest.h"
+#include <string>
+#include <memory>
 
-//#include "CoreBaseTest.h"
-//#include "ObservableTest.h"
-//#include "NameableTest.h"
-#include "ConfigurableTest.h"
-//#include "ByteArrayUtilTest.h"
-//#include "CountDownLatchTest.h"
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
 
 using namespace testing;
 

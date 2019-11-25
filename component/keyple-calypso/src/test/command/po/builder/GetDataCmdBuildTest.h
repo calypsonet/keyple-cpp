@@ -2,6 +2,15 @@
 
 #include <vector>
 #include <memory>
+#include <string>
+
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
+
+#include "PoClass.h"
+#include "GetDataFciCmdBuild.h"
+#include "AbstractApduCommandBuilder.h"
+#include "ApduRequest.h"
 
 /********************************************************************************
  * Copyright (c) 2018 Calypso Networks Association https://www.calypsonet-asso.org/
@@ -14,34 +23,20 @@
  *
  * SPDX-License-Identifier: EPL-2.0
  ********************************************************************************/
-namespace org {
-    namespace eclipse {
         namespace keyple {
             namespace calypso {
                 namespace command {
                     namespace po {
                         namespace builder {
 
-
-
-//JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
-//ORIGINAL LINE: @RunWith(MockitoJUnitRunner.class) public class GetDataCmdBuildTest
                             class GetDataCmdBuildTest : public std::enable_shared_from_this<GetDataCmdBuildTest> {
                             public:
-//JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
-//ORIGINAL LINE: @Test public void getDataFCICmdBuild()
                                 virtual void getDataFCICmdBuild();
 
-
-//JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
-//ORIGINAL LINE: @Test public void getDataFCICmdBuild2()
                                 virtual void getDataFCICmdBuild2();
                             };
-
                         }
                     }
                 }
             }
         }
-    }
-}
