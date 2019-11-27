@@ -1,41 +1,28 @@
 #include "OpenSessionCmdBuildTest.h"
-#include "../../../../../../../../../../../../keyple-core/src/main/java/org/eclipse/keyple/command/AbstractApduCommandBuilder.h"
-#include "../../../../../../../../../../../../keyple-core/src/main/java/org/eclipse/keyple/seproxy/message/ApduRequest.h"
-#include "../../../../../../../../../../main/java/org/eclipse/keyple/calypso/command/po/PoRevision.h"
-#include "../../../../../../../../../../main/java/org/eclipse/keyple/calypso/command/po/builder/session/AbstractOpenSessionCmdBuild.h"
-#include "../../../../../../../../../../../../keyple-core/src/main/java/org/eclipse/keyple/util/ByteArrayUtils.h"
 
-namespace org {
-    namespace eclipse {
+using namespace keyple::calypso::command::po::builder::security;
+
         namespace keyple {
             namespace calypso {
                 namespace command {
                     namespace po {
                         namespace builder {
-                            namespace session {
-                                using PoRevision = org::eclipse::keyple::calypso::command::po::PoRevision;
-                                using AbstractApduCommandBuilder = org::eclipse::keyple::command::AbstractApduCommandBuilder;
-                                using ApduRequest = org::eclipse::keyple::seproxy::message::ApduRequest;
-                                using ByteArrayUtils = org::eclipse::keyple::util::ByteArrayUtils;
-                                using org::junit::Assert;
-                                using org::junit::Test;
-                                using org::junit::runner::RunWith;
-                                using org::mockito::junit::MockitoJUnitRunner;
+                            namespace security {
 
-//JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
-//ORIGINAL LINE: @Test(expected = IllegalArgumentException.class) public void openSessionCmdBuild_rev_2_4_exception() throws IllegalArgumentException
-                                void OpenSessionCmdBuildTest::openSessionCmdBuild_rev_2_4_exception() throw(std::invalid_argument) {
+                                using PoRevision = keyple::calypso::command::po::PoRevision;
+                                using AbstractApduCommandBuilder = keyple::core::command::AbstractApduCommandBuilder;
+                                using ApduRequest = keyple::core::seproxy::message::ApduRequest;
+                                using ByteArrayUtil = keyple::core::util::ByteArrayUtil;
+
+                                void OpenSessionCmdBuildTest::openSessionCmdBuild_rev_2_4_exception() {
                                     char keyIndex = static_cast<char>(0x00);
                                     char recordNumberToRead = static_cast<char>(0x01);
                                     char sfiToSelect = static_cast<char>(0x08);
 
-
                                     apduCommandBuilder = AbstractOpenSessionCmdBuild::create(PoRevision::REV2_4, keyIndex, samChallenge, sfiToSelect, recordNumberToRead, "");
                                 }
 
-//JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
-//ORIGINAL LINE: @Test public void openSessionCmdBuild_rev_2_4() throws IllegalArgumentException
-                                void OpenSessionCmdBuildTest::openSessionCmdBuild_rev_2_4() throw(std::invalid_argument) {
+                                void OpenSessionCmdBuildTest::openSessionCmdBuild_rev_2_4() {
                                     char keyIndex = static_cast<char>(0x03);
                                     char recordNumberToRead = static_cast<char>(0x01);
                                     char sfiToSelect = static_cast<char>(0x08);
@@ -50,12 +37,10 @@ namespace org {
 
                                     apduCommandBuilder = AbstractOpenSessionCmdBuild::create(PoRevision::REV2_4, keyIndex, dataIn, sfiToSelect, recordNumberToRead, "");
                                     apduRequest = apduCommandBuilder->getApduRequest();
-                                    Assert::assertArrayEquals(request2_4, apduRequest->getBytes());
+                                    ASSERT_EQ(request2_4, apduRequest->getBytes());
                                 }
 
-//JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
-//ORIGINAL LINE: @Test public void openSessionCmdBuild_rev_3_1() throws IllegalArgumentException
-                                void OpenSessionCmdBuildTest::openSessionCmdBuild_rev_3_1() throw(std::invalid_argument) {
+                                void OpenSessionCmdBuildTest::openSessionCmdBuild_rev_3_1() {
                                     char keyIndex = static_cast<char>(0x03);
                                     char recordNumberToRead = static_cast<char>(0x01);
                                     char sfiToSelect = static_cast<char>(0x08);
@@ -70,12 +55,10 @@ namespace org {
                                     std::vector<char> request3_1 = {cla, cmd, p1, p2, static_cast<char>(dataIn.size()), static_cast<char>(0xA8), 0x31, static_cast<char>(0xC3), 0x3E, le};
                                     apduCommandBuilder = AbstractOpenSessionCmdBuild::create(PoRevision::REV3_1, keyIndex, dataIn, sfiToSelect, recordNumberToRead, "");
                                     apduRequest = apduCommandBuilder->getApduRequest();
-                                    Assert::assertArrayEquals(request3_1, apduRequest->getBytes());
+                                    ASSERT_EQ(request3_1, apduRequest->getBytes());
                                 }
 
-//JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
-//ORIGINAL LINE: @Test public void openSessionCmdBuild_rev_3_2() throws IllegalArgumentException
-                                void OpenSessionCmdBuildTest::openSessionCmdBuild_rev_3_2() throw(std::invalid_argument) {
+                                void OpenSessionCmdBuildTest::openSessionCmdBuild_rev_3_2() {
                                     char keyIndex = static_cast<char>(0x03);
                                     char recordNumberToRead = static_cast<char>(0x01);
                                     char sfiToSelect = static_cast<char>(0x08);
@@ -90,7 +73,7 @@ namespace org {
                                     std::vector<char> request3_2 = {cla, cmd, p1, p2, static_cast<char>(samChallenge.size() + 1), static_cast<char>(0x00), static_cast<char>(0xA8), 0x31, static_cast<char>(0xC3), 0x3E, le};
                                     apduCommandBuilder = AbstractOpenSessionCmdBuild::create(PoRevision::REV3_2, keyIndex, samChallenge, sfiToSelect, recordNumberToRead, "");
                                     apduRequest = apduCommandBuilder->getApduRequest();
-                                    Assert::assertEquals(ByteArrayUtils::toHex(request3_2), ByteArrayUtils::toHex(apduRequest->getBytes()));
+                                    ASSERT_EQ(ByteArrayUtil::toHex(request3_2), ByteArrayUtil::toHex(apduRequest->getBytes()));
                                 }
                             }
                         }
@@ -98,5 +81,27 @@ namespace org {
                 }
             }
         }
-    }
+
+TEST(OpenSessionCmdBuildTest, testA) 
+{
+    std::shared_ptr<OpenSessionCmdBuildTest> LocalTest = std::make_shared<OpenSessionCmdBuildTest>();
+    LocalTest->openSessionCmdBuild_rev_2_4_exception();
+}
+
+TEST(OpenSessionCmdBuildTest, testB) 
+{
+    std::shared_ptr<OpenSessionCmdBuildTest> LocalTest = std::make_shared<OpenSessionCmdBuildTest>();
+    LocalTest->openSessionCmdBuild_rev_2_4();
+}
+
+TEST(OpenSessionCmdBuildTest, testC) 
+{
+    std::shared_ptr<OpenSessionCmdBuildTest> LocalTest = std::make_shared<OpenSessionCmdBuildTest>();
+    LocalTest->openSessionCmdBuild_rev_3_1();
+}
+
+TEST(OpenSessionCmdBuildTest, testD) 
+{
+    std::shared_ptr<OpenSessionCmdBuildTest> LocalTest = std::make_shared<OpenSessionCmdBuildTest>();
+    LocalTest->openSessionCmdBuild_rev_3_2();
 }

@@ -19,10 +19,11 @@ using namespace keyple::calypso::command::po::builder;
                                 bool readJustOneRecord = false;
                                 char sfi = static_cast<char>(0x08);
                                 char p2 = static_cast<char>(static_cast<char>(sfi * 8) + 5);
+                                ReadDataStructure readDataStructure;
 
                                 // revision 2.4
                                 std::vector<char> request2_4 = {cla, cmd, record_number, p2, 0x00};
-                                apduCommandBuilder = std::make_shared<ReadRecordsCmdBuild>(PoClass::LEGACY, sfi, record_number, readJustOneRecord, expectedLength, "TestRev2_4");
+                                apduCommandBuilder = std::make_shared<ReadRecordsCmdBuild>(PoClass::LEGACY, sfi, readDataStructure, record_number, readJustOneRecord, expectedLength, "TestRev2_4");
                                 apduRequest = apduCommandBuilder->getApduRequest();
                                 ASSERT_EQ(request2_4, apduRequest->getBytes());
                             }
@@ -34,11 +35,11 @@ using namespace keyple::calypso::command::po::builder;
                                 bool readJustOneRecord = false;
                                 char sfi = static_cast<char>(0x08);
                                 char p2 = static_cast<char>(static_cast<char>(sfi * 8) + 5);
-
+                                ReadDataStructure readDataStructure;
 
                                 // revision 3.1
                                 std::vector<char> request3_1 = {cla, cmd, record_number, p2, 0x00};
-                                apduCommandBuilder = std::make_shared<ReadRecordsCmdBuild>(PoClass::ISO, sfi, record_number, readJustOneRecord, expectedLength, "TestRev3_1");
+                                apduCommandBuilder = std::make_shared<ReadRecordsCmdBuild>(PoClass::ISO, sfi, readDataStructure, record_number, readJustOneRecord, expectedLength, "TestRev3_1");
                                 apduRequest = apduCommandBuilder->getApduRequest();
                                 ASSERT_EQ(request3_1, apduRequest->getBytes());
                             }
@@ -49,10 +50,11 @@ using namespace keyple::calypso::command::po::builder;
                                 bool readJustOneRecord = false;
                                 char sfi = static_cast<char>(0x08);
                                 char p2 = static_cast<char>(static_cast<char>(sfi * 8) + 5);
+                                ReadDataStructure readDataStructure;
 
                                 // revision 3.2
                                 std::vector<char> request3_2 = {cla, cmd, record_number, p2, 0x00};
-                                apduCommandBuilder = std::make_shared<ReadRecordsCmdBuild>(PoClass::ISO, sfi, record_number, readJustOneRecord, expectedLength, "TestRev3_2");
+                                apduCommandBuilder = std::make_shared<ReadRecordsCmdBuild>(PoClass::ISO, sfi, readDataStructure, record_number, readJustOneRecord, expectedLength, "TestRev3_2");
                                 apduRequest = apduCommandBuilder->getApduRequest();
                                 ASSERT_EQ(request3_2, apduRequest->getBytes());
                             }

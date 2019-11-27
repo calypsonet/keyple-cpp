@@ -41,7 +41,7 @@ namespace keyple { namespace core { namespace seproxy { namespace message { clas
                             private:
                                 const char record_number = 0x01;
 
-                                std::vector<char> const newRecordData = std::vector<char> {0x00, 0x01, 0x02, 0x03, 0x04};
+                                std::vector<char> newRecordData = std::vector<char> {0x00, 0x01, 0x02, 0x03, 0x04};
 
                                 std::shared_ptr<AbstractApduCommandBuilder> apduCommandBuilder;
 

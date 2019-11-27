@@ -80,19 +80,16 @@ ADD_EXECUTABLE(TU_keyple_calypso_test
 	#${CMAKE_CURRENT_SOURCE_DIR}/command/po/builder/DecreaseCmdBuild.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/command/po/builder/GetDataCmdBuildTest.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/command/po/builder/IncreaseCmdBuild.cpp
-		#${CMAKE_CURRENT_SOURCE_DIR}/command/po/builder/ReadRecordsCmdBuildTest.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/command/po/builder/ReadRecordsCmdBuildTest.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/command/po/builder/SelectFileCmdBuild.cpp
-		#${CMAKE_CURRENT_SOURCE_DIR}/command/po/builder/UpdateRecordCmdBuildTest.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/command/po/builder/UpdateRecordCmdBuildTest.cpp
 
-	# calypso - command - po - builder - security
-	#${CMAKE_CURRENT_SOURCE_DIR}/command/po/builder/security/AbstractOpenSessionCmdBuild.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/command/po/builder/security/ChangeKeyCmdBuild.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/command/po/builder/security/CloseSessionCmdBuild.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/command/po/builder/security/OpenSession10CmdBuild.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/command/po/builder/security/OpenSession24CmdBuild.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/command/po/builder/security/OpenSession31CmdBuild.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/command/po/builder/security/OpenSession32CmdBuild.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/command/po/builder/security/PoGetChallengeCmdBuild.cpp
+	# calypso - command - po - builder - session
+	#${CMAKE_CURRENT_SOURCE_DIR}/command/po/builder/session/AbstractOpenSessionCmdBuild.cpp
+	#${CMAKE_CURRENT_SOURCE_DIR}/command/po/builder/session/ChangeKeyCmdBuild.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/command/po/builder/session/CloseSessionCmdBuildTest.cpp
+		#${CMAKE_CURRENT_SOURCE_DIR}/command/po/builder/session/OpenSessionCmdBuildTest.cpp
+		${CMAKE_CURRENT_SOURCE_DIR}/command/po/builder/session/PoGetChallengeCmdBuildTest.cpp
 
 	# calypso - command - po - parser
 	#${CMAKE_CURRENT_SOURCE_DIR}/command/po/parser/AppendRecordRespPars.cpp

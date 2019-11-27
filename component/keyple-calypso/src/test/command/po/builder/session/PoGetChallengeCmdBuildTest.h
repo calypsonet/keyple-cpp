@@ -3,6 +3,14 @@
 #include <vector>
 #include <memory>
 
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
+
+#include "PoClass.h"
+#include "PoGetChallengeCmdBuild.h"
+#include "AbstractApduCommandBuilder.h"
+#include "ApduRequest.h"
+
 /********************************************************************************
  * Copyright (c) 2018 Calypso Networks Association https://www.calypsonet-asso.org/
  *
@@ -14,40 +22,27 @@
  *
  * SPDX-License-Identifier: EPL-2.0
  ********************************************************************************/
-namespace org {
-    namespace eclipse {
         namespace keyple {
             namespace calypso {
                 namespace command {
                     namespace po {
                         namespace builder {
-                            namespace session {
+                            namespace security {
 
 
-//JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
-//ORIGINAL LINE: @RunWith(MockitoJUnitRunner.class) public class PoGetChallengeCmdBuildTest
+
                                 class PoGetChallengeCmdBuildTest : public std::enable_shared_from_this<PoGetChallengeCmdBuildTest> {
                                 public:
-//JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
-//ORIGINAL LINE: @Test public void POGetChallenge_Rev2_4()
+
                                     virtual void POGetChallenge_Rev2_4();
 
-//JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
-//ORIGINAL LINE: @Test public void POGetChallenge_Rev3_1()
                                     virtual void POGetChallenge_Rev3_1();
 
-//JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
-//ORIGINAL LINE: @Test public void POGetChallenge_Rev3_2()
                                     virtual void POGetChallenge_Rev3_2();
-
-
                                 };
-
                             }
                         }
                     }
                 }
             }
         }
-    }
-}
