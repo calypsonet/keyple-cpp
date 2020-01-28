@@ -21,10 +21,6 @@ namespace org {
                                 using SeResponseSet = org::eclipse::keyple::seproxy::message::SeResponseSet;
                                 using SelectionStatus = org::eclipse::keyple::seproxy::message::SelectionStatus;
                                 using ByteArrayUtils = org::eclipse::keyple::util::ByteArrayUtils;
-                                using org::junit::Assert;
-                                using org::junit::Test;
-                                using org::junit::runner::RunWith;
-                                using org::mockito::junit::MockitoJUnitRunner;
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void closeSessionRespPars()

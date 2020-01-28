@@ -64,7 +64,7 @@ ADD_EXECUTABLE(TU_keyple_calypso_test
 	#${CMAKE_CURRENT_SOURCE_DIR}/command/CalypsoBuilderParserTest.cpp
 
 	# calypso - command - po
-	#${CMAKE_CURRENT_SOURCE_DIR}/command/po/AbstractPoCommandBuilderTest.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/command/po/AbstractPoCommandBuilderTest.cpp
 
 	#${CMAKE_CURRENT_SOURCE_DIR}/command/po/AbstractPoResponseParser.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/command/po/CalypsoPoCommands.cpp
@@ -88,18 +88,18 @@ ADD_EXECUTABLE(TU_keyple_calypso_test
 	#${CMAKE_CURRENT_SOURCE_DIR}/command/po/builder/session/AbstractOpenSessionCmdBuild.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/command/po/builder/session/ChangeKeyCmdBuild.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/command/po/builder/session/CloseSessionCmdBuildTest.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/command/po/builder/session/OpenSessionCmdBuildTest.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/command/po/builder/session/OpenSessionCmdBuildTest.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/command/po/builder/session/PoGetChallengeCmdBuildTest.cpp
 
 	# calypso - command - po - parser
-	#${CMAKE_CURRENT_SOURCE_DIR}/command/po/parser/AppendRecordRespPars.cpp
+#	${CMAKE_CURRENT_SOURCE_DIR}/command/po/parser/AppendRecordRespParsTest.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/command/po/parser/DecreaseRespPars.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/command/po/parser/GetDataFciRespPars.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/command/po/parser/GetDataRespParsTest.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/command/po/parser/IncreaseRespPars.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/command/po/parser/ReadDataStructure.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/command/po/parser/ReadRecordsRespPars.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/command/po/parser/ReadRecordsRespParsTest.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/command/po/parser/SelectFileRespPars.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/command/po/parser/UpdateRecordRespPars.cpp
+#	${CMAKE_CURRENT_SOURCE_DIR}/command/po/parser/UpdateRecordRespParsTest.cpp
 
 	# calypso - command - po - parser - security
 	#${CMAKE_CURRENT_SOURCE_DIR}/command/po/parser/security/AbstractOpenSessionRespPars.cpp
@@ -119,27 +119,27 @@ ADD_EXECUTABLE(TU_keyple_calypso_test
 	#${CMAKE_CURRENT_SOURCE_DIR}/command/sam/SamRevision.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/command/sam/SamSendableInSession.cpp
 
-	# calypso - command - sam - builder - security
-	#${CMAKE_CURRENT_SOURCE_DIR}/command/sam/builder/security/CardGenerateKeyCmdBuild.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/command/sam/builder/security/DigestAuthenticateCmdBuild.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/command/sam/builder/security/DigestCloseCmdBuild.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/command/sam/builder/security/DigestInitCmdBuild.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/command/sam/builder/security/DigestUpdateCmdBuild.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/command/sam/builder/security/DigestUpdateMultipleCmdBuild.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/command/sam/builder/security/GiveRandomCmdBuild.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/command/sam/builder/security/SamGetChallengeCmdBuild.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/command/sam/builder/security/SelectDiversifierCmdBuild.cpp
+	# calypso - command - sam - builder
+	#${CMAKE_CURRENT_SOURCE_DIR}/command/sam/builder/CardGenerateKeyCmdBuild.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/command/sam/builder/DigestAuthenticateCmdBuildTest.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/command/sam/builder/DigestCloseCmdBuildTest.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/command/sam/builder/DigestInitCmdBuildTest.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/command/sam/builder/DigestUpdateCmdBuildTest.cpp
+	#${CMAKE_CURRENT_SOURCE_DIR}/command/sam/builder/DigestUpdateMultipleCmdBuild.cpp
+	#${CMAKE_CURRENT_SOURCE_DIR}/command/sam/builder/GiveRandomCmdBuild.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/command/sam/builder/SamGetChallengeCmdBuildTest.cpp
+	#${CMAKE_CURRENT_SOURCE_DIR}/command/sam/builder/SelectDiversifierCmdBuild.cpp
 
-	# calypso - command - sam - parser - security
-	#${CMAKE_CURRENT_SOURCE_DIR}/command/sam/parser/security/CardGenerateKeyRespPars.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/command/sam/parser/security/DigestAuthenticateRespPars.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/command/sam/parser/security/DigestCloseRespPars.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/command/sam/parser/security/DigestInitRespPars.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/command/sam/parser/security/DigestUpdateMultipleRespPars.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/command/sam/parser/security/DigestUpdateRespPars.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/command/sam/parser/security/GiveRandomRespPars.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/command/sam/parser/security/SamGetChallengeRespPars.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/command/sam/parser/security/SelectDiversifierRespPars.cpp
+	# calypso - command - sam - parser
+	#${CMAKE_CURRENT_SOURCE_DIR}/command/sam/parser/CardGenerateKeyRespPars.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/command/sam/parser/DigestAuthenticateRespParsTest.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/command/sam/parser/DigestCloseRespParsTest.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/command/sam/parser/DigestInitRespParsTest.cpp
+	#${CMAKE_CURRENT_SOURCE_DIR}/command/sam/parser/DigestUpdateMultipleRespPars.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/command/sam/parser/DigestUpdateRespParsTest.cpp
+	#${CMAKE_CURRENT_SOURCE_DIR}/command/sam/parser/GiveRandomRespPars.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/command/sam/parser/SamGetChallengeRespParsTest.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/command/sam/parser/SelectDiversifierRespParsTest.cpp
 
 	# calypso - transaction
 	#${CMAKE_CURRENT_SOURCE_DIR}/transaction/CalypsoPo.cpp

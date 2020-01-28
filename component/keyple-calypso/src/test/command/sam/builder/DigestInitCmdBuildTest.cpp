@@ -1,26 +1,22 @@
 #include "DigestInitCmdBuildTest.h"
-#include "../../../../../../../../../main/java/org/eclipse/keyple/calypso/command/sam/SamRevision.h"
-#include "../../../../../../../../../main/java/org/eclipse/keyple/calypso/command/sam/builder/session/DigestInitCmdBuild.h"
-#include "../../../../../../../../../../../keyple-core/src/main/java/org/eclipse/keyple/command/AbstractApduCommandBuilder.h"
+#include "SamRevision.h"
+#include "DigestInitCmdBuild.h"
+#include "AbstractApduCommandBuilder.h"
 
-namespace org {
-    namespace eclipse {
         namespace keyple {
             namespace calypso {
                 namespace command {
                     namespace sam {
                         namespace builder {
 //                            import static org.junit.Assert.assertArrayEquals;
-                            using SamRevision = org::eclipse::keyple::calypso::command::sam::SamRevision;
-                            using DigestInitCmdBuild = org::eclipse::keyple::calypso::command::sam::builder::session::DigestInitCmdBuild;
-                            using AbstractApduCommandBuilder = org::eclipse::keyple::command::AbstractApduCommandBuilder;
-                            using org::junit::Test;
-                            using org::junit::runner::RunWith;
-                            using org::mockito::junit::MockitoJUnitRunner;
+                            using SamRevision = keyple::calypso::command::sam::SamRevision;
+                            using DigestInitCmdBuild = keyple::calypso::command::sam::builder::security::DigestInitCmdBuild;
+                            using AbstractApduCommandBuilder = keyple::core::command::AbstractApduCommandBuilder;
+
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test(expected = IllegalArgumentException.class) public void digestInitCmd_inconsistent() throws IllegalArgumentException
-                            void DigestInitCmdBuildTest::digestInitCmd_inconsistent() throw(std::invalid_argument) {
+                            void DigestInitCmdBuildTest::digestInitCmd_inconsistent() {
 
                                 std::vector<char> digestData = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07};
 
@@ -36,7 +32,7 @@ namespace org {
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test(expected = IllegalArgumentException.class) public void digestInitCmd_inconsistent_digestNull() throws IllegalArgumentException
-                            void DigestInitCmdBuildTest::digestInitCmd_inconsistent_digestNull() throw(std::invalid_argument) {
+                            void DigestInitCmdBuildTest::digestInitCmd_inconsistent_digestNull() {
 
                                 std::vector<char> digestData;
 
@@ -52,7 +48,7 @@ namespace org {
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void digestInitCmd() throws IllegalArgumentException
-                            void DigestInitCmdBuildTest::digestInitCmd() throw(std::invalid_argument) {
+                            void DigestInitCmdBuildTest::digestInitCmd() {
 
                                 std::vector<char> digestData = {static_cast<char>(0x80), static_cast<char>(0x8A), 0x00};
                                 char cla = static_cast<char>(0x94);
@@ -73,12 +69,10 @@ namespace org {
 
                                 std::shared_ptr<AbstractApduCommandBuilder> apduCommandBuilder = std::make_shared<DigestInitCmdBuild>(revision, verificationMode, rev3_2Mode, workKeyRecordNumber, workKeyKif, workKeyKVC, digestData);
 
-                                assertArrayEquals(request, apduCommandBuilder->getApduRequest()->getBytes());
+                                ASSERT_EQ(request, apduCommandBuilder->getApduRequest()->getBytes());
                             }
                         }
                     }
                 }
             }
         }
-    }
-}

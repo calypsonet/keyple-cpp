@@ -3,6 +3,9 @@
 #include <string>
 #include <memory>
 
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
+
 /********************************************************************************
  * Copyright (c) 2018 Calypso Networks Association https://www.calypsonet-asso.org/
  *
@@ -14,8 +17,6 @@
  *
  * SPDX-License-Identifier: EPL-2.0
  ********************************************************************************/
-namespace org {
-    namespace eclipse {
         namespace keyple {
             namespace calypso {
                 namespace command {
@@ -47,5 +48,3 @@ namespace org {
                 }
             }
         }
-    }
-}

@@ -1,6 +1,7 @@
 #include "OpenSessionCmdBuildTest.h"
 
 using namespace keyple::calypso::command::po::builder::security;
+using namespace keyple::calypso::command::po::parser::security;
 
         namespace keyple {
             namespace calypso {
@@ -19,8 +20,7 @@ using namespace keyple::calypso::command::po::builder::security;
                                     char recordNumberToRead = static_cast<char>(0x01);
                                     char sfiToSelect = static_cast<char>(0x08);
 
-                                    //apduCommandBuilder = AbstractOpenSessionCmdBuild::create(PoRevision::REV2_4, keyIndex, samChallenge, sfiToSelect, recordNumberToRead, "");
-                                    apduCommandBuilder = std::make_shared<AbstractOpenSessionCmdBuild>(PoRevision::REV2_4, keyIndex, samChallenge, sfiToSelect, recordNumberToRead, "")
+                                    apduCommandBuilder = AbstractOpenSessionCmdBuild<AbstractOpenSessionRespPars>::create(PoRevision::REV2_4, keyIndex, samChallenge, sfiToSelect, recordNumberToRead, "");
                                 }
 
                                 void OpenSessionCmdBuildTest::openSessionCmdBuild_rev_2_4() {
@@ -36,7 +36,7 @@ using namespace keyple::calypso::command::po::builder::security;
                                     char le = 0; // case 4
                                     std::vector<char> request2_4 = {cla, cmd, p1, p2, static_cast<char>(dataIn.size()), static_cast<char>(0xA8), 0x31, static_cast<char>(0xC3), 0x3E, le};
 
-                                    apduCommandBuilder = AbstractOpenSessionCmdBuild::create(PoRevision::REV2_4, keyIndex, dataIn, sfiToSelect, recordNumberToRead, "");
+                                    apduCommandBuilder = AbstractOpenSessionCmdBuild<AbstractOpenSessionRespPars>::create(PoRevision::REV2_4, keyIndex, dataIn, sfiToSelect, recordNumberToRead, "");
                                     apduRequest = apduCommandBuilder->getApduRequest();
                                     ASSERT_EQ(request2_4, apduRequest->getBytes());
                                 }
@@ -54,7 +54,7 @@ using namespace keyple::calypso::command::po::builder::security;
 
                                     // revision 3.1
                                     std::vector<char> request3_1 = {cla, cmd, p1, p2, static_cast<char>(dataIn.size()), static_cast<char>(0xA8), 0x31, static_cast<char>(0xC3), 0x3E, le};
-                                    apduCommandBuilder = AbstractOpenSessionCmdBuild::create(PoRevision::REV3_1, keyIndex, dataIn, sfiToSelect, recordNumberToRead, "");
+                                    apduCommandBuilder = AbstractOpenSessionCmdBuild<AbstractOpenSessionRespPars>::create(PoRevision::REV3_1, keyIndex, dataIn, sfiToSelect, recordNumberToRead, "");
                                     apduRequest = apduCommandBuilder->getApduRequest();
                                     ASSERT_EQ(request3_1, apduRequest->getBytes());
                                 }
@@ -72,7 +72,7 @@ using namespace keyple::calypso::command::po::builder::security;
                                     char le = 0; // case 4
                                     // revision 3.2
                                     std::vector<char> request3_2 = {cla, cmd, p1, p2, static_cast<char>(samChallenge.size() + 1), static_cast<char>(0x00), static_cast<char>(0xA8), 0x31, static_cast<char>(0xC3), 0x3E, le};
-                                    apduCommandBuilder = AbstractOpenSessionCmdBuild::create(PoRevision::REV3_2, keyIndex, samChallenge, sfiToSelect, recordNumberToRead, "");
+                                    apduCommandBuilder = AbstractOpenSessionCmdBuild<AbstractOpenSessionRespPars>::create(PoRevision::REV3_2, keyIndex, samChallenge, sfiToSelect, recordNumberToRead, "");
                                     apduRequest = apduCommandBuilder->getApduRequest();
                                     ASSERT_EQ(ByteArrayUtil::toHex(request3_2), ByteArrayUtil::toHex(apduRequest->getBytes()));
                                 }

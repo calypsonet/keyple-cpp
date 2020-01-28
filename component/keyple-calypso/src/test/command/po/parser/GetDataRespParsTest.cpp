@@ -1,21 +1,17 @@
 #include "GetDataRespParsTest.h"
-#include "../../../../../../../../../../../keyple-core/src/main/java/org/eclipse/keyple/seproxy/message/ApduResponse.h"
-#include "../../../../../../../../../../../keyple-core/src/main/java/org/eclipse/keyple/util/ByteArrayUtils.h"
-#include "../../../../../../../../../main/java/org/eclipse/keyple/calypso/command/po/parser/GetDataFciRespPars.h"
+#include "ApduResponse.h"
+#include "ByteArrayUtil.h"
+#include "GetDataFciRespPars.h"
 
-namespace org {
-    namespace eclipse {
+using namespace keyple::calypso::command::po::parser;
+
         namespace keyple {
             namespace calypso {
                 namespace command {
                     namespace po {
                         namespace parser {
-                            using ApduResponse = org::eclipse::keyple::seproxy::message::ApduResponse;
-                            using ByteArrayUtils = org::eclipse::keyple::util::ByteArrayUtils;
-                            using org::junit::Assert;
-                            using org::junit::Test;
-                            using org::junit::runner::RunWith;
-                            using org::mockito::junit::MockitoJUnitRunner;
+                            using ApduResponse = keyple::core::seproxy::message::ApduResponse;
+                            using ByteArrayUtils = keyple::core::util::ByteArrayUtil;
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void testFCIparser_FCI_OK()
@@ -29,38 +25,39 @@ namespace org {
                                 char siSoftwareIssuer = static_cast<char>(0xAA);
                                 char siSoftwareVersion = static_cast<char>(0x55);
                                 char siSoftwareRevision = static_cast<char>(0xAA);
-                                std::string startupInformation = std::string::format("%02X%02X%02X%02X%02X%02X%02X", siBufferSizeIndicator, siPlatform, siApplicationType, siApplicationSubtype, siSoftwareIssuer, siSoftwareVersion, siSoftwareRevision);
-                                std::shared_ptr<ApduResponse> apduResponse = std::make_shared<ApduResponse>(ByteArrayUtils::fromHex("6F 24 84 0A " + dfName + " A5 16 BF0C 13 C7 08 " + appSerialNumber + " 53 07 " + startupInformation + "9000"), nullptr);
+                                std::string startupInformation = StringHelper::formatSimple( "%02X%02X%02X%02X%02X%02X%02X", siBufferSizeIndicator, siPlatform, siApplicationType, siApplicationSubtype, siSoftwareIssuer, siSoftwareVersion, siSoftwareRevision);
+                                std::vector<char> resp = ByteArrayUtils::fromHex("6F 24 84 0A " + dfName + " A5 16 BF0C 13 C7 08 " + appSerialNumber + " 53 07 " + startupInformation + "9000");
+                                std::shared_ptr<ApduResponse> apduResponse = std::make_shared<ApduResponse>(resp, nullptr);
 
                                 std::shared_ptr<GetDataFciRespPars> parser = std::make_shared<GetDataFciRespPars>(apduResponse);
 
                                 /* valid Calypso FCI */
-                                Assert::assertTrue(parser->isValidCalypsoFCI());
+                                ASSERT_TRUE(parser->isValidCalypsoFCI());
                                 /* DF not invalidated */
-                                Assert::assertFalse(parser->isDfInvalidated());
+                                ASSERT_FALSE(parser->isDfInvalidated());
                                 /* expected dfName */
-                                Assert::assertArrayEquals(ByteArrayUtils::fromHex(dfName), parser->getDfName());
+                                ASSERT_EQ(ByteArrayUtils::fromHex(dfName), parser->getDfName());
                                 /* expected Application Serial Number */
-                                Assert::assertArrayEquals(ByteArrayUtils::fromHex(appSerialNumber), parser->getApplicationSerialNumber());
+                                ASSERT_EQ(ByteArrayUtils::fromHex(appSerialNumber), parser->getApplicationSerialNumber());
                                 /* Buffer size indicator and value */
-                                Assert::assertEquals(siBufferSizeIndicator, parser->getBufferSizeIndicator());
-                                Assert::assertEquals(512, parser->getBufferSizeValue());
+                                ASSERT_EQ(siBufferSizeIndicator, parser->getBufferSizeIndicator());
+                                ASSERT_EQ(512, parser->getBufferSizeValue());
                                 /* Platform */
-                                Assert::assertEquals(siPlatform, parser->getPlatformByte());
+                                ASSERT_EQ(siPlatform, parser->getPlatformByte());
                                 /* ApplicationType */
-                                Assert::assertEquals(siApplicationType, parser->getApplicationTypeByte());
-                                Assert::assertTrue(parser->isRev3_2ModeAvailable());
-                                Assert::assertTrue(parser->isRatificationCommandRequired());
-                                Assert::assertTrue(parser->hasCalypsoPin());
-                                Assert::assertFalse(parser->hasCalypsoStoredValue());
+                                ASSERT_EQ(siApplicationType, parser->getApplicationTypeByte());
+                                ASSERT_TRUE(parser->isRev3_2ModeAvailable());
+                                ASSERT_TRUE(parser->isRatificationCommandRequired());
+                                ASSERT_TRUE(parser->hasCalypsoPin());
+                                ASSERT_FALSE(parser->hasCalypsoStoredValue());
                                 /* ApplicationSubType */
-                                Assert::assertEquals(siApplicationSubtype, parser->getApplicationSubtypeByte());
+                                ASSERT_EQ(siApplicationSubtype, parser->getApplicationSubtypeByte());
                                 /* SoftwareIssuer */
-                                Assert::assertEquals(siSoftwareIssuer, parser->getSoftwareIssuerByte());
+                                ASSERT_EQ(siSoftwareIssuer, parser->getSoftwareIssuerByte());
                                 /* SoftwareVersion */
-                                Assert::assertEquals(siSoftwareVersion, parser->getSoftwareVersionByte());
+                                ASSERT_EQ(siSoftwareVersion, parser->getSoftwareVersionByte());
                                 /* SoftwareRevision */
-                                Assert::assertEquals(siSoftwareRevision, parser->getSoftwareRevisionByte());
+                                ASSERT_EQ(siSoftwareRevision, parser->getSoftwareRevisionByte());
 
                                 /* Change startup information */
                                 siBufferSizeIndicator = 16;
@@ -70,38 +67,40 @@ namespace org {
                                 siSoftwareIssuer = static_cast<char>(0x55);
                                 siSoftwareVersion = static_cast<char>(0xAA);
                                 siSoftwareRevision = static_cast<char>(0x55);
-                                startupInformation = std::string::format("%02X%02X%02X%02X%02X%02X%02X", siBufferSizeIndicator, siPlatform, siApplicationType, siApplicationSubtype, siSoftwareIssuer, siSoftwareVersion, siSoftwareRevision);
-                                apduResponse = std::make_shared<ApduResponse>(ByteArrayUtils::fromHex("6F 24 84 0A " + dfName + " A5 16 BF0C 13 C7 08 " + appSerialNumber + " 53 07 " + startupInformation + "9000"), nullptr);
+                                startupInformation = StringHelper::formatSimple("%02X%02X%02X%02X%02X%02X%02X", siBufferSizeIndicator, siPlatform, siApplicationType, siApplicationSubtype, siSoftwareIssuer, siSoftwareVersion, siSoftwareRevision);
+                                
+                                std::vector<char> resp2 = ByteArrayUtils::fromHex("6F 24 84 0A " + dfName + " A5 16 BF0C 13 C7 08 " + appSerialNumber + " 53 07 " + startupInformation + "9000");
+                                apduResponse = std::make_shared<ApduResponse>(resp2, nullptr);
 
                                 parser = std::make_shared<GetDataFciRespPars>(apduResponse);
 
                                 /* valid Calypso FCI */
-                                Assert::assertTrue(parser->isValidCalypsoFCI());
+                                ASSERT_TRUE(parser->isValidCalypsoFCI());
                                 /* DF not invalidated */
-                                Assert::assertFalse(parser->isDfInvalidated());
+                                ASSERT_FALSE(parser->isDfInvalidated());
                                 /* expected dfName */
-                                Assert::assertArrayEquals(ByteArrayUtils::fromHex(dfName), parser->getDfName());
+                                ASSERT_EQ(ByteArrayUtils::fromHex(dfName), parser->getDfName());
                                 /* expected Application Serial Number */
-                                Assert::assertArrayEquals(ByteArrayUtils::fromHex(appSerialNumber), parser->getApplicationSerialNumber());
+                                ASSERT_EQ(ByteArrayUtils::fromHex(appSerialNumber), parser->getApplicationSerialNumber());
                                 /* Buffer size indicator and value */
-                                Assert::assertEquals(siBufferSizeIndicator, parser->getBufferSizeIndicator());
-                                Assert::assertEquals(1217, parser->getBufferSizeValue());
+                                ASSERT_EQ(siBufferSizeIndicator, parser->getBufferSizeIndicator());
+                                ASSERT_EQ(1217, parser->getBufferSizeValue());
                                 /* Platform */
-                                Assert::assertEquals(siPlatform, parser->getPlatformByte());
+                                ASSERT_EQ(siPlatform, parser->getPlatformByte());
                                 /* ApplicationType */
-                                Assert::assertEquals(siApplicationType, parser->getApplicationTypeByte());
-                                Assert::assertFalse(parser->isRev3_2ModeAvailable());
-                                Assert::assertFalse(parser->isRatificationCommandRequired());
-                                Assert::assertFalse(parser->hasCalypsoPin());
-                                Assert::assertTrue(parser->hasCalypsoStoredValue());
+                                ASSERT_EQ(siApplicationType, parser->getApplicationTypeByte());
+                                ASSERT_FALSE(parser->isRev3_2ModeAvailable());
+                                ASSERT_FALSE(parser->isRatificationCommandRequired());
+                                ASSERT_FALSE(parser->hasCalypsoPin());
+                                ASSERT_TRUE(parser->hasCalypsoStoredValue());
                                 /* ApplicationSubType */
-                                Assert::assertEquals(siApplicationSubtype, parser->getApplicationSubtypeByte());
+                                ASSERT_EQ(siApplicationSubtype, parser->getApplicationSubtypeByte());
                                 /* SoftwareIssuer */
-                                Assert::assertEquals(siSoftwareIssuer, parser->getSoftwareIssuerByte());
+                                ASSERT_EQ(siSoftwareIssuer, parser->getSoftwareIssuerByte());
                                 /* SoftwareVersion */
-                                Assert::assertEquals(siSoftwareVersion, parser->getSoftwareVersionByte());
+                                ASSERT_EQ(siSoftwareVersion, parser->getSoftwareVersionByte());
                                 /* SoftwareRevision */
-                                Assert::assertEquals(siSoftwareRevision, parser->getSoftwareRevisionByte());
+                                ASSERT_EQ(siSoftwareRevision, parser->getSoftwareRevisionByte());
                             }
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
@@ -116,14 +115,16 @@ namespace org {
                                 char siSoftwareIssuer = static_cast<char>(0xAA);
                                 char siSoftwareVersion = static_cast<char>(0x55);
                                 char siSoftwareRevision = static_cast<char>(0xAA);
-                                std::string startupInformation = std::string::format("%02X%02X%02X%02X%02X%02X%02X", siBufferSizeIndicator, siPlatform, siApplicationType, siApplicationSubtype, siSoftwareIssuer, siSoftwareVersion, siSoftwareRevision);
-                                std::shared_ptr<ApduResponse> apduResponse = std::make_shared<ApduResponse>(ByteArrayUtils::fromHex("6F 24 84 0A " + dfName + " A5 16 BF0C 13 C7 08 " + appSerialNumber + " 53 07 " + startupInformation + "6283"), nullptr);
+                                std::string startupInformation = StringHelper::formatSimple("%02X%02X%02X%02X%02X%02X%02X", siBufferSizeIndicator, siPlatform, siApplicationType, siApplicationSubtype, siSoftwareIssuer, siSoftwareVersion, siSoftwareRevision);
+                                
+                                std::vector<char> resp = ByteArrayUtils::fromHex("6F 24 84 0A " + dfName + " A5 16 BF0C 13 C7 08 " + appSerialNumber + " 53 07 " + startupInformation + "6283");
+                                std::shared_ptr<ApduResponse> apduResponse = std::make_shared<ApduResponse>(resp, nullptr);
 
                                 std::shared_ptr<GetDataFciRespPars> parser = std::make_shared<GetDataFciRespPars>(apduResponse);
 
                                 /* valid Calypso FCI */
-                                Assert::assertTrue(parser->isValidCalypsoFCI());
-                                Assert::assertTrue(parser->isDfInvalidated());
+                                ASSERT_TRUE(parser->isValidCalypsoFCI());
+                                ASSERT_TRUE(parser->isDfInvalidated());
                             }
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
@@ -138,60 +139,82 @@ namespace org {
                                 char siSoftwareIssuer = static_cast<char>(0xAA);
                                 char siSoftwareVersion = static_cast<char>(0x55);
                                 char siSoftwareRevision = static_cast<char>(0xAA);
-                                std::string startupInformation = std::string::format("%02X%02X%02X%02X%02X%02X%02X", siBufferSizeIndicator, siPlatform, siApplicationType, siApplicationSubtype, siSoftwareIssuer, siSoftwareVersion, siSoftwareRevision);
+                                std::string startupInformation = StringHelper::formatSimple("%02X%02X%02X%02X%02X%02X%02X", siBufferSizeIndicator, siPlatform, siApplicationType, siApplicationSubtype, siSoftwareIssuer, siSoftwareVersion, siSoftwareRevision);
 
                                 /* bad tag FCI Template (not constructed) */
-                                std::shared_ptr<ApduResponse> apduResponse = std::make_shared<ApduResponse>(ByteArrayUtils::fromHex("4F 24 84 0A " + dfName + " A5 16 BF0C 13 C7 08 " + appSerialNumber + " 53 07 " + startupInformation + "9000"), nullptr);
+                                std::vector<char> resp = ByteArrayUtils::fromHex("4F 24 84 0A " + dfName + " A5 16 BF0C 13 C7 08 " + appSerialNumber + " 53 07 " + startupInformation + "9000");
+                                std::shared_ptr<ApduResponse> apduResponse = std::make_shared<ApduResponse>(resp, nullptr);
 
                                 std::shared_ptr<GetDataFciRespPars> parser = std::make_shared<GetDataFciRespPars>(apduResponse);
 
                                 /* invalid Calypso FCI */
-                                Assert::assertFalse(parser->isValidCalypsoFCI());
+                                ASSERT_FALSE(parser->isValidCalypsoFCI());
 
                                 /* bad tag DF Name (constructed) */
-                                apduResponse = std::make_shared<ApduResponse>(ByteArrayUtils::fromHex("6F 24 C4 0A " + dfName + " A5 16 BF0C 13 C7 08 " + appSerialNumber + " 53 07 " + startupInformation + "9000"), nullptr);
+                                std::vector<char> resp2 = ByteArrayUtils::fromHex("6F 24 C4 0A " + dfName + " A5 16 BF0C 13 C7 08 " + appSerialNumber + " 53 07 " + startupInformation + "9000");
+                                apduResponse = std::make_shared<ApduResponse>(resp2, nullptr);
 
                                 parser = std::make_shared<GetDataFciRespPars>(apduResponse);
 
                                 /* invalid Calypso FCI */
-                                Assert::assertFalse(parser->isValidCalypsoFCI());
+                                ASSERT_FALSE(parser->isValidCalypsoFCI());
 
                                 /* bad tag FCI Proprietary Template (not constructed) */
-                                apduResponse = std::make_shared<ApduResponse>(ByteArrayUtils::fromHex("6F 24 84 0A " + dfName + " 85 16 BF0C 13 C7 08 " + appSerialNumber + " 53 07 " + startupInformation + "9000"), nullptr);
+                                std::vector<char> resp3 = ByteArrayUtils::fromHex("6F 24 84 0A " + dfName + " 85 16 BF0C 13 C7 08 " + appSerialNumber + " 53 07 " + startupInformation + "9000");
+                                apduResponse = std::make_shared<ApduResponse>(resp3, nullptr);
 
                                 parser = std::make_shared<GetDataFciRespPars>(apduResponse);
 
                                 /* invalid Calypso FCI */
-                                Assert::assertFalse(parser->isValidCalypsoFCI());
+                                ASSERT_FALSE(parser->isValidCalypsoFCI());
 
                                 /* bad tag FCI Issuer Discretionary */
-                                apduResponse = std::make_shared<ApduResponse>(ByteArrayUtils::fromHex("6F 24 84 0A " + dfName + " A5 16 BF0D 13 C7 08 " + appSerialNumber + " 53 07 " + startupInformation + "9000"), nullptr);
+                                std::vector<char> resp4 = ByteArrayUtils::fromHex("6F 24 84 0A " + dfName + " A5 16 BF0D 13 C7 08 " + appSerialNumber + " 53 07 " + startupInformation + "9000");
+                                apduResponse = std::make_shared<ApduResponse>(resp4, nullptr);
 
                                 parser = std::make_shared<GetDataFciRespPars>(apduResponse);
 
                                 /* invalid Calypso FCI */
-                                Assert::assertFalse(parser->isValidCalypsoFCI());
+                                ASSERT_FALSE(parser->isValidCalypsoFCI());
 
                                 /* bad tag Application Serial Number */
-                                apduResponse = std::make_shared<ApduResponse>(ByteArrayUtils::fromHex("6F 24 84 0A " + dfName + " A5 16 BF0C 13 87 08 " + appSerialNumber + " 53 07 " + startupInformation + "9000"), nullptr);
+                                std::vector<char> resp5 = ByteArrayUtils::fromHex("6F 24 84 0A " + dfName + " A5 16 BF0C 13 87 08 " + appSerialNumber + " 53 07 " + startupInformation + "9000");
+                                apduResponse = std::make_shared<ApduResponse>(resp5, nullptr);
 
                                 parser = std::make_shared<GetDataFciRespPars>(apduResponse);
 
                                 /* invalid Calypso FCI */
-                                Assert::assertFalse(parser->isValidCalypsoFCI());
+                                ASSERT_FALSE(parser->isValidCalypsoFCI());
 
                                 /* bad tag Discretionary Data */
-                                apduResponse = std::make_shared<ApduResponse>(ByteArrayUtils::fromHex("6F 24 84 0A " + dfName + " A5 16 BF0C 13 C7 08 " + appSerialNumber + " 43 07 " + startupInformation + "9000"), nullptr);
+                                std::vector<char> resp6 = ByteArrayUtils::fromHex("6F 24 84 0A " + dfName + " A5 16 BF0C 13 C7 08 " + appSerialNumber + " 43 07 " + startupInformation + "9000");
+                                apduResponse = std::make_shared<ApduResponse>(resp6, nullptr);
 
                                 parser = std::make_shared<GetDataFciRespPars>(apduResponse);
 
                                 /* invalid Calypso FCI */
-                                Assert::assertFalse(parser->isValidCalypsoFCI());
+                                ASSERT_FALSE(parser->isValidCalypsoFCI());
                             }
                         }
                     }
                 }
             }
         }
-    }
+
+TEST(GetDataRespParsTest, testA) 
+{
+    std::shared_ptr<GetDataRespParsTest> LocalTest = std::make_shared<GetDataRespParsTest>();
+    LocalTest->testFCIparser_FCI_OK();
+}
+
+TEST(GetDataRespParsTest, testB) 
+{
+    std::shared_ptr<GetDataRespParsTest> LocalTest = std::make_shared<GetDataRespParsTest>();
+    LocalTest->testFCIparser_FCI_Invalidated();
+}
+
+TEST(GetDataRespParsTest, testC) 
+{
+    std::shared_ptr<GetDataRespParsTest> LocalTest = std::make_shared<GetDataRespParsTest>();
+    LocalTest->testFCIparser_FCI_BadTags();
 }

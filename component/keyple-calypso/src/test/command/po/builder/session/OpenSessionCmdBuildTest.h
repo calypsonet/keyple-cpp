@@ -7,15 +7,20 @@
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 
+/* Common */
+#include "System.h"
+
 #include "AbstractApduCommandBuilder.h"
 #include "ApduRequest.h"
 #include "PoRevision.h"
 #include "AbstractOpenSessionCmdBuild.h"
+#include "AbstractOpenSessionRespPars.h"
 #include "ByteArrayUtil.h"
 
 //JAVA TO C++ CONVERTER NOTE: Forward class declarations:
 namespace keyple { namespace core { namespace command { class AbstractApduCommandBuilder; } } }
 namespace keyple { namespace core { namespace seproxy { namespace message { class ApduRequest; } } } }
+namespace keyple { namespace calypso { namespace command { namespace po { namespace parser { namespace security { class AbstractOpenSessionRespPars; }}}}}}
 
 /********************************************************************************
  * Copyright (c) 2018 Calypso Networks Association https://www.calypsonet-asso.org/
@@ -41,7 +46,7 @@ namespace keyple { namespace core { namespace seproxy { namespace message { clas
                                 class OpenSessionCmdBuildTest : public std::enable_shared_from_this<OpenSessionCmdBuildTest> {
 
                                 private:
-                                    std::vector<char> const samChallenge = std::vector<char> {static_cast<char>(0xA8), 0x31, static_cast<char>(0xC3), 0x3E};
+                                    std::vector<char> samChallenge = std::vector<char> {static_cast<char>(0xA8), 0x31, static_cast<char>(0xC3), 0x3E};
 
                                     std::shared_ptr<AbstractApduCommandBuilder> apduCommandBuilder;
 

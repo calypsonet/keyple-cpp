@@ -4,6 +4,9 @@
 #include <stdexcept>
 #include <memory>
 
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
+
 /********************************************************************************
  * Copyright (c) 2018 Calypso Networks Association https://www.calypsonet-asso.org/
  *
@@ -15,8 +18,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0
  ********************************************************************************/
-namespace org {
-    namespace eclipse {
+
         namespace keyple {
             namespace calypso {
                 namespace command {
@@ -31,7 +33,7 @@ namespace org {
                             public:
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void digestUpdateCmdBuild() throws IllegalArgumentException
-                                virtual void digestUpdateCmdBuild() throw(std::invalid_argument);
+                                virtual void digestUpdateCmdBuild();
                             };
 
                         }
@@ -39,5 +41,3 @@ namespace org {
                 }
             }
         }
-    }
-}
