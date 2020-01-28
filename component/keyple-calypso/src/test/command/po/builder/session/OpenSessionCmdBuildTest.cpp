@@ -19,7 +19,8 @@ using namespace keyple::calypso::command::po::builder::security;
                                     char recordNumberToRead = static_cast<char>(0x01);
                                     char sfiToSelect = static_cast<char>(0x08);
 
-                                    apduCommandBuilder = AbstractOpenSessionCmdBuild::create(PoRevision::REV2_4, keyIndex, samChallenge, sfiToSelect, recordNumberToRead, "");
+                                    //apduCommandBuilder = AbstractOpenSessionCmdBuild::create(PoRevision::REV2_4, keyIndex, samChallenge, sfiToSelect, recordNumberToRead, "");
+                                    apduCommandBuilder = std::make_shared<AbstractOpenSessionCmdBuild>(PoRevision::REV2_4, keyIndex, samChallenge, sfiToSelect, recordNumberToRead, "")
                                 }
 
                                 void OpenSessionCmdBuildTest::openSessionCmdBuild_rev_2_4() {
