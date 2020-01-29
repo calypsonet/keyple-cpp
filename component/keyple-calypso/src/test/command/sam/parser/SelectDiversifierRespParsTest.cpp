@@ -1,23 +1,17 @@
 #include "SelectDiversifierRespParsTest.h"
-#include "../../../../../../../../../../../keyple-core/src/main/java/org/eclipse/keyple/seproxy/message/ApduResponse.h"
-#include "../../../../../../../../../main/java/org/eclipse/keyple/calypso/command/sam/parser/session/SelectDiversifierRespPars.h"
+#include "ApduResponse.h"
+#include "SelectDiversifierRespPars.h"
 #include "AbstractApduResponseParser_Import.h"
 
-namespace org {
-    namespace eclipse {
         namespace keyple {
             namespace calypso {
                 namespace command {
                     namespace sam {
                         namespace parser {
-                            using SelectDiversifierRespPars = org::eclipse::keyple::calypso::command::sam::parser::session::SelectDiversifierRespPars;
-                            using AbstractApduResponseParser = org::eclipse::keyple::command::AbstractApduResponseParser;
-                            using ApduResponse = org::eclipse::keyple::seproxy::message::ApduResponse;
-                            using org::hamcrest::core::IsNot;
-                            using org::junit::Assert;
-                            using org::junit::Test;
-                            using org::junit::runner::RunWith;
-                            using org::mockito::junit::MockitoJUnitRunner;
+                            using SelectDiversifierRespPars = keyple::calypso::command::sam::parser::security::SelectDiversifierRespPars;
+                            using AbstractApduResponseParser = keyple::core::command::AbstractApduResponseParser;
+                            using ApduResponse = keyple::core::seproxy::message::ApduResponse;
+                            //using org::hamcrest::core::IsNot;
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void selectDiversifierResp()
@@ -29,16 +23,14 @@ namespace org {
 
                                 std::shared_ptr<AbstractApduResponseParser> apduResponseParser = std::make_shared<SelectDiversifierRespPars>(apduResponse);
 
-                                Assert::assertEquals(0x9000, apduResponseParser->getApduResponse()->getStatusCode());
+                                ASSERT_EQ(0x9000, apduResponseParser->getApduResponse()->getStatusCode());
 
                                 apduResponseParser = std::make_shared<SelectDiversifierRespPars>(apduResponse1);
 
-                                Assert::assertThat(apduResponseParser->getApduResponse()->getStatusCode(), IsNot::not(0x9000));
+                                ASSERT_THAT(apduResponseParser->getApduResponse()->getStatusCode(), IsNot::not(0x9000));
                             }
                         }
                     }
                 }
             }
         }
-    }
-}

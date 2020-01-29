@@ -60,11 +60,11 @@ ADD_EXECUTABLE(TU_keyple_calypso_test
 	${CMAKE_CURRENT_SOURCE_DIR}/../main/KeyReference.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/KeyReferenceTest.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/command/PoClassTest.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/command/SendableInSessionTest.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/command/CalypsoBuilderParserTest.cpp
+#	${CMAKE_CURRENT_SOURCE_DIR}/command/SendableInSessionTest.cpp
+#	${CMAKE_CURRENT_SOURCE_DIR}/command/CalypsoBuilderParserTest.cpp
 
 	# calypso - command - po
-	${CMAKE_CURRENT_SOURCE_DIR}/command/po/AbstractPoCommandBuilderTest.cpp
+#	${CMAKE_CURRENT_SOURCE_DIR}/command/po/AbstractPoCommandBuilderTest.cpp
 
 	#${CMAKE_CURRENT_SOURCE_DIR}/command/po/AbstractPoResponseParser.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/command/po/CalypsoPoCommands.cpp
@@ -132,14 +132,14 @@ ADD_EXECUTABLE(TU_keyple_calypso_test
 
 	# calypso - command - sam - parser
 	#${CMAKE_CURRENT_SOURCE_DIR}/command/sam/parser/CardGenerateKeyRespPars.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/command/sam/parser/DigestAuthenticateRespParsTest.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/command/sam/parser/DigestCloseRespParsTest.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/command/sam/parser/DigestInitRespParsTest.cpp
+#	${CMAKE_CURRENT_SOURCE_DIR}/command/sam/parser/DigestAuthenticateRespParsTest.cpp
+#	${CMAKE_CURRENT_SOURCE_DIR}/command/sam/parser/DigestCloseRespParsTest.cpp
+#	${CMAKE_CURRENT_SOURCE_DIR}/command/sam/parser/DigestInitRespParsTest.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/command/sam/parser/DigestUpdateMultipleRespPars.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/command/sam/parser/DigestUpdateRespParsTest.cpp
+#	${CMAKE_CURRENT_SOURCE_DIR}/command/sam/parser/DigestUpdateRespParsTest.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/command/sam/parser/GiveRandomRespPars.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/command/sam/parser/SamGetChallengeRespParsTest.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/command/sam/parser/SelectDiversifierRespParsTest.cpp
+#	${CMAKE_CURRENT_SOURCE_DIR}/command/sam/parser/SamGetChallengeRespParsTest.cpp
+#	${CMAKE_CURRENT_SOURCE_DIR}/command/sam/parser/SelectDiversifierRespParsTest.cpp
 
 	# calypso - transaction
 	#${CMAKE_CURRENT_SOURCE_DIR}/transaction/CalypsoPo.cpp

@@ -1,14 +1,18 @@
 #include "SamGetChallengeCmdBuildTest.h"
-#include "SamRevision.h"
+//#include "SamRevision.h"
 #include "SamGetChallengeCmdBuild.h"
 #include "AbstractApduCommandBuilder.h"
 #include "ApduRequest.h"
+
+using namespace keyple::calypso::command::sam::builder::security;
 
         namespace keyple {
             namespace calypso {
                 namespace command {
                     namespace sam {
                         namespace builder {
+                            namespace security {
+
                             using SamRevision = keyple::calypso::command::sam::SamRevision;
                             using SamGetChallengeCmdBuild = keyple::calypso::command::sam::builder::security::SamGetChallengeCmdBuild;
                             using AbstractApduCommandBuilder = keyple::core::command::AbstractApduCommandBuilder;
@@ -24,6 +28,8 @@
                                 std::shared_ptr<ApduRequest> apduRequest = apduCommandBuilder->getApduRequest();
 
                                 ASSERT_EQ(request, apduRequest->getBytes());
+
+                                }
                             }
                         }
                     }

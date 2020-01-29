@@ -6,7 +6,6 @@
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 
-#include "AbstractPoCommandBuilder.h"
 #include "Logger.h"
 #include "LoggerFactory.h"
 
@@ -26,7 +25,7 @@
         namespace calypso {
             namespace command {    
                 namespace po {            
-                using namespace testing;
+                //using namespace testing;
 
                 class AbstractPoCommandBuilderTest : public std::enable_shared_from_this<AbstractPoCommandBuilderTest>
                 {

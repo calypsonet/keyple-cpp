@@ -4,11 +4,15 @@
 #include "AbstractApduCommandBuilder.h"
 #include "message/ApduRequest.h"
 
+using namespace keyple::calypso::command::sam::builder::security;
+
         namespace keyple {
             namespace calypso {
                 namespace command {
                     namespace sam {
                         namespace builder {
+                            namespace security {
+
                             using SamRevision = keyple::calypso::command::sam::SamRevision;
                             using DigestCloseCmdBuild = keyple::calypso::command::sam::builder::security::DigestCloseCmdBuild;
                             using AbstractApduCommandBuilder = keyple::core::command::AbstractApduCommandBuilder;
@@ -29,9 +33,16 @@
                                 apduReq = apduCommandBuilder->getApduRequest();
 
                                 ASSERT_EQ(request1, apduReq->getBytes());
+                                }
                             }
                         }
                     }
                 }
             }
         }
+
+TEST(DigestCloseCmdBuildTest, testA) 
+{
+    std::shared_ptr<DigestCloseCmdBuildTest> LocalTest = std::make_shared<DigestCloseCmdBuildTest>();
+    LocalTest->digestCloseCmdBuild();
+}

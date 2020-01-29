@@ -7,14 +7,15 @@
 #include "AppendRecordRespPars.h"
 #include "AbstractApduResponseParser_Import.h"
 
-using namespace keyple::calypso::command::po::parser;
+using namespace keyple::calypso::command::po::parser::security;
 
         namespace keyple {
             namespace calypso {
                 namespace command {
                     namespace po {
                         namespace parser {
-                            using AbstractApduResponseParser = keyple::calypso::command::po::AbstractApduResponseParser;
+                            namespace security {
+                            using AbstractApduResponseParser = keyple::core::command::AbstractApduResponseParser;
                             using ApduResponse = keyple::core::seproxy::message::ApduResponse;
                             using SeResponse = keyple::core::seproxy::message::SeResponse;
                             using SeResponseSet = keyple::core::seproxy::message::SeResponseSet;
@@ -28,11 +29,13 @@ using namespace keyple::calypso::command::po::parser;
                                 std::vector<char> ApduRequest = {90, 0};
                                 std::shared_ptr<ApduResponse> apduResponse = std::make_shared<ApduResponse>(ApduRequest, nullptr);
                                 responses.push_back(apduResponse);
-                                std::shared_ptr<SeResponseSet> seResponse = std::make_shared<SeResponseSet>(std::make_shared<SeResponse>(true, std::make_shared<SelectionStatus>(nullptr, std::make_shared<ApduResponse>(ByteArrayUtils::fromHex("9000"), nullptr), true), responses));
+                                std::vector<char> cResp1 = ByteArrayUtils::fromHex("9000");
+                                std::shared_ptr<SeResponseSet> seResponse = std::make_shared<SeResponseSet>(std::make_shared<SeResponse>(true, std::make_shared<SelectionStatus>(nullptr, std::make_shared<ApduResponse>(cResp1, nullptr), true), responses));
 
                                 std::shared_ptr<AbstractApduResponseParser> apduResponseParser = std::make_shared<AppendRecordRespPars>();
                                 apduResponseParser->setApduResponse(seResponse->getSingleResponse()->getApduResponses()[0]);
                                 ASSERT_EQ(ApduRequest, apduResponseParser->getApduResponse()->getBytes());
+                                }
                             }
                         }
                     }

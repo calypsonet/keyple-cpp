@@ -24,7 +24,7 @@
                 namespace command {
                     namespace sam {
                         namespace builder {
-
+                            namespace security {
 
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
@@ -34,8 +34,8 @@
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void digestUpdateCmdBuild() throws IllegalArgumentException
                                 virtual void digestUpdateCmdBuild();
-                            };
-
+                                };
+                            }
                         }
                     }
                 }

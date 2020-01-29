@@ -1,22 +1,16 @@
 #include "ResponseUtilsTest.h"
-#include "../../../../../../../main/java/org/eclipse/keyple/calypso/command/po/parser/session/AbstractOpenSessionRespPars.h"
-#include "../../../../../../../main/java/org/eclipse/keyple/calypso/command/po/parser/session/OpenSession32RespPars.h"
-#include "../../../../../../../main/java/org/eclipse/keyple/calypso/command/po/parser/session/OpenSession24RespPars.h"
-#include "../../../../../../../../../keyple-core/src/main/java/org/eclipse/keyple/util/ByteArrayUtils.h"
+#include "AbstractOpenSessionRespPars.h"
+#include "OpenSession32RespPars.h"
+#include "OpenSession24RespPars.h"
+#include "ByteArrayUtil.h"
 
-namespace org {
-    namespace eclipse {
         namespace keyple {
             namespace calypso {
                 namespace util {
-                    using AbstractOpenSessionRespPars = org::eclipse::keyple::calypso::command::po::parser::session::AbstractOpenSessionRespPars;
-                    using OpenSession24RespPars = org::eclipse::keyple::calypso::command::po::parser::session::OpenSession24RespPars;
-                    using OpenSession32RespPars = org::eclipse::keyple::calypso::command::po::parser::session::OpenSession32RespPars;
-                    using ByteArrayUtils = org::eclipse::keyple::util::ByteArrayUtils;
-                    using org::junit::Assert;
-                    using org::junit::Test;
-                    using org::junit::runner::RunWith;
-                    using org::mockito::junit::MockitoJUnitRunner;
+                    using AbstractOpenSessionRespPars = keyple::calypso::command::po::parser::security::AbstractOpenSessionRespPars;
+                    using OpenSession24RespPars = keyple::calypso::command::po::parser::security::OpenSession24RespPars;
+                    using OpenSession32RespPars = keyple::calypso::command::po::parser::security::OpenSession32RespPars;
+                    using ByteArrayUtils = keyple::core::util::ByteArrayUtils;
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void TestToSecureSession()
@@ -104,5 +98,3 @@ namespace org {
                 }
             }
         }
-    }
-}

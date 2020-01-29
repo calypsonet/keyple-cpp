@@ -1,5 +1,5 @@
 #include "AbstractPoCommandBuilderTest.h"
-
+#include "AbstractPoCommandBuilder.h"
 
 using namespace keyple::calypso::command::po;
 
@@ -7,7 +7,7 @@ using namespace keyple::calypso::command::po;
         namespace calypso {
             namespace command {
                 namespace po {
-                    using namespace testing;
+                    //using namespace testing;
 
                     int AbstractPoCommandBuilderTest::sample()
                     {

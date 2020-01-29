@@ -23,7 +23,7 @@
                 namespace command {
                     namespace sam {
                         namespace builder {
-
+                            namespace security {
 //JAVA TO C++ CONVERTER TODO TASK: The Java 'import static' statement cannot be converted to C++:
 //                            import static org.junit.Assert.assertArrayEquals;
 
@@ -42,8 +42,8 @@
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void digestInitCmd() throws IllegalArgumentException
                                 virtual void digestInitCmd();
-                            };
-
+                                };
+                            }
                         }
                     }
                 }

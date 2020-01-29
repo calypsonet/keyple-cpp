@@ -4,13 +4,15 @@
 #include "ApduRequest.h"
 #include "ByteArrayUtil.h"
 
-using namespace keyple::calypso::command::sam::builder;
+using namespace keyple::calypso::command::sam::builder::security;
 
         namespace keyple {
             namespace calypso {
                 namespace command {
-                    namespace sam {
+                        namespace sam {
                         namespace builder {
+                            namespace security {
+
                             using DigestAuthenticateCmdBuild = keyple::calypso::command::sam::builder::security::DigestAuthenticateCmdBuild;
                             using AbstractApduCommandBuilder = keyple::core::command::AbstractApduCommandBuilder;
                             using ApduRequest = keyple::core::seproxy::message::ApduRequest;
@@ -23,13 +25,22 @@ using namespace keyple::calypso::command::sam::builder;
                                 std::vector<char> signaturePO = {0x00, 0x01, 0x02, 0x03};
                                 std::vector<char> request = {static_cast<char>(0x94), static_cast<char>(0x82), 0x00, 0x00, 0x04, 0x00, 0x01, 0x02, 0x03};
 
-                                std::shared_ptr<AbstractApduCommandBuilder> apduCommandBuilder = std::make_shared<DigestAuthenticateCmdBuild>(nullptr, signaturePO);
-                                ApduRequest ApduRequest = apduCommandBuilder->getApduRequest();
+                                SamRevision sSam = SamRevision::C1;// S1D S1E
+                                std::shared_ptr<AbstractApduCommandBuilder> apduCommandBuilder = std::make_shared<DigestAuthenticateCmdBuild>(sSam, signaturePO);
+                                std::shared_ptr<ApduRequest> apduRequest = apduCommandBuilder->getApduRequest();
 
-                                ASSERT_EQ(ByteArrayUtils::toHex(request), ByteArrayUtils::toHex(ApduRequest::getBytes()));
+                                ASSERT_EQ(ByteArrayUtils::toHex(request), ByteArrayUtils::toHex(apduRequest->getBytes()));
+
+                                }
                             }
                         }
                     }
                 }
             }
         }
+
+TEST(DigestAuthenticateCmdBuildTest, testA) 
+{
+    std::shared_ptr<DigestAuthenticateCmdBuildTest> LocalTest = std::make_shared<DigestAuthenticateCmdBuildTest>();
+    LocalTest->digestAuthenticate();
+}

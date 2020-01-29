@@ -1,14 +1,17 @@
 #include "DigestInitCmdBuildTest.h"
-#include "SamRevision.h"
+//#include "SamRevision.h"
 #include "DigestInitCmdBuild.h"
 #include "AbstractApduCommandBuilder.h"
+
+using namespace keyple::calypso::command::sam::builder::security;
 
         namespace keyple {
             namespace calypso {
                 namespace command {
                     namespace sam {
                         namespace builder {
-//                            import static org.junit.Assert.assertArrayEquals;
+                            namespace security {
+
                             using SamRevision = keyple::calypso::command::sam::SamRevision;
                             using DigestInitCmdBuild = keyple::calypso::command::sam::builder::security::DigestInitCmdBuild;
                             using AbstractApduCommandBuilder = keyple::core::command::AbstractApduCommandBuilder;
@@ -70,9 +73,29 @@
                                 std::shared_ptr<AbstractApduCommandBuilder> apduCommandBuilder = std::make_shared<DigestInitCmdBuild>(revision, verificationMode, rev3_2Mode, workKeyRecordNumber, workKeyKif, workKeyKVC, digestData);
 
                                 ASSERT_EQ(request, apduCommandBuilder->getApduRequest()->getBytes());
+
+                                }
                             }
                         }
                     }
                 }
             }
         }
+
+TEST(DigestInitCmdBuildTest, testA) 
+{
+    std::shared_ptr<DigestInitCmdBuildTest> LocalTest = std::make_shared<DigestInitCmdBuildTest>();
+    LocalTest->digestInitCmd_inconsistent();
+}
+
+TEST(DigestInitCmdBuildTest, testB) 
+{
+    std::shared_ptr<DigestInitCmdBuildTest> LocalTest = std::make_shared<DigestInitCmdBuildTest>();
+    LocalTest->digestInitCmd_inconsistent_digestNull();
+}
+
+TEST(DigestInitCmdBuildTest, testC) 
+{
+    std::shared_ptr<DigestInitCmdBuildTest> LocalTest = std::make_shared<DigestInitCmdBuildTest>();
+    LocalTest->digestInitCmd();
+}
