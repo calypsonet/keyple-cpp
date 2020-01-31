@@ -1,26 +1,25 @@
 #include "TestsUtilsResponseTabByteGenerator.h"
-#include "../../../../../../../../../keyple-core/src/main/java/org/eclipse/keyple/util/ByteArrayUtils.h"
-#include "../../../../../../../../../keyple-core/src/main/java/org/eclipse/keyple/seproxy/message/ApduResponse.h"
+#include "ByteArrayUtil.h"
+#include "ApduResponse.h"
 #include "TestsUtilsStatusCodeGenerator.h"
 
-namespace org {
-    namespace eclipse {
         namespace keyple {
             namespace calypso {
                 namespace util {
-                    using ApduResponse = org::eclipse::keyple::seproxy::message::ApduResponse;
-                    using ByteArrayUtils = org::eclipse::keyple::util::ByteArrayUtils;
+                    using ApduResponse = keyple::core::seproxy::message::ApduResponse;
+                    using ByteArrayUtils = keyple::core::util::ByteArrayUtil;
 
                     std::vector<char> TestsUtilsResponseTabByteGenerator::append(std::vector<char> &arrays) {
-                        std::shared_ptr<ByteArrayOutputStream> * const out = std::make_shared<ByteArrayOutputStream>();
-                        if (arrays != nullptr) {
-                            for (char[] array_Renamed : arrays) {
-                                if (array_Renamed.size() > 0) {
-                                    out->write(array_Renamed, 0, array_Renamed.size());
-                                }
-                            }
-                        }
-                        return out->toByteArray();
+                        //std::shared_ptr<ByteArrayOutputStream> * const out = std::make_shared<ByteArrayOutputStream>();
+                        //if (arrays != nullptr) {
+                        //    for (char[] array_Renamed : arrays) {
+                        //        if (array_Renamed.size() > 0) {
+                        //            out->write(array_Renamed, 0, array_Renamed.size());
+                        //        }
+                        //    }
+                        //}
+                        //return out->toByteArray();
+                        return arrays;
                     }
 
                     std::vector<char> TestsUtilsResponseTabByteGenerator::generate4MultiRecordsTabByte() {
@@ -52,7 +51,8 @@ namespace org {
                     }
 
                     std::shared_ptr<ApduResponse> TestsUtilsResponseTabByteGenerator::generateApduResponseValidRev2_4() {
-                        return std::make_shared<ApduResponse>(append({generateResponseOkTabByteRev2_4(), TestsUtilsStatusCodeGenerator::generateSuccessfulStatusCode()}), nullptr);
+                        std::vector<char> cCmd = {generateResponseOkTabByteRev2_4(), TestsUtilsStatusCodeGenerator::generateSuccessfulStatusCode()};
+                        return std::make_shared<ApduResponse>(append(cCmd), nullptr);
                     }
 
                     std::shared_ptr<ApduResponse> TestsUtilsResponseTabByteGenerator::generateApduResponseValidRev3_1() {
@@ -89,5 +89,3 @@ namespace org {
                 }
             }
         }
-    }
-}

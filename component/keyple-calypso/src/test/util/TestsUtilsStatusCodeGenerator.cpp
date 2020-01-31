@@ -1,7 +1,6 @@
 #include "TestsUtilsStatusCodeGenerator.h"
 
-namespace org {
-    namespace eclipse {
+
         namespace keyple {
             namespace calypso {
                 namespace util {
@@ -36,5 +35,3 @@ namespace org {
                 }
             }
         }
-    }
-}

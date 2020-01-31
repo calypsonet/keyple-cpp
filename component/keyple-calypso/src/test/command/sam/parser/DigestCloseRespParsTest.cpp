@@ -33,12 +33,12 @@ using namespace keyple::calypso::command::sam::parser::security;
                                 std::shared_ptr<ApduResponse> apduResponse = std::make_shared<ApduResponse>(cResp0, nullptr);
                                 responses.push_back(apduResponse);
                                 std::vector<char> cResp1 = ByteArrayUtils::fromHex("9000");
-                                std::shared_ptr<SeResponseSet> seResponse = std::make_shared<SeResponseSet>(std::make_shared<SeResponse>(true, std::make_shared<SelectionStatus>(nullptr, std::make_shared<ApduResponse>(cResp1, nullptr), true), responses));
+                                std::shared_ptr<SeResponseSet> seResponse = std::make_shared<SeResponseSet>(std::make_shared<SeResponse>(true, true, std::make_shared<SelectionStatus>(nullptr, std::make_shared<ApduResponse>(cResp1, nullptr), true), responses));
 
                                 std::shared_ptr<AbstractApduResponseParser> apduResponseParser = std::make_shared<DigestCloseRespPars>(seResponse->getSingleResponse()->getApduResponses()[0]);
                                 std::vector<char> responseActual = apduResponseParser->getApduResponse()->getBytes();
                                 std::vector<char> cResp = std::vector<char> {static_cast<char>(0xA8), 0x31, static_cast<char>(0xC3), 0x3E, static_cast<char>(0x90), 0x00};
-                                ASSERT_EQ(cResp, responseActual);
+                                ASSERT_EQ(ByteArrayUtils::toHex(cResp), ByteArrayUtils::toHex(responseActual));
                                 }
                             }
                         }

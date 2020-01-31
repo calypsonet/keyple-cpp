@@ -3,8 +3,11 @@
 #include <vector>
 #include <memory>
 
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
+
 //JAVA TO C++ CONVERTER NOTE: Forward class declarations:
-namespace org { namespace eclipse { namespace keyple { namespace seproxy { namespace message { class ApduResponse; } } } } }
+namespace keyple { namespace core { namespace seproxy { namespace message { class ApduResponse; } } } }
 
 /********************************************************************************
  * Copyright (c) 2018 Calypso Networks Association https://www.calypsonet-asso.org/
@@ -17,13 +20,12 @@ namespace org { namespace eclipse { namespace keyple { namespace seproxy { names
  *
  * SPDX-License-Identifier: EPL-2.0
  ********************************************************************************/
-namespace org {
-    namespace eclipse {
+
         namespace keyple {
             namespace calypso {
                 namespace util {
 
-                    using ApduResponse = org::eclipse::keyple::seproxy::message::ApduResponse;
+                    using ApduResponse = keyple::core::seproxy::message::ApduResponse;
 
                     /**
                      * @author f.razakarivony
@@ -78,5 +80,3 @@ namespace org {
                 }
             }
         }
-    }
-}

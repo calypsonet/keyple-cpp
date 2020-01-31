@@ -99,17 +99,17 @@ ADD_EXECUTABLE(TU_keyple_calypso_test
 	#${CMAKE_CURRENT_SOURCE_DIR}/command/po/parser/ReadDataStructure.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/command/po/parser/ReadRecordsRespParsTest.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/command/po/parser/SelectFileRespPars.cpp
-#	${CMAKE_CURRENT_SOURCE_DIR}/command/po/parser/UpdateRecordRespParsTest.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/command/po/parser/UpdateRecordRespParsTest.cpp
 
 	# calypso - command - po - parser - security
 	#${CMAKE_CURRENT_SOURCE_DIR}/command/po/parser/security/AbstractOpenSessionRespPars.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/command/po/parser/security/ChangeKeyRespPars.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/command/po/parser/security/CloseSessionRespPars.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/command/po/parser/security/OpenSession10RespPars.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/command/po/parser/session/CloseSessionRespParsTest.cpp
+#	${CMAKE_CURRENT_SOURCE_DIR}/command/po/parser/session/OpenSessionRespParsTest.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/command/po/parser/security/OpenSession24RespPars.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/command/po/parser/security/OpenSession31RespPars.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/command/po/parser/security/OpenSession32RespPars.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/command/po/parser/security/PoGetChallengeRespPars.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/command/po/parser/session/PoGetChallengeRespParsTest.cpp
 
 	# calypso - command - sam
 	#${CMAKE_CURRENT_SOURCE_DIR}/command/sam/AbstractSamCommandBuilder.cpp
@@ -132,30 +132,35 @@ ADD_EXECUTABLE(TU_keyple_calypso_test
 
 	# calypso - command - sam - parser
 	#${CMAKE_CURRENT_SOURCE_DIR}/command/sam/parser/CardGenerateKeyRespPars.cpp
-#	${CMAKE_CURRENT_SOURCE_DIR}/command/sam/parser/DigestAuthenticateRespParsTest.cpp
-#	${CMAKE_CURRENT_SOURCE_DIR}/command/sam/parser/DigestCloseRespParsTest.cpp
-#	${CMAKE_CURRENT_SOURCE_DIR}/command/sam/parser/DigestInitRespParsTest.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/command/sam/parser/DigestAuthenticateRespParsTest.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/command/sam/parser/DigestCloseRespParsTest.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/command/sam/parser/DigestInitRespParsTest.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/command/sam/parser/DigestUpdateMultipleRespPars.cpp
-#	${CMAKE_CURRENT_SOURCE_DIR}/command/sam/parser/DigestUpdateRespParsTest.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/command/sam/parser/DigestUpdateRespParsTest.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/command/sam/parser/GiveRandomRespPars.cpp
-#	${CMAKE_CURRENT_SOURCE_DIR}/command/sam/parser/SamGetChallengeRespParsTest.cpp
-#	${CMAKE_CURRENT_SOURCE_DIR}/command/sam/parser/SelectDiversifierRespParsTest.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/command/sam/parser/SamGetChallengeRespParsTest.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/command/sam/parser/SelectDiversifierRespParsTest.cpp
 
 	# calypso - transaction
-	#${CMAKE_CURRENT_SOURCE_DIR}/transaction/CalypsoPo.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/transaction/CalypsoSam.cpp
+#	${CMAKE_CURRENT_SOURCE_DIR}/transaction/CalypsoPoTest.cpp
+#	${CMAKE_CURRENT_SOURCE_DIR}/transaction/CalypsoSamTest.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/transaction/PoResource.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/transaction/PoSelectionRequest.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/transaction/PoSelector.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/transaction/PoTransaction.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/transaction/SamResource.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/transaction/SamSelectionRequest.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/transaction/SamSelector.cpp
+#	${CMAKE_CURRENT_SOURCE_DIR}/transaction/SamSelectorTest.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/transaction/SecuritySettings.cpp
 
 	# calypso - transaction - exception
 	#${CMAKE_CURRENT_SOURCE_DIR}/transaction/exception/KeypleCalypsoSecureSessionException.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/transaction/exception/KeypleCalypsoSecureSessionUnauthorizedKvcException.cpp
+
+	# calypso - test - util
+#	${CMAKE_CURRENT_SOURCE_DIR}/util/ResponseUtilsTest.cpp
+#	${CMAKE_CURRENT_SOURCE_DIR}/util/TestsUtilsResponseTabByteGenerator.cpp
+#	${CMAKE_CURRENT_SOURCE_DIR}/util/TestsUtilsStatusCodeGenerator.cpp
 )
 
 SET(LINK_LIBS gtest gmock keyplecalypso keyplecore ${WINSCARD} )

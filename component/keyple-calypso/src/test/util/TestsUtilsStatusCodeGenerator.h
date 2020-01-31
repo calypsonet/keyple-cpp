@@ -14,8 +14,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0
  ********************************************************************************/
-namespace org {
-    namespace eclipse {
+
         namespace keyple {
             namespace calypso {
                 namespace util {
@@ -41,5 +40,3 @@ namespace org {
                 }
             }
         }
-    }
-}

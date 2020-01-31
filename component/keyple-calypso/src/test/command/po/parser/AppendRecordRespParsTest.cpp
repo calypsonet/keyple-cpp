@@ -35,7 +35,7 @@ using namespace keyple::calypso::command::po::parser::security;
 
                                 std::shared_ptr<AbstractApduResponseParser> apduResponseParser = std::make_shared<AppendRecordRespPars>(apduResponse);
                                 apduResponseParser->setApduResponse(seResponse->getSingleResponse()->getApduResponses()[0]);
-                                ASSERT_EQ(ApduRequest, apduResponseParser->getApduResponse()->getBytes());
+                                ASSERT_EQ(ByteArrayUtils::toHex(ApduRequest), ByteArrayUtils::toHex(apduResponseParser->getApduResponse()->getBytes()));
                                 }
                             }
                         }

@@ -29,11 +29,11 @@ using namespace keyple::calypso::command::po::parser;
                                 std::shared_ptr<ApduResponse> apduResponse = std::make_shared<ApduResponse>(ApduRequest, nullptr);
                                 responses.push_back(apduResponse);
                                 std::vector<char> Apdu1 = ByteArrayUtils::fromHex("9000");
-                                std::shared_ptr<SeResponseSet> seResponse = std::make_shared<SeResponseSet>(std::make_shared<SeResponse>(true, std::make_shared<SelectionStatus>(nullptr, std::make_shared<ApduResponse>(Apdu1, nullptr), true), responses));
+                                std::shared_ptr<SeResponseSet> seResponse = std::make_shared<SeResponseSet>(std::make_shared<SeResponse>(true, true, std::make_shared<SelectionStatus>(nullptr, std::make_shared<ApduResponse>(Apdu1, nullptr), true), responses));
 
-                                std::shared_ptr<AbstractApduResponseParser> apduResponseParser = std::make_shared<UpdateRecordRespPars>();
+                                std::shared_ptr<AbstractApduResponseParser> apduResponseParser = std::make_shared<UpdateRecordRespPars>(apduResponse);
                                 apduResponseParser->setApduResponse(seResponse->getSingleResponse()->getApduResponses()[0]);
-                                ASSERT_EQ(ApduRequest, apduResponseParser->getApduResponse()->getBytes());
+                                ASSERT_EQ(ByteArrayUtils::toHex(ApduRequest), ByteArrayUtils::toHex(apduResponseParser->getApduResponse()->getBytes()));
                             }
                         }
                     }

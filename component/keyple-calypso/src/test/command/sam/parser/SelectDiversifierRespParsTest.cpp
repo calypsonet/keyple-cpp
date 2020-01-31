@@ -18,16 +18,16 @@
                             void SelectDiversifierRespParsTest::selectDiversifierResp() {
                                 // We check here that the value returned by getApduResponse matches the value provided at
                                 // construct time
-                                std::shared_ptr<ApduResponse> apduResponse = std::make_shared<ApduResponse>(std::vector<char> {static_cast<char>(0x90), 0x00}, nullptr);
-                                std::shared_ptr<ApduResponse> apduResponse1 = std::make_shared<ApduResponse>(std::vector<char> {static_cast<char>(0x80), 0x00}, nullptr);
+                                std::vector<char> cResp = {static_cast<char>(0x90), 0x00};
+                                std::vector<char> cResp2 = {static_cast<char>(0x80), 0x00};
+                                std::shared_ptr<ApduResponse> apduResponse = std::make_shared<ApduResponse>(cResp, nullptr);
+                                std::shared_ptr<ApduResponse> apduResponse1 = std::make_shared<ApduResponse>(cResp2, nullptr);
 
                                 std::shared_ptr<AbstractApduResponseParser> apduResponseParser = std::make_shared<SelectDiversifierRespPars>(apduResponse);
-
                                 ASSERT_EQ(0x9000, apduResponseParser->getApduResponse()->getStatusCode());
 
                                 apduResponseParser = std::make_shared<SelectDiversifierRespPars>(apduResponse1);
-
-                                ASSERT_THAT(apduResponseParser->getApduResponse()->getStatusCode(), IsNot::not(0x9000));
+                                ASSERT_NE(apduResponseParser->getApduResponse()->getStatusCode(), 0x9000);
                             }
                         }
                     }

@@ -27,10 +27,7 @@ using namespace keyple::calypso::command::sam::builder::security;
 
                                 SamRevision sSam = SamRevision::C1;// S1D S1E
                                 std::shared_ptr<AbstractApduCommandBuilder> apduCommandBuilder = std::make_shared<DigestAuthenticateCmdBuild>(sSam, signaturePO);
-                                std::shared_ptr<ApduRequest> apduRequest = apduCommandBuilder->getApduRequest();
-
-                                ASSERT_EQ(ByteArrayUtils::toHex(request), ByteArrayUtils::toHex(apduRequest->getBytes()));
-
+                                ASSERT_EQ(ByteArrayUtils::toHex(request), ByteArrayUtils::toHex(apduCommandBuilder->getApduRequest()->getBytes()));
                                 }
                             }
                         }
