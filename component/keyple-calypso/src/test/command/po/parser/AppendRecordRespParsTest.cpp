@@ -30,9 +30,10 @@ using namespace keyple::calypso::command::po::parser::security;
                                 std::shared_ptr<ApduResponse> apduResponse = std::make_shared<ApduResponse>(ApduRequest, nullptr);
                                 responses.push_back(apduResponse);
                                 std::vector<char> cResp1 = ByteArrayUtils::fromHex("9000");
-                                std::shared_ptr<SeResponseSet> seResponse = std::make_shared<SeResponseSet>(std::make_shared<SeResponse>(true, std::make_shared<SelectionStatus>(nullptr, std::make_shared<ApduResponse>(cResp1, nullptr), true), responses));
+                                std::shared_ptr<keyple::core::seproxy::message::AnswerToReset> atrBytes = {0};
+                                std::shared_ptr<SeResponseSet> seResponse = std::make_shared<SeResponseSet>(std::make_shared<SeResponse>(true, true, std::make_shared<SelectionStatus>(atrBytes, std::make_shared<ApduResponse>(cResp1, nullptr), true), responses));
 
-                                std::shared_ptr<AbstractApduResponseParser> apduResponseParser = std::make_shared<AppendRecordRespPars>();
+                                std::shared_ptr<AbstractApduResponseParser> apduResponseParser = std::make_shared<AppendRecordRespPars>(apduResponse);
                                 apduResponseParser->setApduResponse(seResponse->getSingleResponse()->getApduResponses()[0]);
                                 ASSERT_EQ(ApduRequest, apduResponseParser->getApduResponse()->getBytes());
                                 }

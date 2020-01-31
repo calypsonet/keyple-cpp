@@ -92,7 +92,7 @@ ADD_EXECUTABLE(TU_keyple_calypso_test
 	${CMAKE_CURRENT_SOURCE_DIR}/command/po/builder/session/PoGetChallengeCmdBuildTest.cpp
 
 	# calypso - command - po - parser
-#	${CMAKE_CURRENT_SOURCE_DIR}/command/po/parser/AppendRecordRespParsTest.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/command/po/parser/AppendRecordRespParsTest.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/command/po/parser/DecreaseRespPars.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/command/po/parser/GetDataRespParsTest.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/command/po/parser/IncreaseRespPars.cpp
