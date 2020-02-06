@@ -1,18 +1,20 @@
 #include "SamSelectorTest.h"
-#include "SamRevision.h"
+//#include "SamRevision.h"
 #include "SamSelector.h"
+#include "ByteArrayUtil.h"
 
         namespace keyple {
             namespace calypso {
                 namespace transaction {
                     using SamRevision = keyple::calypso::command::sam::SamRevision;
-                    using SamSelector = keyple::calypso::transaction::sam::SamSelector;
+                    using SamSelector = keyple::calypso::transaction::SamSelector;
+                    using ByteArrayUtils = keyple::core::util::ByteArrayUtil;
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void test_AidSelectorNull()
                     void SamSelectorTest::test_AidSelectorNull() {
                         std::shared_ptr<SamSelector> samSelector = std::make_shared<SamSelector>(SamRevision::S1D, nullptr, "S1D");
-                        ASSERT_NULL(samSelector->getAidSelector());
+                        ASSERT_EQ(samSelector->getAidSelector(), nullptr);
                     }
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:

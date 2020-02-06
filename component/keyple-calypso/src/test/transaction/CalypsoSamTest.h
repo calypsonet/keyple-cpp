@@ -2,6 +2,9 @@
 
 #include <memory>
 
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
+
 /********************************************************************************
  * Copyright (c) 2019 Calypso Networks Association https://www.calypsonet-asso.org/
  *
@@ -13,13 +16,13 @@
  *
  * SPDX-License-Identifier: EPL-2.0
  ********************************************************************************/
-namespace org {
-    namespace eclipse {
+
         namespace keyple {
             namespace calypso {
                 namespace transaction {
 
-                    using namespace org::eclipse::keyple::calypso::command::sam;
+                    //using namespace keyple::calypso::command;
+                    //using namespace keyple::calypso::command::sam;
 //JAVA TO C++ CONVERTER TODO TASK: The Java 'import static' statement cannot be converted to C++:
 //                    import static org.eclipse.keyple.calypso.command.sam.SamRevision.*;
 //JAVA TO C++ CONVERTER TODO TASK: The Java 'import static' statement cannot be converted to C++:
@@ -73,5 +76,3 @@ namespace org {
                 }
             }
         }
-    }
-}

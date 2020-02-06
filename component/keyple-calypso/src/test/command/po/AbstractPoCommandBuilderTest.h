@@ -33,7 +33,7 @@
                 public:
                     virtual ~AbstractPoCommandBuilderTest(){};
 
-                    int sample();
+                    void sample();
                 };
                 }
             }

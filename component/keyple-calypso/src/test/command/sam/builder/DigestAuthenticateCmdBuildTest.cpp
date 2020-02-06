@@ -23,10 +23,9 @@ using namespace keyple::calypso::command::sam::builder::security;
                             void DigestAuthenticateCmdBuildTest::digestAuthenticate() {
 
                                 std::vector<char> signaturePO = {0x00, 0x01, 0x02, 0x03};
-                                std::vector<char> request = {static_cast<char>(0x94), static_cast<char>(0x82), 0x00, 0x00, 0x04, 0x00, 0x01, 0x02, 0x03};
+                                std::vector<char> request = { static_cast<char>(0x94), static_cast<char>(0x82), 0x00, 0x00, 0x04, 0x00, 0x01, 0x02, 0x03};
 
-                                SamRevision sSam = SamRevision::C1;// S1D S1E
-                                std::shared_ptr<AbstractApduCommandBuilder> apduCommandBuilder = std::make_shared<DigestAuthenticateCmdBuild>(sSam, signaturePO);
+                                std::shared_ptr<AbstractApduCommandBuilder> apduCommandBuilder = std::make_shared<DigestAuthenticateCmdBuild>(SamRevision::S1D, signaturePO );
                                 ASSERT_EQ(ByteArrayUtils::toHex(request), ByteArrayUtils::toHex(apduCommandBuilder->getApduRequest()->getBytes()));
                                 }
                             }

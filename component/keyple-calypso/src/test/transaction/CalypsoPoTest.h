@@ -3,8 +3,22 @@
 #include <string>
 #include <memory>
 
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
+
+#include "CalypsoPo.h"
+#include "ApduResponse.h"
+#include "ByteArrayUtil.h"
+#include "SelectionStatus.h"
+#include "PoSelectionRequest.h"
+#include "ChannelState.h"
+//#include "SeSelector.h"
+#include "SeCommonProtocols.h"
+#include "PoRevision.h"
+#include "SeResponse.h"
+
 //JAVA TO C++ CONVERTER NOTE: Forward class declarations:
-namespace org { namespace eclipse { namespace keyple { namespace calypso { namespace transaction { class CalypsoPo; } } } } }
+namespace keyple { namespace calypso { namespace transaction { class CalypsoPo; } } }
 
 /********************************************************************************
  * Copyright (c) 2018 Calypso Networks Association https://www.calypsonet-asso.org/
@@ -17,13 +31,10 @@ namespace org { namespace eclipse { namespace keyple { namespace calypso { names
  *
  * SPDX-License-Identifier: EPL-2.0
  ********************************************************************************/
-namespace org {
-    namespace eclipse {
+
         namespace keyple {
             namespace calypso {
                 namespace transaction {
-
-
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @RunWith(MockitoJUnitRunner.class) public class CalypsoPoTest
@@ -40,5 +51,3 @@ namespace org {
                 }
             }
         }
-    }
-}

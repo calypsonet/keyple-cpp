@@ -60,11 +60,12 @@ ADD_EXECUTABLE(TU_keyple_calypso_test
 	${CMAKE_CURRENT_SOURCE_DIR}/../main/KeyReference.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/KeyReferenceTest.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/command/PoClassTest.cpp
-#	${CMAKE_CURRENT_SOURCE_DIR}/command/SendableInSessionTest.cpp
-#	${CMAKE_CURRENT_SOURCE_DIR}/command/CalypsoBuilderParserTest.cpp
+
+	${CMAKE_CURRENT_SOURCE_DIR}/command/SendableInSessionTest.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/command/CalypsoBuilderParserTest.cpp
 
 	# calypso - command - po
-#	${CMAKE_CURRENT_SOURCE_DIR}/command/po/AbstractPoCommandBuilderTest.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/command/po/AbstractPoCommandBuilderTest.cpp
 
 	#${CMAKE_CURRENT_SOURCE_DIR}/command/po/AbstractPoResponseParser.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/command/po/CalypsoPoCommands.cpp
@@ -105,7 +106,7 @@ ADD_EXECUTABLE(TU_keyple_calypso_test
 	#${CMAKE_CURRENT_SOURCE_DIR}/command/po/parser/security/AbstractOpenSessionRespPars.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/command/po/parser/security/ChangeKeyRespPars.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/command/po/parser/session/CloseSessionRespParsTest.cpp
-#	${CMAKE_CURRENT_SOURCE_DIR}/command/po/parser/session/OpenSessionRespParsTest.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/command/po/parser/session/OpenSessionRespParsTest.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/command/po/parser/security/OpenSession24RespPars.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/command/po/parser/security/OpenSession31RespPars.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/command/po/parser/security/OpenSession32RespPars.cpp
@@ -150,7 +151,7 @@ ADD_EXECUTABLE(TU_keyple_calypso_test
 	#${CMAKE_CURRENT_SOURCE_DIR}/transaction/PoTransaction.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/transaction/SamResource.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/transaction/SamSelectionRequest.cpp
-#	${CMAKE_CURRENT_SOURCE_DIR}/transaction/SamSelectorTest.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/transaction/SamSelectorTest.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/transaction/SecuritySettings.cpp
 
 	# calypso - transaction - exception
@@ -158,9 +159,9 @@ ADD_EXECUTABLE(TU_keyple_calypso_test
 	#${CMAKE_CURRENT_SOURCE_DIR}/transaction/exception/KeypleCalypsoSecureSessionUnauthorizedKvcException.cpp
 
 	# calypso - test - util
-#	${CMAKE_CURRENT_SOURCE_DIR}/util/ResponseUtilsTest.cpp
-#	${CMAKE_CURRENT_SOURCE_DIR}/util/TestsUtilsResponseTabByteGenerator.cpp
-#	${CMAKE_CURRENT_SOURCE_DIR}/util/TestsUtilsStatusCodeGenerator.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/util/ResponseUtilsTest.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/util/TestsUtilsResponseTabByteGenerator.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/util/TestsUtilsStatusCodeGenerator.cpp
 )
 
 SET(LINK_LIBS gtest gmock keyplecalypso keyplecore ${WINSCARD} )

@@ -33,7 +33,7 @@
                 public:
                     virtual ~SendableInSessionTest(){};
 
-                    int sample();
+                    void sample();
                 };
                 }
 

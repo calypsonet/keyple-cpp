@@ -29,8 +29,14 @@ using namespace keyple::calypso::command::sam::builder::security;
                                 char workKeyKif = static_cast<char>(0x00);
                                 char workKeyKVC = static_cast<char>(0x7E);
                                 SamRevision revision = SamRevision::S1D;
-
-                                std::shared_ptr<AbstractApduCommandBuilder> apduCommandBuilder = std::make_shared<DigestInitCmdBuild>(revision, verificationMode, rev3_2Mode, workKeyRecordNumber, workKeyKif, workKeyKVC, digestData);
+                                try
+                                {
+                                    /* code */
+                                    std::shared_ptr<AbstractApduCommandBuilder> apduCommandBuilder = std::make_shared<DigestInitCmdBuild>(revision, verificationMode, rev3_2Mode, workKeyRecordNumber, workKeyKif, workKeyKVC, digestData);
+                                }
+                                catch(...)
+                                {
+                                }
                             }
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
@@ -46,7 +52,14 @@ using namespace keyple::calypso::command::sam::builder::security;
                                 char workKeyKVC = static_cast<char>(0x7E);
                                 SamRevision revision = SamRevision::S1D;
 
-                                std::shared_ptr<AbstractApduCommandBuilder> apduCommandBuilder = std::make_shared<DigestInitCmdBuild>(revision, verificationMode, rev3_2Mode, workKeyRecordNumber, workKeyKif, workKeyKVC, digestData);
+                                try
+                                {
+                                    /* code */
+                                    std::shared_ptr<AbstractApduCommandBuilder> apduCommandBuilder = std::make_shared<DigestInitCmdBuild>(revision, verificationMode, rev3_2Mode, workKeyRecordNumber, workKeyKif, workKeyKVC, digestData);
+                                }
+                                catch(...)
+                                {
+                                }                      
                             }
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
@@ -73,7 +86,6 @@ using namespace keyple::calypso::command::sam::builder::security;
                                 std::shared_ptr<AbstractApduCommandBuilder> apduCommandBuilder = std::make_shared<DigestInitCmdBuild>(revision, verificationMode, rev3_2Mode, workKeyRecordNumber, workKeyKif, workKeyKVC, digestData);
 
                                 ASSERT_EQ(request, apduCommandBuilder->getApduRequest()->getBytes());
-
                                 }
                             }
                         }

@@ -51,40 +51,109 @@
                     }
 
                     std::shared_ptr<ApduResponse> TestsUtilsResponseTabByteGenerator::generateApduResponseValidRev2_4() {
-                        std::vector<char> cCmd = {generateResponseOkTabByteRev2_4(), TestsUtilsStatusCodeGenerator::generateSuccessfulStatusCode()};
-                        return std::make_shared<ApduResponse>(append(cCmd), nullptr);
+                        std::vector<char> cFullStatusCode = TestsUtilsStatusCodeGenerator::generateSuccessfulStatusCode();
+                        std::vector<char> cReponseOK = generateResponseOkTabByteRev2_4();
+                        std::vector<char> cCmd;
+                    
+                        std::merge(cReponseOK.begin(),cReponseOK.end(),cFullStatusCode.begin(),cFullStatusCode.end(),cCmd.begin());
+                        std::vector<char> cResult = append(cCmd);
+                        return std::make_shared<ApduResponse>(cResult, nullptr);
                     }
 
                     std::shared_ptr<ApduResponse> TestsUtilsResponseTabByteGenerator::generateApduResponseValidRev3_1() {
-                        return std::make_shared<ApduResponse>(append({generateResponseOkTabByteRev3_1(), TestsUtilsStatusCodeGenerator::generateSuccessfulStatusCode()}), nullptr);
+                        std::vector<char> cFullStatusCode = TestsUtilsStatusCodeGenerator::generateSuccessfulStatusCode();
+                        std::vector<char> cReponseOK = generateResponseOkTabByteRev3_1();
+                        std::vector<char> cCmd;
+
+                        cCmd.clear();
+                        cCmd.insert( cCmd.end(), cReponseOK.begin(), cReponseOK.end() );
+                        cCmd.insert( cCmd.end(), cFullStatusCode.begin(), cFullStatusCode.end() );
+                        std::vector<char> cResult = append(cCmd);
+                        return std::make_shared<ApduResponse>(cResult, nullptr);
                     }
 
                     std::shared_ptr<ApduResponse> TestsUtilsResponseTabByteGenerator::generateApduResponseValidRev3_2() {
-                        return std::make_shared<ApduResponse>(append({generateResponseOkTabByteRev3_2(), TestsUtilsStatusCodeGenerator::generateSuccessfulStatusCode()}), nullptr);
+                        std::vector<char> cFullStatusCode = TestsUtilsStatusCodeGenerator::generateSuccessfulStatusCode();
+                        std::vector<char> cReponseOK = generateResponseOkTabByteRev3_2();
+                        std::vector<char> cCmd;
+
+                        cCmd.clear();
+                        cCmd.insert( cCmd.end(), cReponseOK.begin(), cReponseOK.end() );
+                        cCmd.insert( cCmd.end(), cFullStatusCode.begin(), cFullStatusCode.end() );
+                        std::vector<char> cResult = append(cCmd);
+                        return std::make_shared<ApduResponse>(cResult, nullptr);
                     }
 
                     std::shared_ptr<ApduResponse> TestsUtilsResponseTabByteGenerator::generateApduResponseOpenSessionCmd() {
-                        return std::make_shared<ApduResponse>(append({generateDataOpenTabByte(), TestsUtilsStatusCodeGenerator::generateSuccessfulStatusCode()}), nullptr);
+                        std::vector<char> cFullStatusCode = TestsUtilsStatusCodeGenerator::generateSuccessfulStatusCode();
+                        std::vector<char> cReponseOK = generateDataOpenTabByte();
+                        std::vector<char> cCmd;
+
+                        cCmd.clear();
+                        cCmd.insert( cCmd.end(), cReponseOK.begin(), cReponseOK.end() );
+                        cCmd.insert( cCmd.end(), cFullStatusCode.begin(), cFullStatusCode.end() );
+                        std::vector<char> cResult = append(cCmd);
+                        return std::make_shared<ApduResponse>(cResult, nullptr);
                     }
 
                     std::shared_ptr<ApduResponse> TestsUtilsResponseTabByteGenerator::generateApduResponseOpenSessionCmdError() {
-                        return std::make_shared<ApduResponse>(append({generateDataOpenTabByte(), TestsUtilsStatusCodeGenerator::generateAccessForbiddenStatusCode()}), nullptr);
+                        std::vector<char> cFullStatusCode = TestsUtilsStatusCodeGenerator::generateAccessForbiddenStatusCode();
+                        std::vector<char> cReponseOK = generateDataOpenTabByte();
+                        std::vector<char> cCmd;
+
+                        cCmd.clear();
+                        cCmd.insert( cCmd.end(), cReponseOK.begin(), cReponseOK.end() );
+                        cCmd.insert( cCmd.end(), cFullStatusCode.begin(), cFullStatusCode.end() );
+                        std::vector<char> cResult = append(cCmd);
+                        return std::make_shared<ApduResponse>(cResult, nullptr);
                     }
 
                     std::shared_ptr<ApduResponse> TestsUtilsResponseTabByteGenerator::generateApduResponseTerminalSessionSignatureCmd() {
-                        return std::make_shared<ApduResponse>(append({generateTerminalSessionSignatureTabByte(), TestsUtilsStatusCodeGenerator::generateSuccessfulStatusCode()}), nullptr);
+                        std::vector<char> cFullStatusCode = TestsUtilsStatusCodeGenerator::generateSuccessfulStatusCode();
+                        std::vector<char> cReponseOK = generateTerminalSessionSignatureTabByte();
+                        std::vector<char> cCmd;
+
+                        cCmd.clear();
+                        cCmd.insert( cCmd.end(), cReponseOK.begin(), cReponseOK.end() );
+                        cCmd.insert( cCmd.end(), cFullStatusCode.begin(), cFullStatusCode.end() );
+                        std::vector<char> cResult = append(cCmd);
+                        return std::make_shared<ApduResponse>(cResult, nullptr);
                     }
 
                     std::shared_ptr<ApduResponse> TestsUtilsResponseTabByteGenerator::generateApduResponseTerminalSessionSignatureCmdError() {
-                        return std::make_shared<ApduResponse>(append({generateTerminalSessionSignatureTabByte(), TestsUtilsStatusCodeGenerator::generateCommandForbiddenOnBinaryFilesStatusCode()}), nullptr);
+                        std::vector<char> cFullStatusCode = TestsUtilsStatusCodeGenerator::generateCommandForbiddenOnBinaryFilesStatusCode();
+                        std::vector<char> cReponseOK = generateTerminalSessionSignatureTabByte();
+                        std::vector<char> cCmd;
+
+                        cCmd.clear();
+                        cCmd.insert( cCmd.end(), cReponseOK.begin(), cReponseOK.end() );
+                        cCmd.insert( cCmd.end(), cFullStatusCode.begin(), cFullStatusCode.end() );
+                        std::vector<char> cResult = append(cCmd);
+                        return std::make_shared<ApduResponse>(cResult, nullptr);
                     }
 
                     std::shared_ptr<ApduResponse> TestsUtilsResponseTabByteGenerator::generateApduResponseFciCmd() {
-                        return std::make_shared<ApduResponse>(append({generateFciTabByte(), TestsUtilsStatusCodeGenerator::generateSuccessfulStatusCode()}), nullptr);
+                        std::vector<char> cFullStatusCode = TestsUtilsStatusCodeGenerator::generateSuccessfulStatusCode();
+                        std::vector<char> cReponseOK = generateFciTabByte();
+                        std::vector<char> cCmd;
+
+                        cCmd.clear();
+                        cCmd.insert( cCmd.end(), cReponseOK.begin(), cReponseOK.end() );
+                        cCmd.insert( cCmd.end(), cFullStatusCode.begin(), cFullStatusCode.end() );
+                        std::vector<char> cResult = append(cCmd);
+                        return std::make_shared<ApduResponse>(cResult, nullptr);
                     }
 
                     std::shared_ptr<ApduResponse> TestsUtilsResponseTabByteGenerator::generateApduResponseFciCmdError() {
-                        return std::make_shared<ApduResponse>(append({generateFciTabByte(), TestsUtilsStatusCodeGenerator::generateFileNotFoundStatusCode()}), nullptr);
+                        std::vector<char> cFullStatusCode = TestsUtilsStatusCodeGenerator::generateFileNotFoundStatusCode();
+                        std::vector<char> cReponseOK = generateFciTabByte();
+                        std::vector<char> cCmd;
+
+                        cCmd.clear();
+                        cCmd.insert( cCmd.end(), cReponseOK.begin(), cReponseOK.end() );
+                        cCmd.insert( cCmd.end(), cFullStatusCode.begin(), cFullStatusCode.end() );
+                        std::vector<char> cResult = append(cCmd);
+                        return std::make_shared<ApduResponse>(cResult, nullptr);
                     }
                 }
             }

@@ -105,7 +105,14 @@ using namespace keyple::calypso::command::po::parser::security;
                                     std::shared_ptr<SeResponseSet> responseMock = std::make_shared<SeResponseSet>(std::make_shared<SeResponse>(true, true, std::make_shared<SelectionStatus>(nullptr, responseMockOpenSecureSession, true), apduResponses));
                                     std::shared_ptr<ApduResponse> response = responseMock->getSingleResponse()->getApduResponses()[0];
 
-                                    check(AbstractOpenSessionRespPars::create(response, PoRevision::REV2_4));
+                                    try
+                                    {
+                                        /* code */
+                                        check(AbstractOpenSessionRespPars::create(response, PoRevision::REV2_4));
+                                    }
+                                    catch(...)
+                                    {
+                                    }
                                 }
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
@@ -121,7 +128,14 @@ using namespace keyple::calypso::command::po::parser::security;
                                     std::shared_ptr<SeResponseSet> responseMock = std::make_shared<SeResponseSet>(std::make_shared<SeResponse>(true, true, std::make_shared<SelectionStatus>(nullptr, responseMockOpenSecureSession, true), apduResponses));
                                     std::shared_ptr<ApduResponse> response = responseMock->getSingleResponse()->getApduResponses()[0];
 
-                                    check(AbstractOpenSessionRespPars::create(response, PoRevision::REV2_4));
+                                    try
+                                    {
+                                        /* code */
+                                        check(AbstractOpenSessionRespPars::create(response, PoRevision::REV2_4));
+                                    }
+                                    catch(...)
+                                    {
+                                    }
                                 }
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:

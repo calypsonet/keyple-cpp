@@ -39,9 +39,11 @@ std::shared_ptr<AbstractOpenSessionRespPars::SecureSession> OpenSession32RespPar
     char kif = apduResponse[9];
     int dataLength = apduResponse[11];
     std::vector<char> data = Arrays::copyOfRange(apduResponse, 12, 12 + dataLength);
+    std::vector<char> challengeTransactionCounter = Arrays::copyOfRange(apduResponse, 0, 3);
+    std::vector<char> challengeRandomNumber = Arrays::copyOfRange(apduResponse, 3, 8);
 
-    return std::make_shared<SecureSession>(Arrays::copyOfRange(apduResponse, 0, 3),
-                                           Arrays::copyOfRange(apduResponse, 3, 8),
+    return std::make_shared<SecureSession>(challengeTransactionCounter,
+                                           challengeRandomNumber,
                                            previousSessionRatified, manageSecureSessionAuthorized,
                                            kif, std::make_shared<Byte>(apduResponse[10]),
                                            data, apduResponse);

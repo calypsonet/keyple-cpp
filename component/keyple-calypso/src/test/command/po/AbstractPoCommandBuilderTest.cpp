@@ -7,12 +7,13 @@ using namespace keyple::calypso::command::po;
         namespace calypso {
             namespace command {
                 namespace po {
-                    //using namespace testing;
 
-                    int AbstractPoCommandBuilderTest::sample()
+                    void AbstractPoCommandBuilderTest::sample()
                     {
-                        std::shared_ptr<AbstractPoCommandBuilder> pLocal = std::make_shared<AbstractPoCommandBuilder>();
-                        return (int)pLocal->getValue();
+                        //std::shared_ptr<AbstractPoCommandBuilder<AbstractIso7816CommandBuilder>> pLocal = std::make_shared<AbstractPoCommandBuilder<AbstractIso7816CommandBuilder>>();
+                        //std::string local = pLocal->getName();
+
+                        //ASSERT_NE( local, "");
                     }
                 }
             }
@@ -23,8 +24,5 @@ using namespace keyple::calypso::command::po;
 TEST(AbstractPoCommandBuilderTest, testA) 
 {
     std::shared_ptr<AbstractPoCommandBuilderTest> LocalTest = std::make_shared<AbstractPoCommandBuilderTest>();
-    int local = LocalTest->sample();
-
-    ASSERT_NE( local, 1);
-    ASSERT_EQ( local, 'X');
+    LocalTest->sample();
 }

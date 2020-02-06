@@ -2,6 +2,9 @@
 
 #include <memory>
 
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
+
 /********************************************************************************
  * Copyright (c) 2019 Calypso Networks Association https://www.calypsonet-asso.org/
  *
@@ -13,8 +16,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0
  ********************************************************************************/
-namespace org {
-    namespace eclipse {
+
         namespace keyple {
             namespace calypso {
                 namespace transaction {
@@ -57,5 +59,3 @@ namespace org {
                 }
             }
         }
-    }
-}

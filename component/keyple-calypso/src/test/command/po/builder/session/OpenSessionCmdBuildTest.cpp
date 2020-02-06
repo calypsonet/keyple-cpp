@@ -19,8 +19,13 @@ using namespace keyple::calypso::command::po::parser::security;
                                     char keyIndex = static_cast<char>(0x00);
                                     char recordNumberToRead = static_cast<char>(0x01);
                                     char sfiToSelect = static_cast<char>(0x08);
-
-                                    apduCommandBuilder = AbstractOpenSessionCmdBuild<AbstractOpenSessionRespPars>::create(PoRevision::REV2_4, keyIndex, samChallenge, sfiToSelect, recordNumberToRead, "");
+                                    try
+                                    {
+                                        apduCommandBuilder = AbstractOpenSessionCmdBuild<AbstractOpenSessionRespPars>::create(PoRevision::REV2_4, keyIndex, samChallenge, sfiToSelect, recordNumberToRead, "");
+                                    }
+                                    catch(...)
+                                    {
+                                    }                                   
                                 }
 
                                 void OpenSessionCmdBuildTest::openSessionCmdBuild_rev_2_4() {

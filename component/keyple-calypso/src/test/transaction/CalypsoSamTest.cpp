@@ -1,49 +1,44 @@
 #include "CalypsoSamTest.h"
-#include "../../../../../../../../../keyple-core/src/main/java/org/eclipse/keyple/seproxy/SeSelector.h"
-#include "../../../../../../../main/java/org/eclipse/keyple/calypso/transaction/sam/SamSelectionRequest.h"
-#include "../../../../../../../../../keyple-core/src/main/java/org/eclipse/keyple/seproxy/ChannelState.h"
-#include "../../../../../../../../../keyple-core/src/main/java/org/eclipse/keyple/seproxy/protocol/ContactlessProtocols.h"
-#include "../../../../../../../main/java/org/eclipse/keyple/calypso/transaction/sam/CalypsoSam.h"
-#include "../../../../../../../../../keyple-core/src/main/java/org/eclipse/keyple/seproxy/message/AnswerToReset.h"
-#include "../../../../../../../../../keyple-core/src/main/java/org/eclipse/keyple/seproxy/message/SelectionStatus.h"
-#include "../../../../../../../../../keyple-core/src/main/java/org/eclipse/keyple/util/ByteArrayUtils.h"
-#include "../../../../../../../../../keyple-core/src/main/java/org/eclipse/keyple/seproxy/message/SeResponse.h"
+#include "SeCommonProtocols_Import.h"
+#include "SamSelectionRequest.h"
+#include "ChannelState.h"
+#include "CalypsoSam.h"
+#include "AnswerToReset.h"
+#include "SelectionStatus.h"
+#include "ByteArrayUtil.h"
+#include "SeResponse.h"
 
-namespace org {
-    namespace eclipse {
+using namespace keyple::calypso::transaction;
+
         namespace keyple {
             namespace calypso {
                 namespace transaction {
-                    using namespace org::eclipse::keyple::calypso::command::sam;
-//                    import static org.eclipse.keyple.calypso.command.sam.SamRevision.*;
-//                    import static org.junit.Assert.*;
-                    using CalypsoSam = org::eclipse::keyple::calypso::transaction::sam::CalypsoSam;
-                    using SamSelectionRequest = org::eclipse::keyple::calypso::transaction::sam::SamSelectionRequest;
-                    using ChannelState = org::eclipse::keyple::seproxy::ChannelState;
-                    using SeSelector = org::eclipse::keyple::seproxy::SeSelector;
-                    using AnswerToReset = org::eclipse::keyple::seproxy::message::AnswerToReset;
-                    using SeResponse = org::eclipse::keyple::seproxy::message::SeResponse;
-                    using SelectionStatus = org::eclipse::keyple::seproxy::message::SelectionStatus;
-                    using ContactlessProtocols = org::eclipse::keyple::seproxy::protocol::ContactlessProtocols;
-                    using ByteArrayUtils = org::eclipse::keyple::util::ByteArrayUtils;
-                    using org::junit::Test;
+
+                    using SamSelectionRequest = keyple::calypso::transaction::SamSelectionRequest;
+                    using ChannelState = keyple::core::seproxy::ChannelState;
+                    using SeSelector = keyple::core::seproxy::SeSelector;
+                    using AnswerToReset = keyple::core::seproxy::message::AnswerToReset;
+                    using SeResponse = keyple::core::seproxy::message::SeResponse;
+                    using SelectionStatus = keyple::core::seproxy::message::SelectionStatus;
+                    using ByteArrayUtils = keyple::core::util::ByteArrayUtil;
+                    using ContactlessProtocols = SeCommonProtocols;
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void test_CalypsoSam_1()
                     void CalypsoSamTest::test_CalypsoSam_1() {
                         std::shared_ptr<SeSelector> seSelector = std::make_shared<SeSelector>(nullptr, nullptr, "Dummy SeSelector");
-                        std::shared_ptr<SamSelectionRequest> samSelectionRequest = std::make_shared<SamSelectionRequest>(seSelector, ChannelState::KEEP_OPEN, ContactlessProtocols::PROTOCOL_ISO14443_4);
+                        std::shared_ptr<SamSelectionRequest> samSelectionRequest = std::make_shared<SamSelectionRequest>(seSelector, ChannelState::KEEP_OPEN, SeCommonProtocols::PROTOCOL_ISO14443_4);
                         std::shared_ptr<CalypsoSam> calypsoSam = std::make_shared<CalypsoSam>(samSelectionRequest);
                         std::shared_ptr<SelectionStatus> selectionStatus = std::make_shared<SelectionStatus>(std::make_shared<AnswerToReset>(ByteArrayUtils::fromHex("3B001122805A0180D002030411223344829000")), nullptr, true);
                         calypsoSam->setSelectionResponse(std::make_shared<SeResponse>(true, selectionStatus, nullptr));
-                        assertEquals(S1D, calypsoSam->getSamRevision());
-                        assertEquals(static_cast<char>(0x80), calypsoSam->getApplicationType());
-                        assertEquals(static_cast<char>(0xD0), calypsoSam->getApplicationSubType());
-                        assertEquals(static_cast<char>(0x01), calypsoSam->getPlatform());
-                        assertEquals(static_cast<char>(0x02), calypsoSam->getSoftwareIssuer());
-                        assertEquals(static_cast<char>(0x03), calypsoSam->getSoftwareVersion());
-                        assertEquals(static_cast<char>(0x04), calypsoSam->getSoftwareRevision());
-                        assertEquals("11223344", ByteArrayUtils::toHex(calypsoSam->getSerialNumber()));
+                        ASSERT_EQ(SamRevision::S1D, calypsoSam->getSamRevision());
+                        ASSERT_EQ(static_cast<char>(0x80), calypsoSam->getApplicationType());
+                        ASSERT_EQ(static_cast<char>(0xD0), calypsoSam->getApplicationSubType());
+                        ASSERT_EQ(static_cast<char>(0x01), calypsoSam->getPlatform());
+                        ASSERT_EQ(static_cast<char>(0x02), calypsoSam->getSoftwareIssuer());
+                        ASSERT_EQ(static_cast<char>(0x03), calypsoSam->getSoftwareVersion());
+                        ASSERT_EQ(static_cast<char>(0x04), calypsoSam->getSoftwareRevision());
+                        ASSERT_EQ("11223344", ByteArrayUtils::toHex(calypsoSam->getSerialNumber()));
                     }
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
@@ -54,8 +49,8 @@ namespace org {
                         std::shared_ptr<CalypsoSam> calypsoSam = std::make_shared<CalypsoSam>(samSelectionRequest);
                         std::shared_ptr<SelectionStatus> selectionStatus = std::make_shared<SelectionStatus>(std::make_shared<AnswerToReset>(ByteArrayUtils::fromHex("3B001122805A0180D102030411223344829000")), nullptr, true);
                         calypsoSam->setSelectionResponse(std::make_shared<SeResponse>(true, selectionStatus, nullptr));
-                        assertEquals(S1D, calypsoSam->getSamRevision());
-                        assertEquals(static_cast<char>(0xD1), calypsoSam->getApplicationSubType());
+                        ASSERT_EQ(SamRevision::S1D, calypsoSam->getSamRevision());
+                        ASSERT_EQ(static_cast<char>(0xD1), calypsoSam->getApplicationSubType());
                     }
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
@@ -66,8 +61,8 @@ namespace org {
                         std::shared_ptr<CalypsoSam> calypsoSam = std::make_shared<CalypsoSam>(samSelectionRequest);
                         std::shared_ptr<SelectionStatus> selectionStatus = std::make_shared<SelectionStatus>(std::make_shared<AnswerToReset>(ByteArrayUtils::fromHex("3B001122805A0180D202030411223344829000")), nullptr, true);
                         calypsoSam->setSelectionResponse(std::make_shared<SeResponse>(true, selectionStatus, nullptr));
-                        assertEquals(S1D, calypsoSam->getSamRevision());
-                        assertEquals(static_cast<char>(0xD2), calypsoSam->getApplicationSubType());
+                        ASSERT_EQ(SamRevision::S1D, calypsoSam->getSamRevision());
+                        ASSERT_EQ(static_cast<char>(0xD2), calypsoSam->getApplicationSubType());
                     }
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
@@ -78,8 +73,8 @@ namespace org {
                         std::shared_ptr<CalypsoSam> calypsoSam = std::make_shared<CalypsoSam>(samSelectionRequest);
                         std::shared_ptr<SelectionStatus> selectionStatus = std::make_shared<SelectionStatus>(std::make_shared<AnswerToReset>(ByteArrayUtils::fromHex("3B001122805A0180C102030411223344829000")), nullptr, true);
                         calypsoSam->setSelectionResponse(std::make_shared<SeResponse>(true, selectionStatus, nullptr));
-                        assertEquals(C1, calypsoSam->getSamRevision());
-                        assertEquals(static_cast<char>(0xC1), calypsoSam->getApplicationSubType());
+                        ASSERT_EQ(SamRevision::C1, calypsoSam->getSamRevision());
+                        ASSERT_EQ(static_cast<char>(0xC1), calypsoSam->getApplicationSubType());
                     }
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
@@ -90,8 +85,8 @@ namespace org {
                         std::shared_ptr<CalypsoSam> calypsoSam = std::make_shared<CalypsoSam>(samSelectionRequest);
                         std::shared_ptr<SelectionStatus> selectionStatus = std::make_shared<SelectionStatus>(std::make_shared<AnswerToReset>(ByteArrayUtils::fromHex("3B001122805A0180E102030411223344829000")), nullptr, true);
                         calypsoSam->setSelectionResponse(std::make_shared<SeResponse>(true, selectionStatus, nullptr));
-                        assertEquals(S1E, calypsoSam->getSamRevision());
-                        assertEquals(static_cast<char>(0xE1), calypsoSam->getApplicationSubType());
+                        ASSERT_EQ(SamRevision::S1E, calypsoSam->getSamRevision());
+                        ASSERT_EQ(static_cast<char>(0xE1), calypsoSam->getApplicationSubType());
                     }
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
@@ -126,5 +121,51 @@ namespace org {
                 }
             }
         }
-    }
+
+TEST(CalypsoSamTest, testA) 
+{
+    std::shared_ptr<CalypsoSamTest> LocalTest = std::make_shared<CalypsoSamTest>();
+    LocalTest->test_CalypsoSam_1();
+}
+
+TEST(CalypsoSamTest, testB) 
+{
+    std::shared_ptr<CalypsoSamTest> LocalTest = std::make_shared<CalypsoSamTest>();
+    LocalTest->test_CalypsoSam_2();
+}
+
+TEST(CalypsoSamTest, testC) 
+{
+    std::shared_ptr<CalypsoSamTest> LocalTest = std::make_shared<CalypsoSamTest>();
+    LocalTest->test_CalypsoSam_3();
+}
+
+TEST(CalypsoSamTest, testD) 
+{
+    std::shared_ptr<CalypsoSamTest> LocalTest = std::make_shared<CalypsoSamTest>();
+    LocalTest->test_CalypsoSam_4();
+}
+
+TEST(CalypsoSamTest, testE) 
+{
+    std::shared_ptr<CalypsoSamTest> LocalTest = std::make_shared<CalypsoSamTest>();
+    LocalTest->test_CalypsoSam_5();
+}
+
+TEST(CalypsoSamTest, testF) 
+{
+    std::shared_ptr<CalypsoSamTest> LocalTest = std::make_shared<CalypsoSamTest>();
+    LocalTest->test_CalypsoSam_6();
+}
+
+TEST(CalypsoSamTest, testG) 
+{
+    std::shared_ptr<CalypsoSamTest> LocalTest = std::make_shared<CalypsoSamTest>();
+    LocalTest->test_CalypsoSam_7();
+}
+
+TEST(CalypsoSamTest, testH) 
+{
+    std::shared_ptr<CalypsoSamTest> LocalTest = std::make_shared<CalypsoSamTest>();
+    LocalTest->test_CalypsoSam_8();
 }

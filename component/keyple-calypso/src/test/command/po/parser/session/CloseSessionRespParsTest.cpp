@@ -71,7 +71,7 @@ using namespace keyple::calypso::command::po::parser::security;
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void existingTestConverted()
                                 void CloseSessionRespParsTest::existingTestConverted() {
-                                    std::vector<char> cResp1 = ByteArrayUtils::fromHex("9000h");
+                                    std::vector<char> cResp1 = ByteArrayUtils::fromHex("9000");
                                     std::shared_ptr<CloseSessionRespPars> parser = std::make_shared<CloseSessionRespPars>(std::make_shared<ApduResponse>(cResp1, nullptr));
                                     // This assert wasn't passing
                                     ASSERT_EQ("", ByteArrayUtils::toHex(parser->getSignatureLo()));
@@ -81,14 +81,14 @@ using namespace keyple::calypso::command::po::parser::security;
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void abortingASession()
                                 void CloseSessionRespParsTest::abortingASession() {
-                                    std::vector<char> cResp1 = ByteArrayUtils::fromHex("FEDCBA98 9000h");
+                                    std::vector<char> cResp1 = ByteArrayUtils::fromHex("FEDCBA98 9000");
                                     std::shared_ptr<CloseSessionRespPars> parser = std::make_shared<CloseSessionRespPars>(std::make_shared<ApduResponse>(cResp1, nullptr));
                                 }
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void lc4withoutPostponedData()
                                 void CloseSessionRespParsTest::lc4withoutPostponedData() {
-                                    std::vector<char> cResp1 = ByteArrayUtils::fromHex("FEDCBA98 9000h");
+                                    std::vector<char> cResp1 = ByteArrayUtils::fromHex("FEDCBA98 9000");
                                     std::shared_ptr<CloseSessionRespPars> parser = std::make_shared<CloseSessionRespPars>(std::make_shared<ApduResponse>(cResp1, nullptr));
                                     ASSERT_EQ("FEDCBA98", ByteArrayUtils::toHex(parser->getSignatureLo()));
                                     ASSERT_EQ("", ByteArrayUtils::toHex(parser->getPostponedData()));
@@ -97,7 +97,7 @@ using namespace keyple::calypso::command::po::parser::security;
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void lc4WithPostponedData()
                                 void CloseSessionRespParsTest::lc4WithPostponedData() {
-                                    std::vector<char> cResp1 = ByteArrayUtils::fromHex("04 345678 FEDCBA98 9000h");
+                                    std::vector<char> cResp1 = ByteArrayUtils::fromHex("04 345678 FEDCBA98 9000");
                                     std::shared_ptr<CloseSessionRespPars> parser = std::make_shared<CloseSessionRespPars>(std::make_shared<ApduResponse>(cResp1, nullptr));
                                     ASSERT_EQ("FEDCBA98", ByteArrayUtils::toHex(parser->getSignatureLo()));
                                     ASSERT_EQ("04345678", ByteArrayUtils::toHex(parser->getPostponedData()));

@@ -33,7 +33,7 @@
                 public:
                     virtual ~CalypsoBuilderParserTest(){};
 
-                    int sample();
+                    void sample();
                 };
                 }
             }
