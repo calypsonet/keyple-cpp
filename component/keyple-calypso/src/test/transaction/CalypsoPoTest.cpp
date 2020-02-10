@@ -17,15 +17,22 @@ using namespace keyple::calypso::transaction;
 
 
                     std::shared_ptr<CalypsoPo> CalypsoPoTest::getPoApplicationByte(char applicationByte) {
-                        std::string szResp = std::string("6F 22 84 08 315449432E494341 A5 16 BF0C 13 C7 08 0000000011223344 53 07 060A %02X 02200311 9000", applicationByte);
+                        char cBuffer[256];
+                        snprintf( cBuffer, sizeof(cBuffer), "6F 22 84 08 315449432E494341 A5 16 BF0C 13 C7 08 0000000011223344 53 07 060A %02X 02200311 9000", applicationByte);
+                        std::string szResp = cBuffer; 
                         std::vector<char> cResp = ByteArrayUtils::fromHex(szResp);
                         std::shared_ptr<IsoAid> cAID = std::make_shared<IsoAid>(ByteArrayUtils::fromHex("315449432E494341"));
                         std::shared_ptr<ApduResponse> fciData = std::make_shared<ApduResponse>(cResp, nullptr);
                         std::vector<std::shared_ptr<ApduResponse>> apduVecteurReponseVide;
-                        std::shared_ptr<SeResponse> selectionData = std::make_shared<SeResponse>(false, true, std::make_shared<SelectionStatus>(nullptr, fciData, true), apduVecteurReponseVide);
-                        std::shared_ptr<PoSelectionRequest> poSelectionRequest = std::make_shared<PoSelectionRequest>(std::make_shared<SeSelector>(std::make_shared<SeSelector::AidSelector>(cAID, nullptr), nullptr, nullptr), ChannelState::KEEP_OPEN, SeCommonProtocols::PROTOCOL_ISO14443_4);
-                        std::shared_ptr<CalypsoPo> calypsoPo = std::make_shared<CalypsoPo>(poSelectionRequest);
-                        calypsoPo->SetSelectionResponse(selectionData);
+                        SeCommonProtocols seCommonProtocols = SeCommonProtocols::PROTOCOL_ISO14443_4;                      
+                        std::shared_ptr<SeSelector> seSelector = std::make_shared<SeSelector>(seCommonProtocols, std::make_shared<SeSelector::AtrFilter>(nullptr), nullptr, nullptr);
+                        std::shared_ptr<PoSelector> poSelector = std::make_shared<PoSelector>(seCommonProtocols, std::make_shared<PoSelector::PoAtrFilter>(nullptr), std::make_shared<PoSelector::PoAidSelector>(cAID, PoSelector::InvalidatedPo::ACCEPT), nullptr);
+                        std::shared_ptr<SeResponse> selectionData = std::make_shared<SeResponse>(true, false, std::make_shared<SelectionStatus>(nullptr, fciData, true), apduVecteurReponseVide);
+
+                        std::shared_ptr<PoSelectionRequest> poSelectionRequest = std::make_shared<PoSelectionRequest>(poSelector, ChannelState::KEEP_OPEN);
+                        TransmissionMode transm = seCommonProtocols.getTransmissionMode();
+                        std::shared_ptr<CalypsoPo> calypsoPo = std::make_shared<CalypsoPo>(selectionData, transm, nullptr);
+                        //calypsoPo->SetSelectionResponse(selectionData);
                         return calypsoPo;
                     }
 

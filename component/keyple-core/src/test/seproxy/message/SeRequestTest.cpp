@@ -14,16 +14,12 @@ namespace org {
             namespace seproxy {
                 namespace message {
 //                    import static org.junit.Assert.*;
-                    using ChannelState = org::eclipse::keyple::seproxy::ChannelState;
-                    using SeSelector = org::eclipse::keyple::seproxy::SeSelector;
-                    using ContactlessProtocols = org::eclipse::keyple::seproxy::protocol::ContactlessProtocols;
-                    using Protocol = org::eclipse::keyple::seproxy::protocol::Protocol;
-                    using SeProtocol = org::eclipse::keyple::seproxy::protocol::SeProtocol;
-                    using ByteArrayUtils = org::eclipse::keyple::util::ByteArrayUtils;
-                    using org::junit::Before;
-                    using org::junit::Test;
-                    using org::junit::runner::RunWith;
-                    using org::mockito::junit::MockitoJUnitRunner;
+                    using ChannelState = keyple::core::seproxy::ChannelState;
+                    using SeSelector = keyple::core::seproxy::SeSelector;
+                    using ContactlessProtocols = keyple::core::seproxy::protocol::ContactlessProtocols;
+                    using Protocol = keyple::core::seproxy::protocol::Protocol;
+                    using SeProtocol = keyple::core::seproxy::protocol::SeProtocol;
+                    using ByteArrayUtils = keyple::core::util::ByteArrayUtil;
 
                     std::vector<std::shared_ptr<ApduRequest>> SeRequestTest::getApdus() {
                         return apdus;

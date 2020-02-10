@@ -12,7 +12,7 @@
 #include "SelectionStatus.h"
 #include "PoSelectionRequest.h"
 #include "ChannelState.h"
-//#include "SeSelector.h"
+#include "SeSelector_Import.h"
 #include "SeCommonProtocols.h"
 #include "PoRevision.h"
 #include "SeResponse.h"

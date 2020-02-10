@@ -47,6 +47,7 @@ std::string Matcher::replaceAll(std::string replacement)
     (void)replacement;
     std::string init_string = text;
     std::string result;
+    bool bDone = true;
 
     for ( unsigned int index = 0; index < parentPattern->pattern.size(); index++ )
     {
@@ -56,7 +57,6 @@ std::string Matcher::replaceAll(std::string replacement)
         std::string find = sBuf;
         size_t find_len = find.size();
         size_t pos,from=0;
-        bool bDone = false;
         while ( std::string::npos != ( pos=init_string.find(find,from) ) ) {
             result.append( init_string, from, pos-from );
             result.append( replacement );
@@ -65,6 +65,7 @@ std::string Matcher::replaceAll(std::string replacement)
         }
         if ( bDone )
         {
+            bDone = false;
             result.append( init_string, from , std::string::npos );
         }
         init_string.clear();

@@ -12,7 +12,7 @@ namespace org {
                 namespace plugin {
 //                    import static org.mockito.Mockito.doAnswer;
                     using CoreBaseTest = org::eclipse::keyple::CoreBaseTest;
-                    using SeSelector = org::eclipse::keyple::seproxy::SeSelector;
+                    using SeSelector = keyple::core::seproxy::SeSelector;
                     using ObservableReader = org::eclipse::keyple::seproxy::event_Renamed::ObservableReader;
                     using ReaderEvent = org::eclipse::keyple::seproxy::event_Renamed::ReaderEvent;
                     using namespace org::eclipse::keyple::seproxy::exception;

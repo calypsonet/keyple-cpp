@@ -29,9 +29,9 @@ namespace org {
 
 //JAVA TO C++ CONVERTER TODO TASK: The Java 'import static' statement cannot be converted to C++:
 //                    import static org.junit.Assert.*;
-                    using ChannelState = org::eclipse::keyple::seproxy::ChannelState;
-                    using SeSelector = org::eclipse::keyple::seproxy::SeSelector;
-                    using SeProtocol = org::eclipse::keyple::seproxy::protocol::SeProtocol;
+                    using ChannelState = keyple::core::seproxy::ChannelState;
+                    using SeSelector = keyple::core::seproxy::SeSelector;
+                    using SeProtocol = keyple::core::seproxy::protocol::SeProtocol;
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @SuppressWarnings("PMD.SignatureDeclareThrowsException") @RunWith(MockitoJUnitRunner.class) public class SeRequestTest
