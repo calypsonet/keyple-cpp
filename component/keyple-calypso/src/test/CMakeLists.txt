@@ -144,7 +144,7 @@ ADD_EXECUTABLE(TU_keyple_calypso_test
 
 	# calypso - transaction
 	${CMAKE_CURRENT_SOURCE_DIR}/transaction/CalypsoPoTest.cpp
-#	${CMAKE_CURRENT_SOURCE_DIR}/transaction/CalypsoSamTest.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/transaction/CalypsoSamTest.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/transaction/PoResource.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/transaction/PoSelectionRequest.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/transaction/PoSelector.cpp

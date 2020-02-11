@@ -8,6 +8,9 @@
 #include "ByteArrayUtil.h"
 #include "SeResponse.h"
 
+#include "Logger.h"
+#include "LoggerFactory.h"
+
 using namespace keyple::calypso::transaction;
 
         namespace keyple {
@@ -26,14 +29,13 @@ using namespace keyple::calypso::transaction;
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void test_CalypsoSam_1()
                     void CalypsoSamTest::test_CalypsoSam_1() {
-                        SeProtocol seProtocol = SeProtocol();
-                        std::shared_ptr<SamSelector> samSelector = std::make_shared<SamSelector>(seProtocol, nullptr, nullptr, "Dummy SeSelector");
-                        SeCommonProtocols seCommonProtocols = SeCommonProtocols::PROTOCOL_ISO14443_4;
-                        std::shared_ptr<SamSelectionRequest> samSelectionRequest = std::make_shared<SamSelectionRequest>(samSelector, ChannelState::KEEP_OPEN, seCommonProtocols);
-                        std::shared_ptr<SelectionStatus> selectionStatus = std::make_shared<SelectionStatus>(std::make_shared<AnswerToReset>(ByteArrayUtils::fromHex("3B001122805A0180D002030411223344829000")), nullptr, true);
-                        std::shared_ptr<SeResponse> seReponse = std::make_shared<SeResponse>(true, selectionStatus, nullptr);
-                        std::shared_ptr<CalypsoSam> calypsoSam = std::make_shared<CalypsoSam>(seReponse);
-                        //calypsoSam->setSelectionResponse(std::make_shared<SeResponse>(true, selectionStatus, nullptr));
+                        std::vector<char> szAnswerToReset = ByteArrayUtils::fromHex("3B001122805A0180D002030411223344829000");
+                        std::shared_ptr<AnswerToReset> lAnswerToReset = std::make_shared<AnswerToReset>(szAnswerToReset);
+                        std::shared_ptr<SelectionStatus> selectionStatus = std::make_shared<SelectionStatus>(lAnswerToReset, nullptr, true);
+                        std::vector<std::shared_ptr<ApduResponse>> lResp = {nullptr};
+                        std::shared_ptr<SeResponse> seReponse = std::make_shared<SeResponse>(true, true, selectionStatus, lResp);
+                        std::shared_ptr<CalypsoSam> calypsoSam = std::make_shared<CalypsoSam>(seReponse, TransmissionMode::NO_MODE, "");
+
                         ASSERT_EQ(SamRevision::S1D.valueOf, calypsoSam->getSamRevision().valueOf);
                         ASSERT_EQ(static_cast<char>(0x80), calypsoSam->getApplicationType());
                         ASSERT_EQ(static_cast<char>(0xD0), calypsoSam->getApplicationSubType());
@@ -47,13 +49,14 @@ using namespace keyple::calypso::transaction;
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void test_CalypsoSam_2()
                     void CalypsoSamTest::test_CalypsoSam_2() {
-                        SeProtocol seProtocol = SeProtocol();
-                        std::shared_ptr<SeSelector> seSelector = std::make_shared<SeSelector>(seProtocol, nullptr, nullptr, "Dummy SeSelector");
-                        std::shared_ptr<SamSelectionRequest> samSelectionRequest = std::make_shared<SamSelectionRequest>(seSelector, ChannelState::KEEP_OPEN, ContactlessProtocols::PROTOCOL_ISO14443_4);
-                        std::shared_ptr<SelectionStatus> selectionStatus = std::make_shared<SelectionStatus>(std::make_shared<AnswerToReset>(ByteArrayUtils::fromHex("3B001122805A0180D102030411223344829000")), nullptr, true);
-                        std::shared_ptr<SeResponse> seReponse = std::make_shared<SeResponse>(true, selectionStatus, nullptr);
-                        std::shared_ptr<CalypsoSam> calypsoSam = std::make_shared<CalypsoSam>(seReponse);
-                        //calypsoSam->setSelectionResponse(std::make_shared<SeResponse>(true, selectionStatus, nullptr));
+                        std::vector<char> szAnswerToReset = ByteArrayUtils::fromHex("3B001122805A0180D102030411223344829000");
+                        std::shared_ptr<AnswerToReset> lAnswerToReset = std::make_shared<AnswerToReset>(szAnswerToReset);
+                        std::shared_ptr<SelectionStatus> selectionStatus = std::make_shared<SelectionStatus>(lAnswerToReset, nullptr, true);
+                        
+                        std::vector<std::shared_ptr<ApduResponse>> lResp = {nullptr};
+                        std::shared_ptr<SeResponse> seReponse = std::make_shared<SeResponse>(true, true, selectionStatus, lResp);
+                        std::shared_ptr<CalypsoSam> calypsoSam = std::make_shared<CalypsoSam>(seReponse, TransmissionMode::NO_MODE, "");
+
                         ASSERT_EQ(SamRevision::S1D.valueOf, calypsoSam->getSamRevision().valueOf);
                         ASSERT_EQ(static_cast<char>(0xD1), calypsoSam->getApplicationSubType());
                     }
@@ -61,13 +64,14 @@ using namespace keyple::calypso::transaction;
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void test_CalypsoSam_3()
                     void CalypsoSamTest::test_CalypsoSam_3() {
-                        SeProtocol seProtocol = SeProtocol();
-                        std::shared_ptr<SeSelector> seSelector = std::make_shared<SeSelector>(seProtocol, nullptr, nullptr, "Dummy SeSelector");
-                        std::shared_ptr<SamSelectionRequest> samSelectionRequest = std::make_shared<SamSelectionRequest>(seSelector, ChannelState::KEEP_OPEN, ContactlessProtocols::PROTOCOL_ISO14443_4);
-                        std::shared_ptr<SelectionStatus> selectionStatus = std::make_shared<SelectionStatus>(std::make_shared<AnswerToReset>(ByteArrayUtils::fromHex("3B001122805A0180D202030411223344829000")), nullptr, true);
-                        std::shared_ptr<SeResponse> seReponse = std::make_shared<SeResponse>(true, selectionStatus, nullptr);
-                        std::shared_ptr<CalypsoSam> calypsoSam = std::make_shared<CalypsoSam>(seReponse);
-                        //calypsoSam->setSelectionResponse(std::make_shared<SeResponse>(true, selectionStatus, nullptr));
+                        std::vector<char> szAnswerToReset = ByteArrayUtils::fromHex("3B001122805A0180D202030411223344829000");
+                        std::shared_ptr<AnswerToReset> lAnswerToReset = std::make_shared<AnswerToReset>(szAnswerToReset);
+                        std::shared_ptr<SelectionStatus> selectionStatus = std::make_shared<SelectionStatus>(lAnswerToReset, nullptr, true);
+                        
+                        std::vector<std::shared_ptr<ApduResponse>> lResp = {nullptr};
+                        std::shared_ptr<SeResponse> seReponse = std::make_shared<SeResponse>(true, true, selectionStatus, lResp);
+                        std::shared_ptr<CalypsoSam> calypsoSam = std::make_shared<CalypsoSam>(seReponse, TransmissionMode::NO_MODE, "");
+
                         ASSERT_EQ(SamRevision::S1D.valueOf, calypsoSam->getSamRevision().valueOf);
                         ASSERT_EQ(static_cast<char>(0xD2), calypsoSam->getApplicationSubType());
                     }
@@ -75,13 +79,14 @@ using namespace keyple::calypso::transaction;
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void test_CalypsoSam_4()
                     void CalypsoSamTest::test_CalypsoSam_4() {
-                        SeProtocol seProtocol = SeProtocol();
-                        std::shared_ptr<SeSelector> seSelector = std::make_shared<SeSelector>(seProtocol, nullptr, nullptr, "Dummy SeSelector");
-                        std::shared_ptr<SamSelectionRequest> samSelectionRequest = std::make_shared<SamSelectionRequest>(seSelector, ChannelState::KEEP_OPEN, ContactlessProtocols::PROTOCOL_ISO14443_4);
-                        std::shared_ptr<SelectionStatus> selectionStatus = std::make_shared<SelectionStatus>(std::make_shared<AnswerToReset>(ByteArrayUtils::fromHex("3B001122805A0180C102030411223344829000")), nullptr, true);
-                        std::shared_ptr<SeResponse> seReponse = std::make_shared<SeResponse>(true, selectionStatus, nullptr);
-                        std::shared_ptr<CalypsoSam> calypsoSam = std::make_shared<CalypsoSam>(seReponse);
-                        //calypsoSam->setSelectionResponse(std::make_shared<SeResponse>(true, selectionStatus, nullptr));
+                        std::vector<char> szAnswerToReset = ByteArrayUtils::fromHex("3B001122805A0180C102030411223344829000");
+                        std::shared_ptr<AnswerToReset> lAnswerToReset = std::make_shared<AnswerToReset>(szAnswerToReset);
+                        std::shared_ptr<SelectionStatus> selectionStatus = std::make_shared<SelectionStatus>(lAnswerToReset, nullptr, true);
+                        
+                        std::vector<std::shared_ptr<ApduResponse>> lResp = {nullptr};
+                        std::shared_ptr<SeResponse> seReponse = std::make_shared<SeResponse>(true, true, selectionStatus, lResp);
+                        std::shared_ptr<CalypsoSam> calypsoSam = std::make_shared<CalypsoSam>(seReponse, TransmissionMode::NO_MODE, "");
+
                         ASSERT_EQ(SamRevision::C1.valueOf, calypsoSam->getSamRevision().valueOf);
                         ASSERT_EQ(static_cast<char>(0xC1), calypsoSam->getApplicationSubType());
                     }
@@ -89,13 +94,14 @@ using namespace keyple::calypso::transaction;
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void test_CalypsoSam_5()
                     void CalypsoSamTest::test_CalypsoSam_5() {
-                        SeProtocol seProtocol = SeProtocol();
-                        std::shared_ptr<SeSelector> seSelector = std::make_shared<SeSelector>(seProtocol, nullptr, nullptr, "Dummy SeSelector");
-                        std::shared_ptr<SamSelectionRequest> samSelectionRequest = std::make_shared<SamSelectionRequest>(seSelector, ChannelState::KEEP_OPEN, ContactlessProtocols::PROTOCOL_ISO14443_4);
-                        std::shared_ptr<SelectionStatus> selectionStatus = std::make_shared<SelectionStatus>(std::make_shared<AnswerToReset>(ByteArrayUtils::fromHex("3B001122805A0180E102030411223344829000")), nullptr, true);
-                        std::shared_ptr<SeResponse> seReponse = std::make_shared<SeResponse>(true, selectionStatus, nullptr);
-                        std::shared_ptr<CalypsoSam> calypsoSam = std::make_shared<CalypsoSam>(seReponse);
-                        //calypsoSam->setSelectionResponse(std::make_shared<SeResponse>(true, selectionStatus, nullptr));
+                        std::vector<char> szAnswerToReset = ByteArrayUtils::fromHex("3B001122805A0180E102030411223344829000");
+                        std::shared_ptr<AnswerToReset> lAnswerToReset = std::make_shared<AnswerToReset>(szAnswerToReset);
+                        std::shared_ptr<SelectionStatus> selectionStatus = std::make_shared<SelectionStatus>(lAnswerToReset, nullptr, true);
+                        
+                        std::vector<std::shared_ptr<ApduResponse>> lResp = {nullptr};
+                        std::shared_ptr<SeResponse> seReponse = std::make_shared<SeResponse>(true, true, selectionStatus, lResp);
+                        std::shared_ptr<CalypsoSam> calypsoSam = std::make_shared<CalypsoSam>(seReponse, TransmissionMode::NO_MODE, "");
+
                         ASSERT_EQ(SamRevision::S1E.valueOf, calypsoSam->getSamRevision().valueOf);
                         ASSERT_EQ(static_cast<char>(0xE1), calypsoSam->getApplicationSubType());
                     }
@@ -103,37 +109,57 @@ using namespace keyple::calypso::transaction;
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test(expected = IllegalStateException.class) public void test_CalypsoSam_6()
                     void CalypsoSamTest::test_CalypsoSam_6() {
-                        SeProtocol seProtocol = SeProtocol();
-                        std::shared_ptr<SeSelector> seSelector = std::make_shared<SeSelector>(seProtocol, nullptr, nullptr, "Dummy SeSelector");
-                        std::shared_ptr<SamSelectionRequest> samSelectionRequest = std::make_shared<SamSelectionRequest>(seSelector, ChannelState::KEEP_OPEN, ContactlessProtocols::PROTOCOL_ISO14443_4);
-                        std::shared_ptr<SelectionStatus> selectionStatus = std::make_shared<SelectionStatus>(std::make_shared<AnswerToReset>(ByteArrayUtils::fromHex("3B001122805A0180E202030411223344829000")), nullptr, true);
-                        std::shared_ptr<SeResponse> seReponse = std::make_shared<SeResponse>(true, selectionStatus, nullptr);
-                        std::shared_ptr<CalypsoSam> calypsoSam = std::make_shared<CalypsoSam>(seReponse);
-                        //calypsoSam->setSelectionResponse(std::make_shared<SeResponse>(true, selectionStatus, nullptr));
+                        std::vector<char> szAnswerToReset = ByteArrayUtils::fromHex("3B001122805A0180E202030411223344829000");
+                        std::shared_ptr<AnswerToReset> lAnswerToReset = std::make_shared<AnswerToReset>(szAnswerToReset);
+                        std::shared_ptr<SelectionStatus> selectionStatus = std::make_shared<SelectionStatus>(lAnswerToReset, nullptr, true);
+                        
+                        std::vector<std::shared_ptr<ApduResponse>> lResp = {nullptr};
+                        std::shared_ptr<SeResponse> seReponse = std::make_shared<SeResponse>(true, true, selectionStatus, lResp);
+                        try
+                        {
+                            std::shared_ptr<CalypsoSam> calypsoSam = std::make_shared<CalypsoSam>(seReponse, TransmissionMode::NO_MODE, "");
+                        }
+                        catch(...)
+                        {
+                        }
                     }
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test(expected = IllegalStateException.class) public void test_CalypsoSam_7()
                     void CalypsoSamTest::test_CalypsoSam_7() {
-                        SeProtocol seProtocol = SeProtocol();
-                        std::shared_ptr<SeSelector> seSelector = std::make_shared<SeSelector>(seProtocol, nullptr, nullptr, "Dummy SeSelector");
-                        std::shared_ptr<SamSelectionRequest> samSelectionRequest = std::make_shared<SamSelectionRequest>(seSelector, ChannelState::KEEP_OPEN, ContactlessProtocols::PROTOCOL_ISO14443_4);
-                        std::shared_ptr<SelectionStatus> selectionStatus = std::make_shared<SelectionStatus>(std::make_shared<AnswerToReset>(ByteArrayUtils::fromHex("3B001122805A0180E202030411223344820000")), nullptr, true);
-                        std::shared_ptr<SeResponse> seReponse = std::make_shared<SeResponse>(true, selectionStatus, nullptr);
-                        std::shared_ptr<CalypsoSam> calypsoSam = std::make_shared<CalypsoSam>(seReponse);
-                        //calypsoSam->setSelectionResponse(std::make_shared<SeResponse>(true, selectionStatus, nullptr));
+                        std::vector<char> szAnswerToReset = ByteArrayUtils::fromHex("3B001122805A0180E202030411223344820000");
+                        std::shared_ptr<AnswerToReset> lAnswerToReset = std::make_shared<AnswerToReset>(szAnswerToReset);
+                        std::shared_ptr<SelectionStatus> selectionStatus = std::make_shared<SelectionStatus>(lAnswerToReset, nullptr, true);
+                        
+                        std::vector<std::shared_ptr<ApduResponse>> lResp = {nullptr};
+                        std::shared_ptr<SeResponse> seReponse = std::make_shared<SeResponse>(true, true, selectionStatus, lResp);
+
+                        try
+                        {
+                            /* code */
+                            std::shared_ptr<CalypsoSam> calypsoSam = std::make_shared<CalypsoSam>(seReponse, TransmissionMode::NO_MODE, "");
+                        }
+                        catch(...)
+                        {
+                        }      
                     }
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test(expected = IllegalStateException.class) public void test_CalypsoSam_8()
                     void CalypsoSamTest::test_CalypsoSam_8() {
-                        SeProtocol seProtocol = SeProtocol();
-                        std::shared_ptr<SeSelector> seSelector = std::make_shared<SeSelector>(seProtocol, nullptr, nullptr, "Dummy SeSelector");
-                        std::shared_ptr<SamSelectionRequest> samSelectionRequest = std::make_shared<SamSelectionRequest>(seSelector, ChannelState::KEEP_OPEN, ContactlessProtocols::PROTOCOL_ISO14443_4);
-                        std::shared_ptr<SelectionStatus> selectionStatus = std::make_shared<SelectionStatus>(std::make_shared<AnswerToReset>(ByteArrayUtils::fromHex("")), nullptr, true);
-                        std::shared_ptr<SeResponse> seReponse = std::make_shared<SeResponse>(true, selectionStatus, nullptr);
-                        std::shared_ptr<CalypsoSam> calypsoSam = std::make_shared<CalypsoSam>(seReponse);
-                        //calypsoSam->setSelectionResponse(std::make_shared<SeResponse>(true, selectionStatus, nullptr));
+                        std::vector<char> szAnswerToReset = ByteArrayUtils::fromHex("");
+                        std::shared_ptr<AnswerToReset> lAnswerToReset = std::make_shared<AnswerToReset>(szAnswerToReset);
+                        std::shared_ptr<SelectionStatus> selectionStatus = std::make_shared<SelectionStatus>(lAnswerToReset, nullptr, true);
+                        
+                        std::vector<std::shared_ptr<ApduResponse>> lResp = {nullptr};
+                        std::shared_ptr<SeResponse> seReponse = std::make_shared<SeResponse>(true, true, selectionStatus, lResp);
+                        try
+                        {
+                            std::shared_ptr<CalypsoSam> calypsoSam = std::make_shared<CalypsoSam>(seReponse, TransmissionMode::NO_MODE, "");
+                        }
+                        catch(...)
+                        {
+                        }
                     }
                 }
             }

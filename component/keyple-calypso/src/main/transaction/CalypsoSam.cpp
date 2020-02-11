@@ -82,10 +82,14 @@ CalypsoSam::CalypsoSam(std::shared_ptr<SeResponse> selectionResponse,
         softwareRevision = atrSubElements[5];
         System::arraycopy(atrSubElements, 6, serialNumber, 0, 4);
         if (logger->isTraceEnabled()) {
-            logger->trace("%s", StringHelper::formatSimple("SAM %s PLATFORM = %02X, APPTYPE = %02X, APPSUBTYPE = %02X, SWISSUER =" \
-                                                           "%02X, SWVERSION = %02X, SWREVISION = %02X\n", samRevision.getName(),
-                                                           platform, applicationType, applicationSubType, softwareIssuer,
-                                                           softwareVersion, softwareRevision));
+            char buff[128];
+            
+            snprintf(buff, sizeof(buff), "PLATFORM = %02X, APPTYPE = %02X, APPSUBTYPE = %02X, SWISSUER = " \
+                                                           "%02X, SWVERSION = %02X, SWREVISION = %02X\n", 
+                                                           (unsigned char )platform, (unsigned char )applicationType, (unsigned char )applicationSubType, (unsigned char )softwareIssuer,
+                                                           (unsigned char )softwareVersion, (unsigned char )softwareRevision);
+
+            logger->trace("SAM %s %s", samRevision.getName(), buff);
             logger->trace("SAM SERIALNUMBER = %s\n", ByteArrayUtil::toHex(serialNumber));
         }
     }

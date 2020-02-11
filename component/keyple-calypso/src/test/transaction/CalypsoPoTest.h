@@ -41,13 +41,13 @@ namespace keyple { namespace calypso { namespace transaction { class CalypsoPo; 
                     class CalypsoPoTest : public std::enable_shared_from_this<CalypsoPoTest> {
                         /* Building FCI data with the application byte as a variant and initialize PO */
                     public:
-                        static std::shared_ptr<CalypsoPo> getPoApplicationByte(char applicationByte);
+                        //static std::shared_ptr<CalypsoPo> getPoApplicationByte(char applicationByte);
+                        PoRevision getPoApplicationByte(char applicationByte);
 
 //JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @Test public void computePoRevision()
                         virtual void computePoRevision();
                     };
-
                 }
             }
         }
