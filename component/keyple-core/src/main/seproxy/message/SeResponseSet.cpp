@@ -29,7 +29,6 @@ SeResponseSet::SeResponseSet(std::vector<std::shared_ptr<SeResponse>> &seRespons
 
 SeResponseSet::SeResponseSet(std::shared_ptr<SeResponse> response)
 {
-    std::vector<std::shared_ptr<SeResponse>> seResponses;
     seResponses.push_back(response);
 }
 
