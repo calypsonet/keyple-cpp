@@ -74,6 +74,11 @@ ADD_EXECUTABLE(TU_plugin_stub_test
 	${CMAKE_CURRENT_SOURCE_DIR}/java/org/eclipse/keyple/plugin/stub/BaseStubTest.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/java/org/eclipse/keyple/plugin/stub/StubPluginTest.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/java/org/eclipse/keyple/plugin/stub/StubReaderTest.cpp
+
+	#${CMAKE_CURRENT_SOURCE_DIR}/StubPlugin.cpp
+	#${CMAKE_CURRENT_SOURCE_DIR}/StubProtocolSetting.cpp
+	#${CMAKE_CURRENT_SOURCE_DIR}/StubReader.cpp
+	#${CMAKE_CURRENT_SOURCE_DIR}/StubSecureElement.cpp
 )
 
 SET(LINK_LIBS gtest gmock keyplepluginstub keyplecore ${WINSCARD} )
