@@ -38,7 +38,7 @@ INCLUDE_DIRECTORIES(
 	${CMAKE_CURRENT_SOURCE_DIR}/../../../keyple-core/src/main/util
 	
 	# PC/SC (Linux / macOS) 
-	/usr/include/PCSC	
+	/usr/include/PCSC
 )
 
 ADD_LIBRARY(${LIBRARY_NAME} SHARED
@@ -71,6 +71,7 @@ ENDIF(APPLE)
 
 If(UNIX)
 	SET(PTHREAD pthread)
+	SET(WINSCARD pcsclite)
 ENDIF(UNIX)
 
 SET(LINK_LIBS ${WINSCARD} keyplecore ${PTHREAD})

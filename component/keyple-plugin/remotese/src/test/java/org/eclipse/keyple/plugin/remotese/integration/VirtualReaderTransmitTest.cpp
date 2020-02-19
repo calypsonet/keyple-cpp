@@ -53,7 +53,8 @@ const std::shared_ptr<org::slf4j::Logger> VirtualReaderTransmitTest::logger = or
 //ORIGINAL LINE: @Test public void testKOTransmitSet_NoSE()
                         void VirtualReaderTransmitTest::testKOTransmitSet_NoSE() {
 
-                            try {
+                            try 
+                            {
                                 StubReaderTest::selectSe(virtualReader);
 
                                 virtualReader->transmitSet(SampleFactory::getASeRequestSet());
@@ -61,12 +62,13 @@ const std::shared_ptr<org::slf4j::Logger> VirtualReaderTransmitTest::logger = or
                                 Assert::assertTrue(false);
 
                             }
-                            catch (const KeypleReaderException &e) {
+                            catch (const KeypleReaderException &e) 
+                            {
                                 logger->info("KeypleReaderException was thrown as expected");
                                 // assert exception is thrown
                                 Assert::assertNotNull(e);
-                                Assert::assertNotNull(e->getSeResponseSet());
-                                Assert::assertNull(e->getSeResponse());
+                                Assert::assertNotNull(e.getSeResponseSet());
+                                Assert::assertNull(e.getSeResponse());
                             }
                         }
 
@@ -74,7 +76,8 @@ const std::shared_ptr<org::slf4j::Logger> VirtualReaderTransmitTest::logger = or
 //ORIGINAL LINE: @Test public void testKOTransmit_NoSE()
                         void VirtualReaderTransmitTest::testKOTransmit_NoSE() {
 
-                            try {
+                            try 
+                            {
                                 StubReaderTest::selectSe(virtualReader);
 
                                 virtualReader->transmit(SampleFactory::getASeRequest());
@@ -82,7 +85,8 @@ const std::shared_ptr<org::slf4j::Logger> VirtualReaderTransmitTest::logger = or
                                 Assert::assertTrue(false);
 
                             }
-                            catch (const KeypleReaderException &e) {
+                            catch (const KeypleReaderException &e) 
+                            {
                                 logger->info("KeypleReaderException was thrown as expected");
                                 // assert exception is thrown
                                 Assert::assertNotNull(e);
@@ -160,11 +164,12 @@ const std::shared_ptr<org::slf4j::Logger> VirtualReaderTransmitTest::logger = or
                                 virtualReader->transmitSet(seRequestSet);
 
                             }
-                            catch (const KeypleReaderException &ex) {
-                                logger->info("KeypleReaderException was thrown as expected : {} {}", ex->getSeResponseSet(), ex->getSeResponse());
+                            catch (const KeypleReaderException &ex) 
+                            {
+                                logger->info("KeypleReaderException was thrown as expected : {} {}", ex.getSeResponseSet(), ex.getSeResponse());
 
-                                Assert::assertEquals(ex->getSeResponseSet()->getResponses().size(), 1);
-                                Assert::assertEquals(ex->getSeResponseSet()->getResponses()[0]->getApduResponses()->size(), 2);
+                                Assert::assertEquals(ex.getSeResponseSet()->getResponses().size(), 1);
+                                Assert::assertEquals(ex.getSeResponseSet()->getResponses()[0]->getApduResponses()->size(), 2);
                             }
                         }
 
@@ -181,18 +186,19 @@ const std::shared_ptr<org::slf4j::Logger> VirtualReaderTransmitTest::logger = or
                             // init Request
                             std::shared_ptr<SeRequestSet> seRequestSet = StubReaderTest::getPartialRequestSet(1);
 
-                            try {
+                            try 
+                            {
                                 StubReaderTest::selectSe(virtualReader);
 
                                 virtualReader->transmitSet(seRequestSet);
-
                             }
-                            catch (const KeypleReaderException &ex) {
-                                logger->info("KeypleReaderException was thrown as expected : {} {}", ex->getSeResponseSet(), ex->getSeResponse());
-                                Assert::assertEquals(ex->getSeResponseSet()->getResponses().size(), 2);
-                                Assert::assertEquals(ex->getSeResponseSet()->getResponses()[0]->getApduResponses()->size(), 4);
-                                Assert::assertEquals(ex->getSeResponseSet()->getResponses()[1]->getApduResponses()->size(), 2);
-                                Assert::assertEquals(ex->getSeResponseSet()->getResponses()[1]->getApduResponses()->size(), 2);
+                            catch (const KeypleReaderException &ex) 
+                            {
+                                logger->info("KeypleReaderException was thrown as expected : {} {}", ex.getSeResponseSet(), ex.getSeResponse());
+                                Assert::assertEquals(ex.getSeResponseSet()->getResponses().size(), 2);
+                                Assert::assertEquals(ex.getSeResponseSet()->getResponses()[0]->getApduResponses()->size(), 4);
+                                Assert::assertEquals(ex.getSeResponseSet()->getResponses()[1]->getApduResponses()->size(), 2);
+                                Assert::assertEquals(ex.getSeResponseSet()->getResponses()[1]->getApduResponses()->size(), 2);
                             }
                         }
 
@@ -210,18 +216,19 @@ const std::shared_ptr<org::slf4j::Logger> VirtualReaderTransmitTest::logger = or
                             std::shared_ptr<SeRequestSet> seRequestSet = StubReaderTest::getPartialRequestSet(2);
 
                             // test
-                            try {
+                            try 
+                            {
                                 StubReaderTest::selectSe(virtualReader);
 
                                 virtualReader->transmitSet(seRequestSet);
-
                             }
-                            catch (const KeypleReaderException &ex) {
-                                logger->info("KeypleReaderException was thrown as expected : {} {}", ex->getSeResponseSet(), ex->getSeResponse());
-                                Assert::assertEquals(ex->getSeResponseSet()->getResponses().size(), 3);
-                                Assert::assertEquals(ex->getSeResponseSet()->getResponses()[0]->getApduResponses()->size(), 4);
-                                Assert::assertEquals(ex->getSeResponseSet()->getResponses()[1]->getApduResponses()->size(), 4);
-                                Assert::assertEquals(ex->getSeResponseSet()->getResponses()[2]->getApduResponses()->size(), 2);
+                            catch (const KeypleReaderException &ex) 
+                            {
+                                logger->info("KeypleReaderException was thrown as expected : {} {}", ex.getSeResponseSet(), ex.getSeResponse());
+                                Assert::assertEquals(ex.getSeResponseSet()->getResponses().size(), 3);
+                                Assert::assertEquals(ex.getSeResponseSet()->getResponses()[0]->getApduResponses()->size(), 4);
+                                Assert::assertEquals(ex.getSeResponseSet()->getResponses()[1]->getApduResponses()->size(), 4);
+                                Assert::assertEquals(ex.getSeResponseSet()->getResponses()[2]->getApduResponses()->size(), 2);
                             }
                         }
 
