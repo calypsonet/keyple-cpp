@@ -87,7 +87,7 @@ private:
     /**
      * List of seResponses that were received following the transmission of the {@link SeRequest}.
      */
-    const std::vector<std::shared_ptr<SeResponse>> seResponses;
+    std::vector<std::shared_ptr<SeResponse>> seResponses;
 
 
 };

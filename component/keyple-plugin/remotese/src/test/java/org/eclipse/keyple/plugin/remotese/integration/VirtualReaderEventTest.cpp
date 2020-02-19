@@ -22,7 +22,7 @@ namespace org {
                         using StubPlugin = org::eclipse::keyple::plugin::stub::StubPlugin;
                         using StubReaderTest = org::eclipse::keyple::plugin::stub::StubReaderTest;
                         using ChannelState = org::eclipse::keyple::seproxy::ChannelState;
-                        using SeSelector = org::eclipse::keyple::seproxy::SeSelector;
+                        using SeSelector = keyple::core::seproxy::SeSelector;
                         using ObservableReader = org::eclipse::keyple::seproxy::event_Renamed::ObservableReader;
                         using ReaderEvent = org::eclipse::keyple::seproxy::event_Renamed::ReaderEvent;
                         using KeypleIOReaderException = org::eclipse::keyple::seproxy::exception::KeypleIOReaderException;

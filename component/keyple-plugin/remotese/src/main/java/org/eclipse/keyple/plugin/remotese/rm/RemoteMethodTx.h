@@ -4,6 +4,7 @@
 #include "RemoteMethodTxCallback.h"
 #include "../transport/DtoSender.h"
 #include "../transport/model/KeypleDto.h"
+#include "../../../../../../../../keyple-core/src/main/java/org/eclipse/keyple/util/CountDownLatch.h"
 #include <string>
 #include "exceptionhelper.h"
 #include <memory>

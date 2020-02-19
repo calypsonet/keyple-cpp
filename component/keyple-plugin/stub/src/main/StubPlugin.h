@@ -74,6 +74,7 @@ public:
      */
     void setParameter(const std::string &key, const std::string &value) override;
 
+//    public:
     /**
      * Plug a Stub Reader
      *
@@ -113,7 +114,7 @@ public:
      */
     void unplugStubReaders(std::shared_ptr<std::set<std::string>> names, bool synchronous);
 
-protected:
+//protected:
     /**
      * Fetch the list of connected native reader (from a simulated list) and returns their names (or
      * id)
@@ -194,6 +195,7 @@ protected:
     /**
      *
      */
+//public:
     std::string getName() override
     {
         return AbstractThreadedObservablePlugin::AbstractLoggedObservable::getName();
