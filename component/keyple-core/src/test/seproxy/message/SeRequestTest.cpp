@@ -20,14 +20,12 @@
 #include "ApduRequestTest.h"
 #include "Protocol.h"
 #include "ContactlessProtocols.h"
-#include "ByteArrayUtils.h"
+#include "ByteArrayUtil.h"
 
-namespace org {
-namespace eclipse {
 namespace keyple {
 namespace seproxy {
 namespace message {
-using ChannelState = keyple::core::seproxy::ChannelState;
+using ChannelControl = keyple::core::seproxy::ChannelControl;
 using SeSelector   = keyple::core::seproxy::SeSelector;
 using ContactlessProtocols =
     keyple::core::seproxy::protocol::ContactlessProtocols;
@@ -44,7 +42,7 @@ void SeRequestTest::setUp()
 {
 
     apdus               = getAapduLists();
-    channelState        = ChannelState::KEEP_OPEN;
+    ChannelControl      = ChannelControl::KEEP_OPEN;
     seProtocol          = getASeProtocol();
     selectionStatusCode = ApduRequestTest::getASuccessFulStatusCode();
     selector            = getSelector(selectionStatusCode);
@@ -68,7 +66,7 @@ void SeRequestTest::getApduRequests()
 {
     // test
     seRequest = std::make_shared<SeRequest>(
-        getSelector(nullptr), apdus, ChannelState::CLOSE_AFTER, Protocol::ANY);
+        getSelector(nullptr), apdus, ChannelControl::CLOSE_AFTER, Protocol::ANY);
     assertArrayEquals(apdus.toArray(), seRequest->getApduRequests().toArray());
 }
 
@@ -81,7 +79,7 @@ void SeRequestTest::getProtocolFlag()
 {
     seRequest = std::make_shared<SeRequest>(
         getSelector(nullptr), std::vector<std::shared_ptr<ApduRequest>>(),
-        ChannelState::KEEP_OPEN, seProtocol);
+        ChannelControl::KEEP_OPEN, seProtocol);
     assertEquals(seProtocol, seRequest->getProtocolFlag());
 }
 
@@ -89,7 +87,7 @@ void SeRequestTest::getSuccessfulSelectionStatusCodes()
 {
     seRequest = std::make_shared<SeRequest>(
         getSelector(selectionStatusCode),
-        std::vector<std::shared_ptr<ApduRequest>>(), ChannelState::KEEP_OPEN,
+        std::vector<std::shared_ptr<ApduRequest>>(), ChannelControl::KEEP_OPEN,
         ContactlessProtocols::PROTOCOL_B_PRIME);
     assertArrayEquals(selectionStatusCode->toArray(),
                       seRequest->getSeSelector()
@@ -110,7 +108,7 @@ void SeRequestTest::constructor1()
                                             channelState, Protocol::ANY);
     assertEquals(getSelector(nullptr)->toString(),
                  seRequest->getSeSelector()->toString());
-    assertEquals(channelState == ChannelState::KEEP_OPEN,
+    assertEquals(channelState == ChannelControl::KEEP_OPEN,
                  seRequest->isKeepChannelOpen());
     assertArrayEquals(apdus.toArray(), seRequest->getApduRequests().toArray());
     //
@@ -126,7 +124,7 @@ void SeRequestTest::constructor2()
                                             channelState, seProtocol);
     assertEquals(getSelector(nullptr)->toString(),
                  seRequest->getSeSelector()->toString());
-    assertEquals(channelState == ChannelState::KEEP_OPEN,
+    assertEquals(channelState == ChannelControl::KEEP_OPEN,
                  seRequest->isKeepChannelOpen());
     assertArrayEquals(apdus.toArray(), seRequest->getApduRequests().toArray());
     assertEquals(seProtocol, seRequest->getProtocolFlag());
@@ -142,7 +140,7 @@ void SeRequestTest::constructor2b()
                                             apdus, channelState, Protocol::ANY);
     assertEquals(getSelector(selectionStatusCode)->toString(),
                  seRequest->getSeSelector()->toString());
-    assertEquals(channelState == ChannelState::KEEP_OPEN,
+    assertEquals(channelState == ChannelControl::KEEP_OPEN,
                  seRequest->isKeepChannelOpen());
     assertArrayEquals(apdus.toArray(), seRequest->getApduRequests().toArray());
     assertEquals(Protocol::ANY, seRequest->getProtocolFlag());
@@ -160,7 +158,7 @@ void SeRequestTest::constructor3()
                                             apdus, channelState, seProtocol);
     assertEquals(getSelector(selectionStatusCode)->toString(),
                  seRequest->getSeSelector()->toString());
-    assertEquals(channelState == ChannelState::KEEP_OPEN,
+    assertEquals(ChannelControl == ChannelControl::KEEP_OPEN,
                  seRequest->isKeepChannelOpen());
     assertArrayEquals(apdus.toArray(), seRequest->getApduRequests().toArray());
     assertEquals(seProtocol, seRequest->getProtocolFlag());
@@ -175,7 +173,7 @@ std::shared_ptr<SeRequest> SeRequestTest::getSeRequestSample()
 {
 
     std::vector<std::shared_ptr<ApduRequest>> apdus = getAapduLists();
-    ChannelState channelState                       = ChannelState::KEEP_OPEN;
+    ChannelControl channelState                     = ChannelControl::KEEP_OPEN;
     std::shared_ptr<SeProtocol> seProtocol          = getASeProtocol();
     std::shared_ptr<std::set<Integer>> selectionStatusCode =
         ApduRequestTest::getASuccessFulStatusCode();
@@ -211,8 +209,6 @@ std::shared_ptr<SeSelector> SeRequestTest::getSelector(
     std::shared_ptr<SeSelector> seSelector =
         std::make_shared<SeSelector>(aidSelector, nullptr, nullptr);
     return seSelector;
-}
-}
 }
 }
 }

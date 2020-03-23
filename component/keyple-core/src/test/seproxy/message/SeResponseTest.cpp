@@ -13,18 +13,16 @@
  ******************************************************************************/
 
 #include "SeResponseTest.h"
-#include "SelectionStatus.h"
-#include "SeResponse.h"
-#include "ApduResponseTest.h"
 
-namespace org {
-namespace eclipse {
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
+
 namespace keyple {
+namespace core {
 namespace seproxy {
 namespace message {
 
-void SeResponseTest::constructorSuccessfullResponseMatch() throw(
-    std::invalid_argument)
+void SeResponseTest::constructorSuccessfullResponseMatch() 
 {
 
     std::shared_ptr<SeResponse> response = std::make_shared<SeResponse>(
@@ -32,19 +30,21 @@ void SeResponseTest::constructorSuccessfullResponseMatch() throw(
         std::make_shared<SelectionStatus>(ApduResponseTest::getAAtr(),
                                           ApduResponseTest::getAFCI(), true),
         ApduResponseTest::getAListOfAPDUs());
-    Assert::assertNotNull(response);
-    Assert::assertArrayEquals(ApduResponseTest::getAListOfAPDUs().toArray(),
-                              response->getApduResponses().toArray());
-    Assert::assertEquals(true, response->wasChannelPreviouslyOpen());
-    Assert::assertEquals(ApduResponseTest::getAAtr(),
+
+    ASSERT_EQ(response, nullptr);
+
+    ASSERT_EQ(ApduResponseTest::getAListOfAPDUs(),
+                              response->getApduResponses());
+
+    ASSERT_EQ(true, response->wasChannelPreviouslyOpen());
+    ASSERT_EQ(ApduResponseTest::getAAtr(),
                          response->getSelectionStatus()->getAtr());
-    Assert::assertEquals(ApduResponseTest::getAFCI(),
+    ASSERT_EQ(ApduResponseTest::getAFCI(),
                          response->getSelectionStatus()->getFci());
-    Assert::assertEquals(response->getSelectionStatus()->hasMatched(), true);
+    ASSERT_EQ(response->getSelectionStatus()->hasMatched(), true);
 }
 
-void SeResponseTest::constructorSuccessfullResponseNoMatch() throw(
-    std::invalid_argument)
+void SeResponseTest::constructorSuccessfullResponseNoMatch() 
 {
 
     std::shared_ptr<SeResponse> response = std::make_shared<SeResponse>(
@@ -52,64 +52,67 @@ void SeResponseTest::constructorSuccessfullResponseNoMatch() throw(
         std::make_shared<SelectionStatus>(ApduResponseTest::getAAtr(),
                                           ApduResponseTest::getAFCI(), false),
         ApduResponseTest::getAListOfAPDUs());
-    Assert::assertNotNull(response);
-    Assert::assertArrayEquals(ApduResponseTest::getAListOfAPDUs().toArray(),
-                              response->getApduResponses().toArray());
-    Assert::assertEquals(true, response->wasChannelPreviouslyOpen());
-    Assert::assertEquals(ApduResponseTest::getAAtr(),
+
+    ASSERT_EQ(response, nullptr);
+
+    ASSERT_EQ(ApduResponseTest::getAListOfAPDUs(),
+                              response->getApduResponses());
+
+    ASSERT_EQ(true, response->wasChannelPreviouslyOpen());
+    ASSERT_EQ(ApduResponseTest::getAAtr(),
                          response->getSelectionStatus()->getAtr());
-    Assert::assertEquals(ApduResponseTest::getAFCI(),
+    ASSERT_EQ(ApduResponseTest::getAFCI(),
                          response->getSelectionStatus()->getFci());
-    Assert::assertEquals(response->getSelectionStatus()->hasMatched(), false);
+    ASSERT_EQ(response->getSelectionStatus()->hasMatched(), false);
 }
 
-void SeResponseTest::constructorATRNull() throw(std::invalid_argument)
+void SeResponseTest::constructorATRNull() 
 {
     std::shared_ptr<SeResponse> response = std::make_shared<SeResponse>(
         true,
         std::make_shared<SelectionStatus>(nullptr, ApduResponseTest::getAFCI(),
                                           true),
         ApduResponseTest::getAListOfAPDUs());
-    Assert::assertNotNull(response);
+    ASSERT_EQ(response, nullptr);
 }
 
-void SeResponseTest::constructorFCINull() throw(std::invalid_argument)
+void SeResponseTest::constructorFCINull() 
 {
     std::shared_ptr<SeResponse> response = std::make_shared<SeResponse>(
         true,
         std::make_shared<SelectionStatus>(ApduResponseTest::getAAtr(), nullptr,
                                           true),
         ApduResponseTest::getAListOfAPDUs());
-    Assert::assertNotNull(response);
+    ASSERT_EQ(response, nullptr);
 }
 
-void SeResponseTest::constructorFCIAndATRNull() throw(std::invalid_argument)
+void SeResponseTest::constructorFCIAndATRNull() 
 {
     std::shared_ptr<SeResponse> response = std::make_shared<SeResponse>(
         true, std::make_shared<SelectionStatus>(nullptr, nullptr, true),
         ApduResponseTest::getAListOfAPDUs());
-    Assert::assertNull(response);
+    ASSERT_EQ(response, nullptr);
 }
 
-void SeResponseTest::testEquals() throw(std::runtime_error)
+void SeResponseTest::testEquals() 
 {
-    Assert::assertTrue(getASeResponse()->equals(getASeResponse()));
+    ASSERT_TRUE(getASeResponse()->equals(getASeResponse()));
 }
 
-void SeResponseTest::testThisEquals() throw(std::runtime_error)
+void SeResponseTest::testThisEquals() 
 {
     std::shared_ptr<SeResponse> resp = getASeResponse();
-    Assert::assertTrue(resp->equals(resp));
+    ASSERT_TRUE(resp->equals(resp));
 }
 
-void SeResponseTest::testNotEquals() throw(std::runtime_error)
+void SeResponseTest::testNotEquals() 
 {
     std::shared_ptr<SeResponse> resp = getASeResponse();
     std::shared_ptr<void> any;
-    Assert::assertFalse(resp->equals(any));
+    ASSERT_FALSE(resp->equals(any));
 }
 
-void SeResponseTest::testNotEqualsNull() throw(std::runtime_error)
+void SeResponseTest::testNotEqualsNull()
 {
     std::shared_ptr<SeResponse> resp     = getASeResponse();
     std::shared_ptr<SeResponse> respNull = std::make_shared<SeResponse>(
@@ -127,30 +130,30 @@ void SeResponseTest::testNotEqualsNull() throw(std::runtime_error)
         std::make_shared<SelectionStatus>(ApduResponseTest::getAAtr(),
                                           ApduResponseTest::getAFCI(), true),
         nullptr);
-    Assert::assertFalse(resp->equals(respNull));
-    Assert::assertFalse(resp->equals(respNull2));
-    Assert::assertFalse(resp->equals(respNull3));
+    ASSERT_FALSE(resp->equals(respNull));
+    ASSERT_FALSE(resp->equals(respNull2));
+    ASSERT_FALSE(resp->equals(respNull3));
 }
 
-void SeResponseTest::hashcode() throw(std::runtime_error)
+void SeResponseTest::hashcode() 
 {
     std::shared_ptr<SeResponse> resp  = getASeResponse();
     std::shared_ptr<SeResponse> resp2 = getASeResponse();
-    Assert::assertTrue(resp->hashCode() == resp2->hashCode());
+    ASSERT_TRUE(resp->hashCode() == resp2->hashCode());
 }
 
-void SeResponseTest::hashcodeNull() throw(std::runtime_error)
+void SeResponseTest::hashcodeNull() 
 {
     std::shared_ptr<SeResponse> resp = std::make_shared<SeResponse>(
         true,
         std::make_shared<SelectionStatus>(nullptr, ApduResponseTest::getAFCI(),
                                           true),
         nullptr);
-    Assert::assertNotNull(resp->hashCode());
+    ASSERT_NE(resp->hashCode(), 0);
 }
 
 std::shared_ptr<SeResponse>
-SeResponseTest::getASeResponse() throw(std::invalid_argument)
+SeResponseTest::getASeResponse() 
 {
     return std::make_shared<SeResponse>(
         true,
@@ -162,4 +165,4 @@ SeResponseTest::getASeResponse() throw(std::invalid_argument)
 }
 }
 }
-}
+

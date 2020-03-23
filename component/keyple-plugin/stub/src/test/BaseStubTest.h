@@ -31,10 +31,10 @@
 //JAVA TO C++ CONVERTER NOTE: Forward class declarations:
 namespace keyple { namespace plugin { namespace stub { class StubPlugin; } } }
 namespace keyple { namespace plugin { namespace stub { class StubReader; } } }
-namespace keyple { namespace seproxy { namespace exception {
-    class KeypleReaderException; } } }
-namespace keyple { namespace seproxy { namespace exception {
-    class KeyplePluginException; } } }
+namespace keyple { namespace core { namespace seproxy { namespace exception {
+    class KeypleReaderException; } } } }
+namespace keyple { namespace core { namespace seproxy { namespace exception {
+    class KeyplePluginException; } } } }
 namespace testing { namespace gtest {} }
 
 namespace keyple {

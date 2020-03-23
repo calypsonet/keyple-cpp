@@ -18,8 +18,8 @@ namespace calypso {
 namespace command {
 namespace sam {
 
-using namespace keyple::command;
-using namespace keyple::seproxy::message;
+using namespace keyple::core::command;
+using namespace keyple::core::seproxy::message;
 
 SamCustomCommandBuilder::SamCustomCommandBuilder(
     const std::string& name, std::shared_ptr<ApduRequest> request)

@@ -20,9 +20,11 @@
 
 /* Forward declaration */
 namespace keyple {
+namespace core {
 namespace seproxy {
 namespace message {
 class ApduRequest;
+}
 }
 }
 }
@@ -32,8 +34,8 @@ namespace calypso {
 namespace command {
 namespace sam {
 
-using namespace keyple::command;
-using namespace keyple::seproxy::message;
+using namespace keyple::core::command;
+using namespace keyple::core::seproxy::message;
 
 /**
  * Class to build custom (non-referenced) SAM commands

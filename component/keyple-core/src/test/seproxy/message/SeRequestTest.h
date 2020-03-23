@@ -14,7 +14,7 @@
 
 #pragma once
 
-#include "ChannelState.h"
+#include "ChannelControl.h"
 #include <vector>
 #include <memory>
 
@@ -70,7 +70,7 @@ namespace keyple {
 namespace seproxy {
 namespace message {
 
-using ChannelState = keyple::core::seproxy::ChannelState;
+using ChannelControl = keyple::core::seproxy::ChannelControl;
 using SeSelector   = keyple::core::seproxy::SeSelector;
 using SeProtocol   = keyple::core::seproxy::protocol::SeProtocol;
 
@@ -84,7 +84,7 @@ public:
 
     // attributes
     std::vector<std::shared_ptr<ApduRequest>> apdus;
-    ChannelState channelState = static_cast<ChannelState>(0);
+    ChannelControl channelState = static_cast<ChannelControl>(0);
     std::shared_ptr<SeProtocol> seProtocol;
     std::shared_ptr<std::set<Integer>> selectionStatusCode;
     std::shared_ptr<SeSelector> selector;

@@ -21,7 +21,7 @@ namespace stub {
 namespace se {
 
 using namespace keyple::plugin::stub;
-using namespace keyple::util;
+using namespace keyple::core::util;
 
 const std::string StubMemoryST25::seProtocol = "PROTOCOL_MEMORY_ST25";
 

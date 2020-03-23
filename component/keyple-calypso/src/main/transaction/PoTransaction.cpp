@@ -983,7 +983,7 @@ void PoTransaction::DigestProcessor::initialize(
         logger->debug("PoTransaction.DigestProcessor => initialize: POREVISION = %d, SAMREVISION = %d, SESSIONENCRYPTION = %d", static_cast<int>(poRev), static_cast<int>(samRev.ordinal()), securityEncryption, verificationMode);
         logger->debug("PoTransaction.DigestProcessor => initialize: VERIFICATIONMODE = %d, REV32MODE = %d KEYRECNUMBER = %d", verificationMode, rev3_2Mode, workKeyRecordNumber);
         logger->debug("PoTransaction.DigestProcessor => initialize: KIF = %s, KVC %ds DIGESTDATA = %s", StringHelper::formatSimple("%02X", workKeyKif),
-                        StringHelper::formatSimple("%02X", workKeyKVC), keyple::util::ByteArrayUtil::toHex(digestData));
+                        StringHelper::formatSimple("%02X", workKeyKVC), keyple::core::util::ByteArrayUtil::toHex(digestData));
     }
     */
 

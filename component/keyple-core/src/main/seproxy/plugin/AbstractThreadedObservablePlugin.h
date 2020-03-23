@@ -229,7 +229,7 @@ private:
     /**
      * List of names of the physical (native) connected readers This list helps
      * synchronizing physical readers managed by third-party library such as
-     * smardcard.io and the list of keyple {@link keyple::seproxy::SeReader}
+     * smardcard.io and the list of keyple {@link keyple::core::seproxy::SeReader}
      * Insertion, removal, and access operations safely execute concurrently by
      * multiple threads.
      */

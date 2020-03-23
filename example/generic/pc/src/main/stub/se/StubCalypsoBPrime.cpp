@@ -20,8 +20,8 @@ namespace pc {
 namespace stub {
 namespace se {
 
-using namespacekeyple::plugin::stub;
-using namespace keyple::util;
+using namespace keyple::plugin::stub;
+using namespace keyple::core::util;
 
 const std::string StubCalypsoBPrime::seProtocol = "PROTOCOL_B_PRIME";
 

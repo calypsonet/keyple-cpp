@@ -25,7 +25,7 @@ namespace pc {
 namespace stub {
 namespace se {
 
-using StubSecureElement = org::eclipse::keyple::plugin::stub::StubSecureElement;
+using StubSecureElement = keyple::plugin::stub::StubSecureElement;
 
 /**
  * This class is an example of a Stub Implementation of SecureElement. It works with the protocol

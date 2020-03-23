@@ -17,13 +17,24 @@ ENDIF(WIN32)
 
 INCLUDE_DIRECTORIES(
 	${CMAKE_CURRENT_SOURCE_DIR}
-    #${CMAKE_CURRENT_SOURCE_DIR}/keyple
-    #${CMAKE_CURRENT_SOURCE_DIR}/keyple/plugin/stub 
-    #${CMAKE_CURRENT_SOURCE_DIR}/keyple/seproxy/exception
-    #${CMAKE_CURRENT_SOURCE_DIR}/keyple/seproxy/plugin
-	#${CMAKE_CURRENT_SOURCE_DIR}/keyple/seproxy/event
-	#${CMAKE_CURRENT_SOURCE_DIR}/keyple/core/seproxy/plugin
+    ${CMAKE_CURRENT_SOURCE_DIR}/keyple
+    ${CMAKE_CURRENT_SOURCE_DIR}/keyple-plugin/stub 
+	${CMAKE_CURRENT_SOURCE_DIR}/keyple-core/src/main/seproxy/plugin
+
+	${CMAKE_CURRENT_SOURCE_DIR}
 	${CMAKE_CURRENT_SOURCE_DIR}/util
+	${CMAKE_CURRENT_SOURCE_DIR}/seproxy
+	${CMAKE_CURRENT_SOURCE_DIR}/seproxy/event
+	${CMAKE_CURRENT_SOURCE_DIR}/seproxy/message
+	${CMAKE_CURRENT_SOURCE_DIR}/seproxy/exception
+	${CMAKE_CURRENT_SOURCE_DIR}/seproxy/message
+	${CMAKE_CURRENT_SOURCE_DIR}/seproxy/plugin
+    ${CMAKE_CURRENT_SOURCE_DIR}/seproxy/plugin/local
+	${CMAKE_CURRENT_SOURCE_DIR}/seproxy/plugin/local/monitoring
+	${CMAKE_CURRENT_SOURCE_DIR}/seproxy/plugin/local/state
+	${CMAKE_CURRENT_SOURCE_DIR}/seproxy/protocol
+	${CMAKE_CURRENT_SOURCE_DIR}/command
+	${CMAKE_CURRENT_SOURCE_DIR}/transaction
 
 	# calypso
 	${CMAKE_CURRENT_SOURCE_DIR}/../../../keyple-calypso/src/main/command
@@ -39,9 +50,13 @@ INCLUDE_DIRECTORIES(
 	# Core
 	${CMAKE_CURRENT_SOURCE_DIR}/../main/util
 	${CMAKE_CURRENT_SOURCE_DIR}/../main/command
+	${CMAKE_CURRENT_SOURCE_DIR}/../main/seproxy
 	${CMAKE_CURRENT_SOURCE_DIR}/../main/seproxy/event
 	${CMAKE_CURRENT_SOURCE_DIR}/../main/seproxy/message
 	${CMAKE_CURRENT_SOURCE_DIR}/../main/seproxy/exception
+	${CMAKE_CURRENT_SOURCE_DIR}/../main/seproxy/plugin
+	${CMAKE_CURRENT_SOURCE_DIR}/../main/seproxy/plugin/local
+	${CMAKE_CURRENT_SOURCE_DIR}/../main/seproxy/protocol
 
 	# google test and mock
 	${GOOGLETEST_DIRECTORY}/googletest-src
@@ -61,10 +76,10 @@ ADD_EXECUTABLE(TU_keyple_util_test
 	${CMAKE_CURRENT_SOURCE_DIR}/util/CountDownLatchTest.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/util/ObservableTest.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/util/NameableTest.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/CoreBaseTest.cpp
+#	${CMAKE_CURRENT_SOURCE_DIR}/CoreBaseTest.cpp
 
 	# seproxy
-	#${CMAKE_CURRENT_SOURCE_DIR}/seproxy/ChannelState.cpp
+	#${CMAKE_CURRENT_SOURCE_DIR}/seproxy/ChannelControl.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/seproxy/ReaderPlugin.cpp
 #	${CMAKE_CURRENT_SOURCE_DIR}/seproxy/SeProxyServiceTest.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/seproxy/SeReader.cpp
@@ -80,8 +95,8 @@ ADD_EXECUTABLE(TU_keyple_util_test
 
 	# seproxy - message
 	#${CMAKE_CURRENT_SOURCE_DIR}/seproxy/message/AnswerToReset.cpp
-#	${CMAKE_CURRENT_SOURCE_DIR}/seproxy/message/ApduRequestTest.cpp
-#	${CMAKE_CURRENT_SOURCE_DIR}/seproxy/message/ApduResponseTestcpp
+	${CMAKE_CURRENT_SOURCE_DIR}/seproxy/message/ApduRequestTest.cpp
+#	${CMAKE_CURRENT_SOURCE_DIR}/seproxy/message/ApduResponseTest.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/seproxy/message/DefaultSelectionsRequest.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/seproxy/message/DefaultSelectionsResponse.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/seproxy/message/ProxyReader.cpp

@@ -89,11 +89,16 @@ std::string ApduRequest::toString()
         string.append(", additional successful status codes = ");
         std::set<int>::const_iterator iterator = successfulStatusCodes->begin();
         while (iterator != successfulStatusCodes->end()) {
-            string.append(StringHelper::formatSimple("%04X", *iterator));
+            char cBuffer[8];
+
+            snprintf(cBuffer, sizeof(cBuffer), "%04X", *iterator);
+            std::string szResp      = cBuffer;
+
+            string.append(szResp);
+            iterator++;
             if (iterator != successfulStatusCodes->end()) {
                 string.append(", ");
             }
-            iterator++;
         }
     }
 

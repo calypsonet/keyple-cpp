@@ -92,12 +92,12 @@ public:
         /*
          * Alex: removed 'const'
          *
-         * Rationale: error: object of type 'org::eclipse::keyple::seproxy::event::ObservableReader::NotificationMode'
+         * Rationale: error: object of type 'keyple::core::seproxy::event::ObservableReader::NotificationMode'
          * cannot be assigned because its copy assignment operator is implicitly deleted
          *   this->notificationMode = notificationMode;
          *                          ^
          * note: copy assignment operator of 'NotificationMode' is implicitly deleted because field 'innerEnumValue'
-         * is of const-qualified type 'const org::eclipse::keyple::seproxy::event::ObservableReader::NotificationMode::InnerEnum'
+         * is of const-qualified type 'const keyple::core::seproxy::event::ObservableReader::NotificationMode::InnerEnum'
          */
         InnerEnum innerEnumValue;
 
@@ -182,7 +182,7 @@ public:
         /*
          * Alex: removed 'const'
          *
-         * Rationale: error: object of type 'org::eclipse::keyple::seproxy::event::ObservableReader::NotificationMode'
+         * Rationale: error: object of type 'keyple::core::seproxy::event::ObservableReader::NotificationMode'
          * cannot be assigned because its copy assignment operator is implicitly deleted
          *   this->notificationMode = notificationMode;
          *                          ^

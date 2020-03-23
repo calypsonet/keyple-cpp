@@ -73,7 +73,7 @@ ADD_EXECUTABLE(TU_plugin_stub_test
 	${CMAKE_CURRENT_SOURCE_DIR}/MainTest.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/BaseStubTest.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/StubPluginTest.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/StubReaderTest.cpp
+#	${CMAKE_CURRENT_SOURCE_DIR}/StubReaderTest.cpp
 
 	#${CMAKE_CURRENT_SOURCE_DIR}/StubPlugin.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/StubProtocolSetting.cpp

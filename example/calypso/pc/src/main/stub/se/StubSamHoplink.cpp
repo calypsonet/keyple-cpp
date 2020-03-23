@@ -21,7 +21,7 @@ namespace stub {
 namespace se {
 
 using namespace keyple::plugin::stub;
-using namespace keyple::util;
+using namespace keyple::core::util;
 
 const std::string StubSamHoplink::seProtocol = "PROTOCOL_ISO7816_3";
 

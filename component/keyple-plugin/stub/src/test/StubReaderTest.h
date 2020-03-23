@@ -10,7 +10,7 @@
 #include "KeypleReaderException.h"
 #include "PluginEvent.h"
 #include "SeSelection.h"
-#include "ChannelState.h"
+#include "ChannelControl.h"
 #include "AbstractSeSelectionRequest.h"
 #include "ByteArrayUtil.h"
 #include "KeypleIOReaderException.h"
@@ -19,7 +19,8 @@
 #include "PoClass.h"
 #include "ReadRecordsCmdBuild.h"
 #include "IncreaseCmdBuild.h"
-#include "KeypleChannelStateException.h"
+#include "KeypleChannelControlException.h"
+#include "SeProxyService.h"
 
 #include <string>
 #include <unordered_map>
@@ -43,6 +44,7 @@ namespace keyple { namespace plugin { namespace stub { class StubSecureElement; 
 namespace keyple { namespace core { namespace seproxy { namespace exception { class KeypleReaderException; } } } }
 namespace keyple { namespace core { namespace seproxy { namespace event { class PluginEvent; } } } }
 namespace keyple { namespace core { namespace seproxy { class SeReader; } } }
+namespace keyple { namespace core { namespace seproxy { class SeProxyService; } } }
 namespace keyple { namespace core { namespace seproxy { namespace event { class ReaderEvent; } } } }
 namespace keyple { namespace core { namespace seproxy { namespace event { class ObservableReader; } } } }
 namespace keyple { namespace core { namespace seproxy { namespace event { class ReaderObserver; } } } }
@@ -63,8 +65,6 @@ namespace keyple { namespace util { class CountDownLatch; } }
  *
  * SPDX-License-Identifier: EPL-2.0
  ********************************************************************************/
-namespace org {
-    namespace eclipse {
         namespace keyple {
             namespace plugin {
                 namespace stub {
@@ -73,7 +73,7 @@ namespace org {
                     using PoClass = keyple::calypso::command::PoClass;
                     using IncreaseCmdBuild = keyple::calypso::command::po::builder::IncreaseCmdBuild;
                     using ReadRecordsCmdBuild = keyple::calypso::command::po::builder::ReadRecordsCmdBuild;
-                    using ChannelState = keyple::core::seproxy::ChannelState;
+                    using ChannelControl = keyple::core::seproxy::ChannelControl;
                     using SeSelector = keyple::core::seproxy::SeSelector;
                     using KeypleChannelStateException = keyple::core::seproxy::exception::KeypleChannelStateException;
                     using KeypleIOReaderException = keyple::core::seproxy::exception::KeypleIOReaderException;
@@ -88,15 +88,12 @@ namespace org {
                     using Logger                = keyple::common::Logger;
                     using LoggerFactory         = keyple::common::LoggerFactory;
 
-                    //using org::junit::runner::RunWith;
-                    //using org::junit::runners::MethodSorters;
-                    //using org::mockito::junit::MockitoJUnitRunner;
-
                     using SeReader              = keyple::core::seproxy::SeReader;
                     using ObservablePlugin      = keyple::core::seproxy::event::ObservablePlugin;
                     using ObservableReader      = keyple::core::seproxy::event::ObservableReader;
                     using PluginEvent           = keyple::core::seproxy::event::PluginEvent;
                     using ReaderEvent           = keyple::core::seproxy::event::ReaderEvent;
+                    using SeProxyService        = keyple::core::seproxy::SeProxyService;
 
                     using namespace testing::gtest;
 
@@ -107,6 +104,8 @@ namespace org {
                     {
 
                     public:
+                        static SeProxyService& seProxyService;
+
                         std::shared_ptr<StubReader> reader;
 
                         std::shared_ptr<StubReader> spyReader;
@@ -387,11 +386,11 @@ namespace org {
                         {
 
                         public:
-                            std::vector<char> processApdu(std::vector<char> &apduIn) override;
+                            std::vector<unsigned char> processApdu(std::vector<unsigned char> &apduIn);
 
-                            std::vector<char> getATR() override;
+                            virtual const std::vector<unsigned char>& getATR();
 
-                            std::string getSeProcotol() override;
+                            std::string getSeProcotol();
 
                     //protected:
                     //        std::shared_ptr<StubSecureElementAnonymousInnerClass> shared_from_this()
@@ -408,11 +407,11 @@ namespace org {
                         {
 
                         public:
-                            std::vector<char> processApdu(std::vector<char> &apduIn) override;
+                            std::vector<unsigned char> processApdu(std::vector<unsigned char> &apduIn);
 
-                            std::vector<char> getATR() override;
+                            virtual std::vector<unsigned char>& getATR();
 
-                            std::string getSeProcotol() override;
+                            std::string getSeProcotol();
 
                         //protected:
                         //    std::shared_ptr<StubSecureElementAnonymousInnerClass2> shared_from_this() {
@@ -427,11 +426,11 @@ namespace org {
                         class StubSecureElementAnonymousInnerClass3 : public StubSecureElement {
 
                         public:
-                            std::vector<char> processApdu(std::vector<char> &apduIn) override;
+                            std::vector<unsigned char> processApdu(std::vector<unsigned char> &apduIn);
 
-                            std::vector<char> getATR() override;
+                            virtual std::vector<unsigned char>& getATR();
 
-                            std::string getSeProcotol() override;
+                            std::string getSeProcotol();
 
 protected:
                             std::shared_ptr<StubSecureElementAnonymousInnerClass3> shared_from_this() {
@@ -445,7 +444,7 @@ protected:
                     private:
                         class StubSecureElementAnonymousInnerClass4 : public StubSecureElement {
                         public:
-                            std::vector<char> getATR() override;
+                            virtual std::vector<unsigned char>& getATR();
 
                             bool isPhysicalChannelOpen() override;
 
@@ -454,9 +453,9 @@ protected:
 
                             void closePhysicalChannel() override;
 
-                            std::vector<char> processApdu(std::vector<char> &apduIn) override;
+                            std::vector<unsigned char> processApdu(std::vector<unsigned char> &apduIn);
 
-                            std::string getSeProcotol() override;
+                            std::string getSeProcotol();
 
 protected:
                             std::shared_ptr<StubSecureElementAnonymousInnerClass4> shared_from_this() {
@@ -471,5 +470,3 @@ protected:
                 }
             }
         }
-    }
-}

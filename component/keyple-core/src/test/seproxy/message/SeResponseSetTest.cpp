@@ -18,15 +18,13 @@
 #include "SeResponse.h"
 #include "AnswerToReset.h"
 #include "SelectionStatus.h"
-#include "ByteArrayUtils.h"
+#include "ByteArrayUtil.h"
 
-namespace org {
-namespace eclipse {
 namespace keyple {
 namespace seproxy {
 namespace message {
 
-using ByteArrayUtils = org::eclipse::keyple::util::ByteArrayUtils;
+using ByteArrayUtils = keyple::core::util::ByteArrayUtil;
 
 void SeResponseSetTest::getSingleResponse() throw(std::runtime_error)
 {
@@ -70,8 +68,6 @@ void SeResponseSetTest::toStringTest() throw(std::runtime_error)
     std::shared_ptr<SeResponseSet> set =
         std::make_shared<SeResponseSet>(emptySeR);
     assertNotNull(set->toString());
-}
-}
 }
 }
 }

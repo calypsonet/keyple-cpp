@@ -21,7 +21,7 @@ namespace stub {
 namespace se {
 
 using namespace keyple::plugin::stub;
-using namespace keyple::util;
+using namespace keyple::core::util;
 
 const std::string StubISO14443_4::seProtocol = "PROTOCOL_ISO14443_4";
 
