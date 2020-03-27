@@ -96,15 +96,13 @@ ADD_EXECUTABLE(TU_keyple_util_test
 	# seproxy - message
 	#${CMAKE_CURRENT_SOURCE_DIR}/seproxy/message/AnswerToReset.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/seproxy/message/ApduRequestTest.cpp
-#	${CMAKE_CURRENT_SOURCE_DIR}/seproxy/message/ApduResponseTest.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/seproxy/message/ApduResponseTest.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/seproxy/message/DefaultSelectionsRequest.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/seproxy/message/DefaultSelectionsResponse.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/seproxy/message/ProxyReader.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/seproxy/message/SelectionStatus.cpp
 #	${CMAKE_CURRENT_SOURCE_DIR}/seproxy/message/SeRequestTest.cpp
-#	${CMAKE_CURRENT_SOURCE_DIR}/seproxy/message/SeRequestSetTest.cpp
-#	${CMAKE_CURRENT_SOURCE_DIR}/seproxy/message/SeResponseTest.cpp
-#	${CMAKE_CURRENT_SOURCE_DIR}/seproxy/message/SeResponseSetTest.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/seproxy/message/SeResponseTest.cpp
 
 	# seproxy - plugin
 	#${CMAKE_CURRENT_SOURCE_DIR}/seproxy/plugin/AbstractLocalReader.cpp
