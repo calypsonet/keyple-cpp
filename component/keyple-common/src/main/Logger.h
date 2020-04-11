@@ -46,12 +46,12 @@ public:
      *
      */
     enum class Level {
-        NO_LOG = 0,
-        ERROR,
-        WARN,
-        INFO,
-        TRACE,
-        DEBUG
+        no_log = 0,
+        error,
+        warn,
+        info,
+        trace,
+        debug
     };
 
     /**
