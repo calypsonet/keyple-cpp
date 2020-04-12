@@ -15,14 +15,13 @@
 #include "KeypleReaderNotFoundException.h"
 #include "KeypleBaseException.h"
 #include "Pattern.h"
-#include "PcscReadersSettings.h"
-#include "PcscReader_Import.h"
-#include "PcscProtocolSetting_Import.h"
 #include "ReaderPlugin.h"
 #include "ReaderUtilities.h"
 #include "SeCommonProtocols_Import.h"
 #include "SeProxyService.h"
 #include "SeReader.h"
+
+#define PO_READER_NAME_REGEX ".*(ASK|ACS|5421\\(2\\)|00\\ 01|5x21-CL\\ ).*"
 
 namespace keyple {
 namespace example {
@@ -32,7 +31,6 @@ namespace pc {
 using namespace keyple::core::seproxy::protocol;
 using namespace keyple::core::seproxy;
 using namespace keyple::core::seproxy::exception;
-using namespace keyple::plugin::pcsc;
 
 std::shared_ptr<SeReader>
 ReaderUtilities::getReaderByName(const std::string& pattern)
@@ -54,8 +52,7 @@ ReaderUtilities::getReaderByName(const std::string& pattern)
 
 std::shared_ptr<SeReader> ReaderUtilities::getDefaultContactLessSeReader()
 {
-    std::shared_ptr<SeReader> seReader = ReaderUtilities::getReaderByName(
-        PcscReadersSettings::PO_READER_NAME_REGEX);
+    std::shared_ptr<SeReader> seReader = ReaderUtilities::getReaderByName(PO_READER_NAME_REGEX);
     ReaderUtilities::setContactlessSettings(seReader);
 
     return seReader;
@@ -64,8 +61,7 @@ std::shared_ptr<SeReader> ReaderUtilities::getDefaultContactLessSeReader()
 void ReaderUtilities::setContactlessSettings(std::shared_ptr<SeReader> reader)
 {
     /* Contactless SE works with T1 protocol */
-    reader->setParameter(PcscReader::SETTING_KEY_PROTOCOL,
-                         PcscReader::SETTING_PROTOCOL_T1);
+    reader->setParameter("protocol", "T1");
 
     /*
      * PC/SC card access mode:
@@ -80,20 +76,16 @@ void ReaderUtilities::setContactlessSettings(std::shared_ptr<SeReader> reader)
      * These two points will be addressed in a coming release of the Keyple
      * PC/SC reader plugin.
      */
-    reader->setParameter(PcscReader::SETTING_KEY_MODE,
-                         PcscReader::SETTING_MODE_SHARED);
+    reader->setParameter("mode", "shared");
 
     /* Set the PO reader protocol flag */
-    reader->addSeProtocolSetting(SeCommonProtocols::PROTOCOL_ISO14443_4,
-                                 PcscProtocolSetting::PCSC_PROTOCOL_SETTING
-                                     [SeCommonProtocols::PROTOCOL_ISO14443_4]);
+    reader->addSeProtocolSetting(SeCommonProtocols::PROTOCOL_ISO14443_4, "3.*");
 }
 
 void ReaderUtilities::setContactsSettings(std::shared_ptr<SeReader> reader)
 {
     /* Contactless SE works with T0 protocol */
-    reader->setParameter(PcscReader::SETTING_KEY_PROTOCOL,
-                         PcscReader::SETTING_PROTOCOL_T0);
+    reader->setParameter("protocol", "T0");
 
     /*
      * PC/SC card access mode:
@@ -108,13 +100,10 @@ void ReaderUtilities::setContactsSettings(std::shared_ptr<SeReader> reader)
      * These two points will be addressed in a coming release of the Keyple
      * PC/SC reader plugin.
      */
-    reader->setParameter(PcscReader::SETTING_KEY_MODE,
-                         PcscReader::SETTING_MODE_SHARED);
+    reader->setParameter("mode", "shared");
 
     /* Set the SAM reader protocol flag */
-    reader->addSeProtocolSetting(SeCommonProtocols::PROTOCOL_ISO7816_3,
-                                 PcscProtocolSetting::PCSC_PROTOCOL_SETTING
-                                     [SeCommonProtocols::PROTOCOL_ISO7816_3]);
+    reader->addSeProtocolSetting(SeCommonProtocols::PROTOCOL_ISO7816_3, "3.*");
 }
 
 }

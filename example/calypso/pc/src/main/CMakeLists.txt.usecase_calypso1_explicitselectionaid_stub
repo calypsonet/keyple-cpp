@@ -85,7 +85,6 @@ ADD_EXECUTABLE(usecase_calypso1_explicitselectionaid_stub
 	# Example - Common
 	${CMAKE_CURRENT_SOURCE_DIR}/../../../../generic/common/src/main/AbstractReaderObserverEngine.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/../../../../generic/pc/src/main/ReaderUtilities.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/../../../../generic/pc/src/main/PcscReadersSettings.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/../../../common/src/main/postructure/CalypsoClassicInfo.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/../../../common/src/main/transaction/CalypsoUtilities.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/../../../common/src/main/transaction/CalypsoClassicTransactionEngine.cpp
@@ -96,4 +95,4 @@ ADD_EXECUTABLE(usecase_calypso1_explicitselectionaid_stub
 	${CMAKE_CURRENT_SOURCE_DIR}/UseCase_Calypso1_ExplicitSelectionAid_Stub.cpp
 )
 
-TARGET_LINK_LIBRARIES(usecase_calypso1_explicitselectionaid_stub keyplepluginpcsc keyplepluginstub keyplecore keyplecalypso ${WINSCARD} ${SPEC_LIBS})
+TARGET_LINK_LIBRARIES(usecase_calypso1_explicitselectionaid_stub keyplepluginstub keyplecore keyplecalypso ${WINSCARD} ${SPEC_LIBS})
