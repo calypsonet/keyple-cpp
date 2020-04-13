@@ -1,6 +1,6 @@
 
-set(CMAKE_SYSTEM_NAME Linux)
-set(UNIX 1)
+set(CMAKE_SYSTEM_NAME Windows)
+set(UNIX 0)
 set(APPLE 0)
 
 if(${UNIX})
