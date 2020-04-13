@@ -84,7 +84,7 @@ void WaitForSeInsertion::onEvent(const InternalEvent event)
          * SE has been removed during default selection
          */
         if (reader->getPollingMode() ==
-            ObservableReader::PollingMode::REPEATING) {
+            PollingMode::REPEATING) {
             logger->debug("switching to WAIT_FOR_SE_INSERTION state\n");
             switchState(MonitoringState::WAIT_FOR_SE_INSERTION);
         } else {

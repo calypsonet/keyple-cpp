@@ -62,6 +62,8 @@ public:
      */
     PcscReaderImpl(const PcscReaderImpl& o);
 
+    PcscReaderImpl();
+
     /**
      *
      */
@@ -146,6 +148,11 @@ public:
      * /!\ Required to MSVC to authorize PcscReaderImpl instance.
      */
     void clearObservers() override;
+
+    /**
+     *
+     */
+    int countObservers() override;
 
     /**
      *

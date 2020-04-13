@@ -47,7 +47,7 @@ bool AbstractObservableLocalReader::isSePresent()
 }
 
 void AbstractObservableLocalReader::startSeDetection(
-    const ObservableReader::PollingMode pollingMode)
+    const PollingMode pollingMode)
 {
     logger->trace("[%s] startSeDetection => start Se Detection with "
                   "pollingMode %d\n",
@@ -66,7 +66,7 @@ void AbstractObservableLocalReader::stopSeDetection()
 
 void AbstractObservableLocalReader::setDefaultSelectionRequest(
     std::shared_ptr<AbstractDefaultSelectionsRequest> defaultSelectionsRequest,
-    const ObservableReader::NotificationMode notificationMode)
+    const NotificationMode notificationMode)
 {
     this->defaultSelectionsRequest =
         std::dynamic_pointer_cast<DefaultSelectionsRequest>(
@@ -76,8 +76,8 @@ void AbstractObservableLocalReader::setDefaultSelectionRequest(
 
 void AbstractObservableLocalReader::setDefaultSelectionRequest(
     std::shared_ptr<AbstractDefaultSelectionsRequest> defaultSelectionsRequest,
-    const ObservableReader::NotificationMode notificationMode,
-    const ObservableReader::PollingMode pollingMode)
+    const NotificationMode notificationMode,
+    const PollingMode pollingMode)
 {
     /* Define the default selection request */
     setDefaultSelectionRequest(defaultSelectionsRequest, notificationMode);
@@ -135,7 +135,7 @@ std::shared_ptr<ReaderEvent> AbstractObservableLocalReader::processSeInserted()
             }
 
             if (notificationMode ==
-                ObservableReader::NotificationMode::MATCHED_ONLY) {
+                NotificationMode::MATCHED_ONLY) {
                 /*
                  * Notify only if a SE matched the selection, just ignore if not
                  */
@@ -154,7 +154,7 @@ std::shared_ptr<ReaderEvent> AbstractObservableLocalReader::processSeInserted()
                     return nullptr;
                 }
             } else {
-                /* ObservableReader::NotificationMode::ALWAYS */
+                /* NotificationMode::ALWAYS */
                 if (aSeMatched) {
                     presenceNotified = true;
                     /*
@@ -244,7 +244,7 @@ void AbstractObservableLocalReader::processSeRemoved()
         nullptr));
 }
 
-ObservableReader::PollingMode AbstractObservableLocalReader::getPollingMode()
+PollingMode AbstractObservableLocalReader::getPollingMode()
 {
     return currentPollingMode;
 }

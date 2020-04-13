@@ -22,7 +22,7 @@
 #include "Logger.h"
 #include "LoggerFactory.h"
 #include "MatchingSelection.h"
-#include "ObservableReader_Import.h"
+#include "ObservableReader.h"
 #include "PoResource.h"
 #include "PoSelectionRequest.h"
 #include "PoSelector.h"

@@ -30,7 +30,7 @@
 #include "KeypleChannelControlException.h"
 #include "KeypleIOReaderException.h"
 #include "KeypleReaderException.h"
-#include "ObservableReader_Import.h"
+#include "ObservableReader.h"
 #include "ProxyReader.h"
 
 namespace keyple {
@@ -46,7 +46,7 @@ using namespace keyple::core::seproxy::message;
 using namespace keyple::core::util;
 using namespace keyple::common;
 
-using ReaderObserver = ObservableReader::ReaderObserver;
+//using ReaderObserver = ObservableReader::ReaderObserver;
 
 /**
  * Abstract definition of an observable reader.
@@ -151,7 +151,8 @@ public:
      *
      * @param observer the observer object
      */
-    void addObserver(std::shared_ptr<ReaderObserver> observer);
+    void
+    addObserver(std::shared_ptr<ObservableReader::ReaderObserver> observer);
 
     /**
      * Remove a reader observer.
@@ -163,7 +164,7 @@ public:
      *
      * @param observer the observer object
      */
-    void removeObserver(std::shared_ptr<ReaderObserver> observer);
+    void removeObserver(std::shared_ptr<ObservableReader::ReaderObserver> observer);
 
     /**
      * Gets the name of plugin provided in the constructor.
@@ -239,7 +240,7 @@ protected:
     /**
      * Indicate if all SE detected should be notified or only matching SE
      */
-    ObservableReader::NotificationMode notificationMode;
+    NotificationMode notificationMode;
 
     /**
      * Reader constructor

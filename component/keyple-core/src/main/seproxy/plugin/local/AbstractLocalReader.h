@@ -35,7 +35,7 @@
 #include "ChannelControl.h"
 #include "KeypleApplicationSelectionException.h"
 #include "MultiSeRequestProcessing.h"
-#include "ObservableReader_Import.h"
+#include "ObservableReader.h"
 #include "SelectionStatus.h"
 #include "SeSelector_Import.h"
 

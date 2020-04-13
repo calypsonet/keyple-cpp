@@ -16,7 +16,7 @@
 #include "AbstractObservableLocalReader.h"
 #include "AbstractReader.h"
 #include "KeypleBaseException.h"
-#include "ObservableReader_Import.h"
+#include "ObservableReader.h"
 #include "SeProtocol_Import.h"
 #include "SeProxyService.h"
 #include "SeReader.h"
@@ -120,8 +120,8 @@ int main(int argc, char** argv)
     /* Set Default selection */
     (std::dynamic_pointer_cast<AbstractObservableLocalReader>(poReader))
         ->setDefaultSelectionRequest(observer->prepareSeSelection(),
-                                     ObservableReader::NotificationMode::ALWAYS,
-                                     ObservableReader::PollingMode::REPEATING);
+                                     NotificationMode::ALWAYS,
+                                     PollingMode::REPEATING);
 
     /* Wait for Enter key to exit */
     std::cout << "Press Enter to exit" << std::endl;

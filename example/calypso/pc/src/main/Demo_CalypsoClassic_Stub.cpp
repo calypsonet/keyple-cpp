@@ -16,7 +16,7 @@
 #include "KeypleReaderNotFoundException.h"
 #include "Logger.h"
 #include "LoggerFactory.h"
-#include "ObservableReader_Import.h"
+#include "ObservableReader.h"
 #include "ReaderPlugin.h"
 #include "SeCommonProtocols_Import.h"
 #include "SeProxyService.h"
@@ -108,10 +108,12 @@ int main(int argc, char** argv)
     samReader->insertSe(samSE);
 
     /* Set the default selection operation */
-    (std::static_pointer_cast<ObservableReader>(poReader))
-        ->setDefaultSelectionRequest(
+    std::shared_ptr<ObservableReader> or
+        = std::static_pointer_cast<ObservableReader>(poReader);
+
+    or->setDefaultSelectionRequest(
             transactionEngine->preparePoSelection(),
-            ObservableReader::NotificationMode::MATCHED_ONLY);
+            NotificationMode::MATCHED_ONLY);
 
     /* Set the transactionEngine as Observer of the PO reader */
     (std::static_pointer_cast<ObservableReader>(poReader))

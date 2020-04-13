@@ -23,7 +23,7 @@
 
 /* Core */
 #include "ObservablePlugin.h"
-#include "ObservableReader_Import.h"
+#include "ObservableReader.h"
 #include "PluginEvent_Import.h"
 #include "ReaderEvent_Import.h"
 #include "ReaderPlugin.h"

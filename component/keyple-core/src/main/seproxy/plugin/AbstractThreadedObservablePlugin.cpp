@@ -85,6 +85,18 @@ void AbstractThreadedObservablePlugin::clearObservers()
     }
 }
 
+int AbstractThreadedObservablePlugin::countObservers()
+{
+    return AbstractPlugin::countObservers();
+}
+
+
+void AbstractThreadedObservablePlugin::notifyObservers(
+    std::shared_ptr<PluginEvent> event)
+{
+    AbstractPlugin::notifyObservers(event);
+}
+
 bool AbstractThreadedObservablePlugin::isMonitoring()
 {
     return thread != nullptr && thread->isAlive() && thread->isMonitoring();

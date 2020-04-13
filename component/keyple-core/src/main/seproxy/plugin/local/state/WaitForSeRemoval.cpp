@@ -52,7 +52,7 @@ void WaitForSeRemoval::onEvent(const InternalEvent event)
          */
         reader->processSeRemoved();
         if (reader->getPollingMode() ==
-            ObservableReader::PollingMode::REPEATING) {
+            PollingMode::REPEATING) {
             switchState(MonitoringState::WAIT_FOR_SE_INSERTION);
         } else {
             switchState(MonitoringState::WAIT_FOR_START_DETECTION);

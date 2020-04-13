@@ -33,7 +33,7 @@
 #include "PcscProtocolSetting_Import.h"
 #include "PcscReadersSettings.h"
 #include "PoSelectionRequest.h"
-#include "ObservableReader_Import.h"
+#include "ObservableReader.h"
 
 /* Common */
 #include "stringhelper.h"

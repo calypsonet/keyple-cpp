@@ -150,6 +150,11 @@ public:
     /**
      *
      */
+    int countObservers() override;
+
+    /**
+     *
+     */
     void setDefaultSelectionRequest(
         std::shared_ptr<AbstractDefaultSelectionsRequest>
             defaultSelectionsRequest,

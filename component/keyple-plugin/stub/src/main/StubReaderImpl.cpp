@@ -311,6 +311,16 @@ void StubReaderImpl::removeObserver(std::shared_ptr<ReaderObserver> observer)
     AbstractObservableLocalReader::removeObserver(observer);
 }
 
+void StubReaderImpl::notifyObservers(std::shared_ptr<ReaderEvent> event)
+{
+    AbstractObservableLocalReader::notifyObservers(event);
+}
+
+int StubReaderImpl::countObservers()
+{
+    return AbstractObservableLocalReader::countObservers();
+}
+
 void StubReaderImpl::startSeDetection(PollingMode pollingMode)
 {
     AbstractObservableLocalReader::startSeDetection(pollingMode);

@@ -19,7 +19,7 @@
 #include "Logger.h"
 #include "LoggerFactory.h"
 #include "MatchingSelection.h"
-#include "ObservableReader_Import.h"
+#include "ObservableReader.h"
 #include "PoSelectionRequest.h"
 #include "PoSelector.h"
 #include "ReaderEvent_Import.h"
@@ -165,7 +165,7 @@ public:
         std::dynamic_pointer_cast<ObservableReader>(poReader)
             ->setDefaultSelectionRequest(
                 seSelection->getSelectionOperation(),
-                ObservableReader::NotificationMode::MATCHED_ONLY);
+                NotificationMode::MATCHED_ONLY);
 
         /* Set the current class as Observer of the first reader */
         std::dynamic_pointer_cast<ObservableReader>(poReader)->addObserver(

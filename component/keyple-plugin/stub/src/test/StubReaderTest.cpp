@@ -114,7 +114,7 @@
 
                         seSelection->prepareSelection(seSelectionRequest);
 
-                        (std::static_pointer_cast<ObservableReader>(reader))->setDefaultSelectionRequest(seSelection->getSelectionOperation(), ObservableReader::NotificationMode::MATCHED_ONLY);
+                        (std::static_pointer_cast<ObservableReader>(reader))->setDefaultSelectionRequest(seSelection->getSelectionOperation(), NotificationMode::MATCHED_ONLY);
 
                         // test
                         reader->insertSe(hoplinkSE());
@@ -185,7 +185,7 @@
 
                         seSelection->prepareSelection(seSelectionRequest);
 
-                        (std::static_pointer_cast<ObservableReader>(reader))->setDefaultSelectionRequest(seSelection->getSelectionOperation(), ObservableReader::NotificationMode::MATCHED_ONLY);
+                        (std::static_pointer_cast<ObservableReader>(reader))->setDefaultSelectionRequest(seSelection->getSelectionOperation(), NotificationMode::MATCHED_ONLY);
 
                         // test
                         reader->insertSe(hoplinkSE());
@@ -225,7 +225,7 @@
 
                         seSelection->prepareSelection(seSelectionRequest);
 
-                        (std::static_pointer_cast<ObservableReader>(reader))->setDefaultSelectionRequest(seSelection->getSelectionOperation(), ObservableReader::NotificationMode::ALWAYS);
+                        (std::static_pointer_cast<ObservableReader>(reader))->setDefaultSelectionRequest(seSelection->getSelectionOperation(), NotificationMode::ALWAYS);
 
                         // test
                         reader->insertSe(hoplinkSE());

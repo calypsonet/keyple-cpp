@@ -21,7 +21,7 @@
 #include "KeypleReaderException.h"
 #include "DefaultSelectionsRequest.h"
 #include "DefaultSelectionsResponse.h"
-#include "ObservableReader_Import.h"
+#include "ObservableReader.h"
 #include "ReaderEvent.h"
 #include "SeResponse.h"
 
@@ -162,7 +162,7 @@ public:
      *        SINGLESHOT, the SE detection is stopped until a new call to
      *        startSeDetection is made.
      */
-    void startSeDetection(const ObservableReader::PollingMode pollingMode);
+    void startSeDetection(const PollingMode pollingMode);
 
     /**
      * Stops the SE detection.
@@ -194,7 +194,7 @@ public:
     void setDefaultSelectionRequest(
         std::shared_ptr<AbstractDefaultSelectionsRequest>
             defaultSelectionsRequest,
-        const ObservableReader::NotificationMode notificationMode);
+        const NotificationMode notificationMode);
 
     /**
      * A combination of defining the default selection request and starting the
@@ -212,8 +212,8 @@ public:
     void setDefaultSelectionRequest(
         std::shared_ptr<AbstractDefaultSelectionsRequest>
             defaultSelectionsRequest,
-        const ObservableReader::NotificationMode notificationMode,
-        const ObservableReader::PollingMode pollingMode);
+        const NotificationMode notificationMode,
+        const PollingMode pollingMode);
 
     /**
      * This method is invoked when a SE is inserted in the case of an observable
@@ -275,7 +275,7 @@ public:
      *
      * @return the current polling mode
      */
-    ObservableReader::PollingMode getPollingMode();
+    PollingMode getPollingMode();
 
     /**
      * Get the current monitoring state
@@ -347,14 +347,14 @@ private:
     /**
      * Indicate if all SE detected should be notified or only matching SE
      */
-    ObservableReader::NotificationMode notificationMode =
-        ObservableReader::NotificationMode::ALWAYS;
+    NotificationMode notificationMode =
+        NotificationMode::ALWAYS;
 
     /**
      *
      */
-    ObservableReader::PollingMode currentPollingMode =
-        ObservableReader::PollingMode::SINGLESHOT;
+    PollingMode currentPollingMode =
+        PollingMode::SINGLESHOT;
 };
 
 }

@@ -14,7 +14,7 @@
 
 /* Core */
 #include "KeypleReaderNotFoundException.h"
-#include "ObservableReader_Import.h"
+#include "ObservableReader.h"
 #include "ReaderPlugin.h"
 #include "SeCommonProtocols_Import.h"
 #include "SeProxyService.h"

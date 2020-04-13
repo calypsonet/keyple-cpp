@@ -109,6 +109,11 @@ public:
     TransmissionMode getTransmissionMode() override;
 
     /**
+     * 
+     */
+    void notifyObservers(std::shared_ptr<ReaderEvent> event) override;
+
+    /**
      * STATE CONTROLLERS FOR INSERTING AND REMOVING SECURE ELEMENT
      */
     void insertSe(std::shared_ptr<StubSecureElement> _se) override;
@@ -160,6 +165,11 @@ public:
      * /!\ Required to MSVC to authorize PcscReaderImpl instance.
      */
     void clearObservers() override;
+
+    /**
+     *
+     */
+    int countObservers() override;
 
     /**
      *

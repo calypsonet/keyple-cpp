@@ -38,7 +38,7 @@ using namespace keyple::core::seproxy::message;
 AbstractReader::AbstractReader(const std::string& pluginName,
                                const std::string& name)
 : pluginName(pluginName), name(name),
-  notificationMode(ObservableReader::NotificationMode::ALWAYS)
+  notificationMode(NotificationMode::ALWAYS)
 {
     /*
      * provides an initial value for measuring the

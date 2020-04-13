@@ -65,7 +65,6 @@ ADD_LIBRARY(${LIBRARY_NAME} SHARED
 	${CMAKE_CURRENT_SOURCE_DIR}/seproxy/event/AbstractDefaultSelectionsRequest.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/seproxy/event/AbstractDefaultSelectionsResponse.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/seproxy/event/ObservablePlugin.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/seproxy/event/ObservableReader.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/seproxy/event/PluginEvent.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/seproxy/event/ReaderEvent.cpp
 

@@ -476,6 +476,11 @@ void PcscReaderImpl::removeObserver(std::shared_ptr<ReaderObserver> observer)
     AbstractObservableLocalReader::removeObserver(observer);
 }
 
+int PcscReaderImpl::countObservers()
+{
+    return AbstractObservableLocalReader::countObservers();
+}
+
 void PcscReaderImpl::startSeDetection(PollingMode pollingMode)
 {
     AbstractObservableLocalReader::startSeDetection(pollingMode);

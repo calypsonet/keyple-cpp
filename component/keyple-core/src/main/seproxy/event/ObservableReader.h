@@ -24,6 +24,8 @@
 /* Core */
 #include "AbstractDefaultSelectionsRequest.h"
 #include "Observable.h"
+#include "NotificationMode.h"
+#include "PollingMode.h"
 #include "ReaderEvent_Import.h"
 #include "SeReader.h"
 
@@ -49,7 +51,7 @@ public:
     /**
      * Interface to be implemented by reader observers.
      */
-    class ReaderObserver : public Observer<ReaderEvent> {
+    class ReaderObserver : public virtual Observer<ReaderEvent> {
     public:
         /**
          *
@@ -62,192 +64,6 @@ public:
          *
          */
         virtual void update(std::shared_ptr<ReaderEvent> event) = 0;
-    };
-
-    /**
-     * The NotificationMode defines the expected behavior when processing a
-     * default selection.
-     */
-    class EXPORT NotificationMode final {
-    public:
-        /**
-         * All SEs presented to readers are notified regardless of the result of
-         * the default
-         * selection.
-         */
-        static NotificationMode ALWAYS;
-
-        /**
-         * Only SEs that have been successfully selected (logical channel open)
-         * will be notified. The others will be ignored and the application will
-         * not be aware of them.
-         */
-        static NotificationMode MATCHED_ONLY;
-
-        /**
-         *
-         */
-        enum class InnerEnum { ALWAYS, MATCHED_ONLY };
-
-        /*
-         * Alex: removed 'const'
-         *
-         * Rationale: error: object of type 'org::eclipse::keyple::seproxy::event::ObservableReader::NotificationMode'
-         * cannot be assigned because its copy assignment operator is implicitly deleted
-         *   this->notificationMode = notificationMode;
-         *                          ^
-         * note: copy assignment operator of 'NotificationMode' is implicitly deleted because field 'innerEnumValue'
-         * is of const-qualified type 'const org::eclipse::keyple::seproxy::event::ObservableReader::NotificationMode::InnerEnum'
-         */
-        InnerEnum innerEnumValue;
-
-        /**
-         *
-         */
-        NotificationMode(const std::string& nameValue, InnerEnum innerEnum,
-                         const std::string& name);
-
-        /**
-         *
-         */
-        NotificationMode(const NotificationMode& o);
-
-        /**
-         *
-         */
-        virtual ~NotificationMode()
-        {
-        }
-
-        /**
-         *
-         */
-        virtual std::string getName();
-
-        /**
-         * This method can be used for reverse lookup purpose
-         *
-         * @param name the enum name
-         * @return the corresponding enum
-         */
-        static NotificationMode get(const std::string& name);
-
-        /**
-         *
-         */
-        bool operator==(const NotificationMode& other);
-
-        /**
-         *
-         */
-        bool operator!=(const NotificationMode& other);
-
-        /**
-         *
-         */
-        NotificationMode& operator=(NotificationMode o);
-
-        /**
-         *
-         */
-        static std::vector<NotificationMode> values();
-
-        /**
-         *
-         */
-        int ordinal();
-
-        /**
-         *
-         */
-        std::string toString();
-
-        /**
-         *
-         */
-        static NotificationMode valueOf(const std::string& name);
-
-    protected:
-        /**
-         *
-         */
-        std::string name;
-
-    private:
-        /**
-         *
-         */
-        static std::vector<NotificationMode> valueList;
-
-        /*
-         * Alex: removed 'const'
-         *
-         * Rationale: error: object of type 'org::eclipse::keyple::seproxy::event::ObservableReader::NotificationMode'
-         * cannot be assigned because its copy assignment operator is implicitly deleted
-         *   this->notificationMode = notificationMode;
-         *                          ^
-         * note: copy assignment operator of 'NotificationMode' is implicitly deleted becaus field 'nameValue' has no
-         * copy assignment operator
-         *   const std::string nameValue;
-         *                     ^
-         */
-        std::string nameValue;
-
-        /*
-         * Alex: removed 'const'
-         * Rationale: same as above
-         */
-        int ordinalValue;
-
-        /**
-         *
-         */
-        static int nextOrdinal;
-
-        /**
-         * Reverse Lookup Implementation
-         * <p>
-         * The purpose of the lookup Map and its associated method is to allow
-         * the serialization and deserialization of the enum of the notification
-         * mode, especially in remote context.
-         */
-        static const std::map<std::string, NotificationMode> lookup;
-
-        /**
-         * Populating the lookup table on loading time
-         */
-        class StaticConstructor {
-        public:
-            /**
-             *
-             */
-            StaticConstructor()
-            {
-                //                                    for (NotificationMode env : NotificationMode.values())
-                //                                    {
-                //                                        lookup.put(env.getName(), env);
-                //                                    }
-            }
-        };
-
-        /**
-         *
-         */
-        static NotificationMode::StaticConstructor staticConstructor;
-    };
-
-    /**
-     * Indicates the action to be taken after processing a SE.
-     */
-    enum class PollingMode {
-        /**
-         * continue waiting for the insertion of a next SE.
-         */
-        REPEATING,
-        /**
-         * stop and wait for a restart signal.
-         */
-        SINGLESHOT
     };
 
     /**
@@ -282,10 +98,7 @@ public:
      *
      * @param event the event (see {@link ReaderEvent})
      */
-    virtual void notifyObservers(std::shared_ptr<ReaderEvent> event)
-    {
-        (void)event;
-    }
+    virtual void notifyObservers(std::shared_ptr<ReaderEvent> event) = 0;
 
     /**
      * Remove all observers at once
@@ -295,7 +108,7 @@ public:
     /**
      * @return the number of observers
      */
-    int countObservers();
+    virtual int countObservers() = 0;
 
     /**
      * Starts the SE detection. Once activated, the application can be notified

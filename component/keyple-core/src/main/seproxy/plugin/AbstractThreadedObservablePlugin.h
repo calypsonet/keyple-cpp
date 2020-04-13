@@ -23,7 +23,7 @@
 /* Core */
 #include "AbstractPlugin.h"
 #include "ObservablePlugin.h"
-#include "ObservableReader_Import.h"
+#include "ObservableReader.h"
 #include "SeReader.h"
 
 /* Common */
@@ -90,6 +90,16 @@ public:
      *
      */
     void clearObservers() override;
+
+    /**
+     *
+     */
+    int countObservers() override;
+
+    /**
+     *
+     */
+    void notifyObservers(std::shared_ptr<PluginEvent> event) override;
 
 protected:
     /**

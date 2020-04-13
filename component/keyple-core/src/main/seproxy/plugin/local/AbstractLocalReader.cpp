@@ -27,7 +27,7 @@
 #include "KeypleReaderException.h"
 #include "KeypleIOReaderException.h"
 #include "KeypleApplicationSelectionException.h"
-#include "ObservableReader_Import.h"
+#include "ObservableReader.h"
 #include "ReaderEvent_Import.h"
 #include "SeRequest.h"
 #include "SeProtocol_Import.h"
@@ -51,7 +51,7 @@ using namespace keyple::core::seproxy::protocol;
 using namespace keyple::core::seproxy::message;
 using namespace keyple::core::seproxy::plugin::local;
 
-using NotificationMode = ObservableReader::NotificationMode;
+using NotificationMode = NotificationMode;
 
 AbstractLocalReader::AbstractLocalReader(const std::string& pluginName,
                                          const std::string& readerName)

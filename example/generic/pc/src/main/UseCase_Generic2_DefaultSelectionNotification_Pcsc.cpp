@@ -17,7 +17,7 @@
 #include "GenericSeSelectionRequest.h"
 #include "KeypleBaseException.h"
 #include "MatchingSelection.h"
-#include "ObservableReader_Import.h"
+#include "ObservableReader.h"
 #include "PcscPlugin.h"
 #include "PcscPluginFactory.h"
 #include "PcscReaderImpl.h"
@@ -160,8 +160,8 @@ public:
         (std::dynamic_pointer_cast<PcscReaderImpl>(seReader))
             ->setDefaultSelectionRequest(
                 seSelection->getSelectionOperation(),
-                ObservableReader::NotificationMode::MATCHED_ONLY,
-                ObservableReader::PollingMode::REPEATING);
+                NotificationMode::MATCHED_ONLY,
+                PollingMode::REPEATING);
 
         logger->debug("end of constructor\n");
     }

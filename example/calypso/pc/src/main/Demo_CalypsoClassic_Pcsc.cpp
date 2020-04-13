@@ -29,7 +29,7 @@
 #include "PcscReadersSettings.h"
 #include "PcscProtocolSetting_Import.h"
 #include "PcscReadersSettings.h"
-#include "ObservableReader_Import.h"
+#include "ObservableReader.h"
 
 using namespace keyple::common;
 using namespace keyple::core::seproxy;
@@ -134,7 +134,7 @@ int main(int argc, char** argv)
     (std::dynamic_pointer_cast<PcscReaderImpl>(poReader))
         ->setDefaultSelectionRequest(
             transactionEngine->preparePoSelection(),
-            ObservableReader::NotificationMode::MATCHED_ONLY);
+            NotificationMode::MATCHED_ONLY);
 
     /* Set terminal as Observer of the first reader */
     (std::dynamic_pointer_cast<ObservableReader>(poReader))

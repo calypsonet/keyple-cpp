@@ -46,7 +46,7 @@ void WaitForSeProcessing::onEvent(const InternalEvent event)
     switch (event) {
     case InternalEvent::SE_PROCESSED:
         if (this->reader->getPollingMode() ==
-            ObservableReader::PollingMode::REPEATING) {
+            PollingMode::REPEATING) {
             switchState(MonitoringState::WAIT_FOR_SE_REMOVAL);
         } else {
             /*
@@ -65,7 +65,7 @@ void WaitForSeProcessing::onEvent(const InternalEvent event)
          */
         reader->processSeRemoved();
         if (reader->getPollingMode() ==
-            ObservableReader::PollingMode::REPEATING) {
+            PollingMode::REPEATING) {
             switchState(MonitoringState::WAIT_FOR_SE_INSERTION);
         } else {
             switchState(MonitoringState::WAIT_FOR_START_DETECTION);

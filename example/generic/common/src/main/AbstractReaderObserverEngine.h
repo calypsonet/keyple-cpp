@@ -17,7 +17,7 @@
 #include <memory>
 
 /* Core */
-#include "ObservableReader_Import.h"
+#include "ObservableReader.h"
 #include "ReaderEvent_Import.h"
 #include "AbstractDefaultSelectionsResponse.h"
 
