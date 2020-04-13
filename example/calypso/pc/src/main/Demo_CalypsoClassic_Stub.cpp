@@ -108,10 +108,8 @@ int main(int argc, char** argv)
     samReader->insertSe(samSE);
 
     /* Set the default selection operation */
-    std::shared_ptr<ObservableReader> or
-        = std::static_pointer_cast<ObservableReader>(poReader);
-
-    or->setDefaultSelectionRequest(
+    (std::static_pointer_cast<ObservableReader>(poReader))
+        ->setDefaultSelectionRequest(
             transactionEngine->preparePoSelection(),
             NotificationMode::MATCHED_ONLY);
 
