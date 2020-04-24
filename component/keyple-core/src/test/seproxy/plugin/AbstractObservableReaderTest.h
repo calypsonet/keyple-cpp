@@ -97,7 +97,7 @@ namespace seproxy {
 namespace plugin {
 
 using CoreBaseTest = keyple::core::CoreBaseTest;
-using ObservableReader = keyple::core::seproxy::event_Renamed::ObservableReader;
+using ObservableReader = keyple::core::seproxy::event::ObservableReader;
 using namespace keyple::core::seproxy::exception;
 
 /**

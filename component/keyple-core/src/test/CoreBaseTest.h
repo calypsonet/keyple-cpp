@@ -14,6 +14,7 @@
  * SPDX-License-Identifier: EPL-2.0
  ********************************************************************************/
 namespace keyple {
+namespace core {
 
 class CoreBaseTest : public std::enable_shared_from_this<CoreBaseTest> {
 
@@ -22,5 +23,5 @@ public:
     //ORIGINAL LINE: @Rule public org.junit.rules.TestName name = new org.junit.rules.TestName();
     //std::shared_ptr<TestName> name = std::make_shared<TestName>();
 };
-
+}
 }

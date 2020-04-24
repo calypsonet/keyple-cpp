@@ -62,8 +62,8 @@ void SeProxyServiceTest::testGetSetPlugins()
 
     // test
     proxyService->setPlugins(plugins);
-    assertArrayEquals(plugins->toArray(),
-                      proxyService->getPlugins()->toArray());
+    assertArrayEquals(plugins,
+                      proxyService->getPlugins());
 }
 
 void SeProxyServiceTest::testGetPlugin() throw(KeyplePluginNotFoundException)

@@ -22,9 +22,8 @@ namespace seproxy {
 namespace message {
 
 using ChannelControl = keyple::core::seproxy::ChannelControl;
-using SeCommonProtocols = keyple::core::seproxy::message::SeCommonProtocols;
 using SeSelector   = keyple::core::seproxy::SeSelector;
-using SeProtocol     = keyple::core::seproxy::protocol::SeProtocol;
+using SeProtocol   = keyple::core::seproxy::protocol::SeProtocol;
 using ByteArrayUtils = keyple::core::util::ByteArrayUtil;
 
 std::vector<std::shared_ptr<ApduRequest>> SeRequestTest::getApdus()
@@ -59,14 +58,14 @@ void SeRequestTest::getApduRequests()
 {
     // test
     seRequest = std::make_shared<SeRequest>(
-        getSelector(nullptr), apdus, ChannelControl::CLOSE_AFTER, Protocol::ANY);
+        getSelector(nullptr), apdus, ChannelControl::CLOSE_AFTER );
 
-    ASSERT_EQ(apdus.toArray(), seRequest->getApduRequests().toArray());
+    ASSERT_EQ(apdus, seRequest->getApduRequests());
 }
 
 void SeRequestTest::isKeepChannelOpen()
 {
-    ASSERT_TRUE(seRequest->isKeepChannelOpen());
+    ASSERT_TRUE(channelState);
 }
 
 void SeRequestTest::getProtocolFlag()
@@ -84,11 +83,10 @@ void SeRequestTest::getSuccessfulSelectionStatusCodes()
         std::vector<std::shared_ptr<ApduRequest>>(), ChannelControl::KEEP_OPEN,
         SeCommonProtocols::PROTOCOL_B_PRIME);
 
-    ASSERT_EQ(selectionStatusCode->toArray(),
+    ASSERT_EQ(selectionStatusCode,
                       seRequest->getSeSelector()
                           ->getAidSelector()
-                          ->getSuccessfulSelectionStatusCodes()
-                          ->toArray());
+                          ->getSuccessfulSelectionStatusCodes() );
 }
 
 void SeRequestTest::toStringNull()
@@ -100,13 +98,12 @@ void SeRequestTest::toStringNull()
 void SeRequestTest::constructor1()
 {
     seRequest = std::make_shared<SeRequest>(getSelector(nullptr), apdus,
-                                            channelState, Protocol::ANY);
+                                            channelState);
     ASSERT_EQ(getSelector(nullptr)->toString(),
                  seRequest->getSeSelector()->toString());
-    ASSERT_EQ(channelState == ChannelControl::KEEP_OPEN,
-                 seRequest->isKeepChannelOpen());
+    ASSERT_EQ(channelState, ChannelControl::KEEP_OPEN );
 
-    ASSERT_EQ(apdus.toArray(), seRequest->getApduRequests().toArray());
+    ASSERT_EQ(apdus, seRequest->getApduRequests());
     //
     ASSERT_EQ(Protocol::ANY, seRequest->getProtocolFlag());
     ASSERT_TRUE(seRequest->getSeSelector()
@@ -121,11 +118,11 @@ void SeRequestTest::constructor2()
     ASSERT_EQ(getSelector(nullptr)->toString(),
                  seRequest->getSeSelector()->toString());
     ASSERT_EQ(channelState == ChannelControl::KEEP_OPEN,
-                 seRequest->isKeepChannelOpen());
+                 isKeepChannelOpen());
 
-    ASSERT_EQ(apdus.toArray(), seRequest->getApduRequests().toArray());
+    ASSERT_EQ(apdus, seRequest->getApduRequests());
 
-    ASSERT_EQ(seProtocol, seRequest->getProtocolFlag());
+    ASSERT_EQ(seProtocol, getProtocolFlag());
     //
     ASSERT_TRUE(seRequest->getSeSelector()
                    ->getAidSelector()
@@ -135,21 +132,20 @@ void SeRequestTest::constructor2()
 void SeRequestTest::constructor2b()
 {
     seRequest = std::make_shared<SeRequest>(getSelector(selectionStatusCode),
-                                            apdus, channelState, Protocol::ANY);
+                                            apdus, channelState);
     ASSERT_EQ(getSelector(selectionStatusCode)->toString(),
                  seRequest->getSeSelector()->toString());
     ASSERT_EQ(channelState == ChannelControl::KEEP_OPEN,
-                 seRequest->isKeepChannelOpen());
+                 isKeepChannelOpen());
 
-    ASSERT_EQ(apdus.toArray(), seRequest->getApduRequests().toArray());
+    ASSERT_EQ(apdus, seRequest->getApduRequests());
 
-    ASSERT_EQ(Protocol::ANY, seRequest->getProtocolFlag());
+    ASSERT_EQ(Protocol::ANY, getProtocolFlag());
     //
-    ASSERT_EQ(selectionStatusCode->toArray(),
+    ASSERT_EQ(selectionStatusCode,
                       seRequest->getSeSelector()
                           ->getAidSelector()
-                          ->getSuccessfulSelectionStatusCodes()
-                          ->toArray());
+                          ->getSuccessfulSelectionStatusCodes());
 }
 
 void SeRequestTest::constructor3()
@@ -159,17 +155,16 @@ void SeRequestTest::constructor3()
     ASSERT_EQ(getSelector(selectionStatusCode)->toString(),
                  seRequest->getSeSelector()->toString());
     ASSERT_EQ(ChannelControl == ChannelControl::KEEP_OPEN,
-                 seRequest->isKeepChannelOpen());
+                 isKeepChannelOpen());
 
-    ASSERT_EQ(apdus.toArray(), seRequest->getApduRequests().toArray());
+    ASSERT_EQ(apdus, seRequest->getApduRequests());
 
     ASSERT_EQ(seProtocol, seRequest->getProtocolFlag());
 
-    ASSERT_EQ(selectionStatusCode->toArray(),
+    ASSERT_EQ(selectionStatusCode,
                       seRequest->getSeSelector()
                           ->getAidSelector()
-                          ->getSuccessfulSelectionStatusCodes()
-                          ->toArray());
+                          ->getSuccessfulSelectionStatusCodes());
 }
 
 std::shared_ptr<SeRequest> SeRequestTest::getSeRequestSample()
@@ -194,9 +189,9 @@ std::vector<std::shared_ptr<ApduRequest>> SeRequestTest::getAapduLists()
     return apdus;
 }
 
-std::shared_ptr<SeCommonProtocols> SeRequestTest::getASeProtocol()
+std::shared_ptr<SeProtocol> SeRequestTest::getASeProtocol()
 {
-    return SeCommonProtocols::PROTOCOL_B_PRIME;
+    return std::make_shared<SeProtocol>(SeCommonProtocols::PROTOCOL_B_PRIME);
 }
 
 std::shared_ptr<SeSelector> SeRequestTest::getSelector(

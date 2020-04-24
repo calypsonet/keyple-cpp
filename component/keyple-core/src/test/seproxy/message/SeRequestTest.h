@@ -20,7 +20,7 @@
 #include "SeSelector.h"
 #include "ApduRequestTest.h"
 #include "ByteArrayUtil.h"
-#include "SeCommonProtocols.h"
+#include "SeProtocol_Import.h"
 #include <vector>
 #include <memory>
 
